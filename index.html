@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>양은석 국어 문학 분석 엔진 - 원당에스엘프라임학원</title>
+    <title>양은석 국어 통합 분석 포털 - 원당에스엘프라임학원</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Noto Serif KR (Serif), Pretendard (Sans-Serif) -->
+    <!-- Google Fonts: Noto Serif KR & Pretendard -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -26,12 +26,13 @@
                             dark: '#1C1B19',
                             gold: '#C5A880',
                             navy: '#1E293B',
+                            teal: '#0D9488'
                         },
                         mech: {
-                            ego: '#2563EB',      /* Blue */
-                            obj: '#E11D48',      /* Red */
-                            react: '#059669',    /* Green */
-                            char: '#D97706',     /* Amber/Gold */
+                            ego: '#2563EB',      
+                            obj: '#E11D48',      
+                            react: '#059669',    
+                            char: '#D97706',     
                         }
                     }
                 }
@@ -47,7 +48,7 @@
         .serif-title {
             font-family: 'Noto Serif KR', serif;
         }
-        /* Custom Scrollbar */
+        /* Custom scrollbar to keep it sleek */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -61,276 +62,376 @@
         }
     </style>
 </head>
-<body class="min-h-screen pb-16">
+<body class="min-h-screen flex flex-col">
 
-    <!-- TOP HEADER / NAV -->
-    <header class="bg-brand-navy text-white py-6 border-b-4 border-brand-gold shadow-md">
+    <!-- TOP GLOW DESIGN -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-brand-navy via-brand-gold to-brand-teal"></div>
+
+    <!-- MAIN PORTAL HEADER -->
+    <header class="bg-brand-navy text-white py-4 shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-center md:text-left">
-                <span class="bg-brand-gold text-brand-navy font-bold text-xs px-3 py-1 rounded-full uppercase tracking-widest">Wondang SL Prime Academy</span>
-                <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight mt-1 serif-title">양은석 국어 문학 분석 엔진</h1>
-                <p class="text-sm text-slate-300 mt-1">최상위권을 위한 자아(Ego) - 세계(Object) 문학 메커니즘 완벽 지배</p>
+            <div class="flex items-center gap-3 cursor-pointer" onclick="goBackToList()">
+                <div class="bg-brand-gold text-brand-navy font-black rounded-lg w-10 h-10 flex items-center justify-center text-xl shadow-md">銀</div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight serif-title text-brand-gold">양은석 국어 통합 분석 포털</h1>
+                    <p class="text-[10px] text-slate-400">원당에스엘프라임학원 최상위권 전용 메커니즘 훈련 시스템</p>
+                </div>
             </div>
-            <div class="flex gap-2">
-                <button onclick="switchWork('jemang')" id="btn-jemang" class="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-brand-gold text-brand-navy shadow-inner">
-                    🌸 제망매가 [서정 O-R-C]
+            
+            <div class="flex flex-wrap gap-2 items-center justify-center w-full md:w-auto">
+                <button onclick="toggleAdminModal()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow w-full sm:w-auto justify-center">
+                    <i class="fa-solid fa-gears"></i> ⚙️ 작품 제작 및 추가 도구 (CMS)
                 </button>
-                <button onclick="switchWork('sokmi')" id="btn-sokmi" class="px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700">
-                    ❄️ 속미인곡 [극/대화 E-O-R-C]
-                </button>
+                <div class="relative w-full sm:w-60">
+                    <input type="text" id="global-search" oninput="filterWorks()" placeholder="작품명, 작가, 키워드 검색..." class="bg-slate-800 text-slate-200 text-xs px-3 py-2 pl-8 rounded-lg border border-slate-700 focus:outline-none focus:border-brand-gold w-full">
+                    <i class="fa-solid fa-magnifying-glass text-slate-500 absolute left-2.5 top-2.5"></i>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 mt-8">
+    <!-- CUSTOM TOAST NOTIFICATION CONTAINER (Replacement for alert) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
-        <!-- WORK TITLE & HOOK -->
-        <div class="bg-brand-beige p-8 rounded-2xl border border-stone-200 shadow-sm mb-8 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-2 h-full bg-brand-gold"></div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <span id="meta-curriculum" class="text-xs text-brand-gold font-bold tracking-wider uppercase block mb-1">고1 공통국어2 (미래엔) | 단원 1(1) 한국 문학의 전통과 수용</span>
-                    <h2 id="meta-title" class="text-3xl font-bold text-stone-800 serif-title">제망매가 (祭亡妹歌)</h2>
-                    <p id="meta-author" class="text-sm text-stone-500 mt-0.5">월명사 (신라 경덕왕 때의 10구체 향가)</p>
-                </div>
-                <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 max-w-lg">
-                    <span class="text-xs text-brand-gold font-bold block mb-1"><i class="fa-solid fa-quote-left mr-1"></i> 수업 킬러 훅 (Hooking Quote)</span>
-                    <p id="meta-hook" class="text-stone-700 italic text-sm font-serif leading-relaxed">
-                        "사랑하는 혈육이 예고 없이 떨어지는 낙엽처럼 사라졌을 때, 신라인은 울음을 삼키며 가을 바람 너머의 불교적 극락을 바라보았다. 슬픔을 견디는 게 아니라 승화시키는 것, 그것이 제망매가의 심장이다."
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION 0: 핵심 개관 정리 -->
-        <section class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm mb-8">
-            <h3 class="text-xl font-bold text-stone-800 mb-4 pb-2 border-b border-stone-200 flex items-center gap-2 serif-title">
-                <i class="fa-solid fa-bookmark text-brand-gold"></i> SECTION 0. 핵심 개관 정리
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="section-0-grid">
-                <!-- Dynamic Content injected via JS -->
-            </div>
-        </section>
-
-        <!-- SECTION 1: 은석T의 출제 예언 -->
-        <section class="bg-[#1E293B] text-white p-6 rounded-2xl border border-slate-700 shadow-lg mb-8 relative">
-            <div class="absolute top-4 right-4 text-slate-500 text-6xl font-black opacity-10 select-none">PROPHESY</div>
-            <h3 class="text-xl font-bold text-brand-gold mb-6 flex items-center gap-2 serif-title">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> SECTION 1. 은석T의 대수능·내신 출제 예언 (5대 초압축 포인트)
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="section-1-grid">
-                <!-- Dynamic Dynamic dynamic -->
-            </div>
-        </section>
-
-        <!-- SECTION 2: 전체 지문 분석 (INTERACTIVE VIEWER) -->
-        <section class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm mb-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-2 border-b border-stone-200 gap-4">
-                <div>
-                    <h3 class="text-xl font-bold text-stone-800 flex items-center gap-2 serif-title">
-                        <i class="fa-solid fa-magnifying-glass-chart text-brand-gold"></i> SECTION 2. 지문 완전 정복 & 실시간 마스터 툴팁
-                    </h3>
-                    <p class="text-xs text-stone-500 mt-1">단어에 마우스를 올리거나 터치하면 핵심 주석과 내신 대비 은석T 코멘트가 팝업됩니다.</p>
-                </div>
-                <div class="flex items-center gap-4 text-xs">
-                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-rose-200 border border-rose-400 block"></span> 시적 세계/장벽(O)</span>
-                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-emerald-200 border border-emerald-400 block"></span> 화자/인물 반응(R)</span>
-                </div>
+    <!-- PORTAL BODY CONTROLLER -->
+    <div class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <!-- SIDEBAR: CATEGORY NAVIGATION -->
+        <aside class="lg:col-span-1 space-y-4">
+            <div class="bg-brand-beige rounded-2xl p-5 border border-stone-200 shadow-sm">
+                <h3 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3 pb-2 border-b border-stone-200">
+                    <i class="fa-solid fa-bars-staggered text-brand-gold mr-1"></i> 분석 카테고리
+                </h3>
+                <nav class="space-y-1" id="category-nav">
+                    <button onclick="setCategory('all')" id="cat-all" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-navy text-white flex justify-between items-center">
+                        <span>🚀 전체 지문 목록</span> <span id="count-all" class="bg-slate-700 text-slate-300 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="setCategory('classic_poetry')" id="cat-classic_poetry" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
+                        <span>🌸 고전 시가</span> <span id="count-classic_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="setCategory('classic_novel')" id="cat-classic_novel" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
+                        <span>📜 고전 산문</span> <span id="count-classic_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="setCategory('modern_poetry')" id="cat-modern_poetry" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
+                        <span>🍃 현대시</span> <span id="count-modern_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="setCategory('modern_novel')" id="cat-modern_novel" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
+                        <span>📖 현대 소설/산문</span> <span id="count-modern_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="setCategory('reading')" id="cat-reading" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
+                        <span>🔬 독서 (비문학)</span> <span id="count-reading" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                </nav>
             </div>
 
-            <!-- Interactive Document Viewer -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Document Column -->
-                <div class="lg:col-span-7 bg-[#FAF9F5] p-6 rounded-xl border border-stone-200 min-h-[400px]">
-                    <div class="mb-4 text-xs font-bold text-stone-400 uppercase tracking-wider border-b pb-1">원문 텍스트 (Classic Text)</div>
-                    <div id="text-container" class="space-y-6">
-                        <!-- Dynamic text lines -->
+            <!-- ACADEMY CARD -->
+            <div class="bg-gradient-to-br from-brand-navy to-slate-800 text-white rounded-2xl p-5 border border-slate-700 shadow-md relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 text-slate-700 text-7xl font-black select-none opacity-20">WDSL</div>
+                <h4 class="serif-title text-brand-gold font-bold text-base mb-2">원당에스엘프라임</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    본 시스템은 양은석 국어 연구소에서 직접 제작한 지문 분석 전용 모듈입니다. 학생들이 직관적으로 자아(E)와 외부장벽(O)의 메커니즘을 훈련할 수 있도록 설계되었습니다.
+                </p>
+                <div class="mt-4 pt-3 border-t border-slate-700 flex justify-between items-center text-[10px] text-slate-400">
+                    <span>수능/내신 전용 v3.1</span>
+                    <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i> 데이터 실시간 연동</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN WINDOW VIEWPORT -->
+        <section class="lg:col-span-3 space-y-6">
+            
+            <!-- LIST VIEW (GRID CARD SELECTION) -->
+            <div id="list-view" class="space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-stone-800 serif-title flex items-center gap-1.5">
+                        <i class="fa-solid fa-graduation-cap text-brand-gold"></i> <span id="active-category-title">전체 등록 지문</span>
+                    </h2>
+                    <span id="result-count" class="text-xs text-stone-500">총 4개 작품 등록됨</span>
+                </div>
+
+                <!-- CARD GRID LAYOUT -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="works-grid">
+                    <!-- Cards populated via Javascript -->
+                </div>
+            </div>
+
+            <!-- DETAIL ANALYSIS VIEWPORT (SPA) -->
+            <div id="detail-view" class="space-y-6 hidden">
+                <!-- Back arrow -->
+                <button onclick="goBackToList()" class="bg-white hover:bg-stone-100 text-stone-700 px-4 py-2 rounded-xl text-xs font-bold border border-stone-200 transition-all shadow-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-arrow-left text-brand-gold"></i> 작품 목록으로 돌아가기
+                </button>
+
+                <!-- WORK HERO BANNER -->
+                <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2.5 h-full bg-brand-gold" id="detail-side-accent"></div>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <span id="detail-curriculum" class="text-[10px] text-brand-gold font-bold uppercase tracking-widest block mb-0.5">교육과정 정보</span>
+                            <h2 id="detail-title" class="text-2xl md:text-3xl font-bold text-stone-800 serif-title">작품 제목</h2>
+                            <p id="detail-author" class="text-xs text-stone-500 mt-0.5">작가 정보</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 max-w-lg w-full md:w-auto">
+                            <span class="text-[10px] text-brand-gold font-bold block mb-1"><i class="fa-solid fa-quote-left mr-1"></i> 수업 킬러 훅 (Hooking)</span>
+                            <p id="detail-hook" class="text-stone-700 italic text-xs font-serif leading-relaxed"></p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Live Master Tooltip Card (Stays sticky on desktop) -->
-                <div class="lg:col-span-5">
-                    <div class="sticky top-4 bg-white p-6 rounded-xl border-2 border-brand-gold shadow-md">
-                        <div class="flex justify-between items-center mb-4 border-b pb-2">
-                            <span class="text-sm font-bold text-brand-navy flex items-center gap-1">
-                                <i class="fa-solid fa-circle-info text-brand-gold"></i> 실시간 분석 헬퍼
-                            </span>
-                            <span class="text-xs bg-stone-100 text-stone-500 px-2 py-0.5 rounded">Live Help</span>
+                <!-- SECTION 0: 핵심 개관 카드 -->
+                <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-stone-500 uppercase tracking-widest mb-4 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                        <i class="fa-solid fa-bookmark text-brand-gold"></i> SECTION 0. 핵심 개관 정리
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="detail-overview-grid">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- SECTION 1: 출제 예언 5대 초압축 포인트 -->
+                <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-lg relative">
+                    <div class="absolute top-3 right-4 text-slate-800 text-6xl font-black select-none opacity-20">PROPHESY</div>
+                    <h3 class="text-sm font-bold text-brand-gold uppercase tracking-widest mb-6 flex items-center gap-1.5 serif-title">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> SECTION 1. 대수능·내신 출제 예언 (5대 초압축 포인트)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="detail-prophesy-grid">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- SECTION 2: 실시간 주석 지문 분석기 -->
+                <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-2 border-b border-stone-200 gap-4">
+                        <div>
+                            <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest flex items-center gap-1.5 serif-title">
+                                <i class="fa-solid fa-magnifying-glass-chart text-brand-gold"></i> SECTION 2. 지문 완전 정복 & 실시간 마스터 툴팁
+                            </h3>
+                            <p class="text-[10px] text-stone-400 mt-1">지문의 한 줄을 마우스로 올리거나 탭하면 우측에 실시간 분석 가이드가 표시됩니다.</p>
                         </div>
-                        <div id="tooltip-display" class="transition-all duration-300">
-                            <!-- Helper text change on hover -->
-                            <div class="text-center py-12 text-stone-400">
-                                <i class="fa-solid fa-hand-pointer text-4xl mb-3 block text-stone-300"></i>
-                                <p class="text-sm">지문 원문 속 <span class="text-rose-600 font-bold border-b border-dashed border-rose-400">강조된 어휘</span>에 마우스를 올리거나 클릭해 보세요!</p>
+                        <div class="flex items-center gap-4 text-[10px]">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-200 border border-rose-400 block"></span> 세계/장벽 (O)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-200 border border-emerald-400 block"></span> 자아/반응 (R)</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Left Column: Source Texts -->
+                        <div class="lg:col-span-7 bg-[#FAF9F5] p-5 rounded-xl border border-stone-200 min-h-[350px]">
+                            <div class="mb-4 text-[10px] font-bold text-stone-400 uppercase tracking-widest border-b pb-1">원문 텍스트 (Classic Text)</div>
+                            <div id="detail-text-container" class="space-y-4">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Sticky Live Helper Panel -->
+                        <div class="lg:col-span-5">
+                            <div class="sticky top-24 bg-white p-5 rounded-xl border-2 border-brand-gold shadow-md">
+                                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                                    <span class="text-xs font-bold text-brand-navy flex items-center gap-1">
+                                        <i class="fa-solid fa-circle-info text-brand-gold"></i> 실시간 분석 헬퍼
+                                    </span>
+                                    <span class="text-[9px] bg-stone-100 text-stone-500 px-1.5 py-0.5 rounded">Live Guide</span>
+                                </div>
+                                <div id="detail-tooltip-display" class="transition-all duration-300">
+                                    <div class="text-center py-12 text-stone-400">
+                                        <i class="fa-solid fa-hand-pointer text-3xl mb-3 block text-stone-300"></i>
+                                        <p class="text-xs">왼쪽 원문 줄을 선택하면,<br><span class="text-brand-gold font-bold">대수능급 마스터 주석</span>이 실시간 표기됩니다.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- SECTION 3: 메커니즘 분석표 (E-O-R-C) & 가로축 흐름도 -->
-        <section class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm mb-8">
-            <h3 class="text-xl font-bold text-stone-800 mb-6 pb-2 border-b border-stone-200 flex items-center gap-2 serif-title">
-                <i class="fa-solid fa-gears text-brand-gold"></i> SECTION 3. 문학 갈래별 메커니즘 적용분석
-            </h3>
+                <!-- SECTION 3: 메커니즘 맵 & 가로축 흐름도 -->
+                <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                        <i class="fa-solid fa-gears text-brand-gold"></i> SECTION 3. 국어 갈래별 메커니즘 분석
+                    </h3>
 
-            <!-- Horizontal Flow Diagram -->
-            <div class="mb-8">
-                <h4 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-4"><i class="fa-solid fa-arrows-left-right-to-line"></i> 가로축 메커니즘 흐름도 (Mechanism Flow Diagram)</h4>
-                <div id="flow-diagram-container" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
-                    <!-- Flow cards filled dynamically -->
-                </div>
-            </div>
-
-            <!-- 입체적 관계도 (속미인곡 전용 노출, 제망매가는 숨김 또는 다른 구조) -->
-            <div id="relationship-map-box" class="mb-8 bg-[#FAF9F5] p-6 rounded-xl border border-stone-200 hidden">
-                <h4 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-4"><i class="fa-solid fa-sitemap"></i> 입체적 가계도 및 인물관계도 (Character Relationship Map)</h4>
-                <div class="flex flex-col md:flex-row justify-center items-center gap-6 py-6 relative">
-                    <!-- Card 여인 1 -->
-                    <div class="w-64 bg-white p-4 rounded-xl border border-blue-200 shadow-sm relative z-10 text-center">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded-full">보조적 화자 [E1]</span>
-                        <h5 class="text-lg font-bold text-stone-800 mt-2 serif-title">여인 1 (을녀)</h5>
-                        <p class="text-xs text-stone-500 mt-1">질문과 격려를 통해 상대방의 하소연을 유도하고, 마지막 적극적인 사랑(궂은비)을 제안해 시상을 종결함.</p>
-                    </div>
-
-                    <!-- Connection Lines -->
-                    <div class="flex flex-col items-center justify-center text-slate-400 font-bold">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs bg-stone-200 text-stone-600 px-2 py-1 rounded">질문 / 위로</span>
-                            <span class="text-2xl">↔</span>
-                            <span class="text-xs bg-stone-200 text-stone-600 px-2 py-1 rounded">하소연</span>
-                        </div>
-                        <div class="h-10 w-0.5 bg-dashed bg-slate-300 md:hidden my-2"></div>
-                    </div>
-
-                    <!-- Card 여인 2 -->
-                    <div class="w-64 bg-white p-4 rounded-xl border border-emerald-200 shadow-sm relative z-10 text-center">
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded-full">중심적 화자 [E2]</span>
-                        <h5 class="text-lg font-bold text-stone-800 mt-2 serif-title">여인 2 (갑녀)</h5>
-                        <p class="text-xs text-stone-500 mt-1">정철의 내면 대변. 임과의 이별에 깊이 자책하고 그리워하며, 멀리서 바라만 보는 소극적 사랑(낙월)을 소망함.</p>
-                    </div>
-
-                    <!-- Connection to Lord -->
-                    <div class="flex flex-col items-center justify-center text-rose-400 font-bold">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs bg-rose-100 text-rose-800 px-2 py-1 rounded">일편단심 / 충의</span>
-                            <span class="text-2xl">➔</span>
+                    <!-- Flow card chain -->
+                    <div class="mb-8">
+                        <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-4"><i class="fa-solid fa-arrows-left-right-to-line"></i> 가로축 관계 매칭도</h4>
+                        <div id="detail-flow-container" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
+                            <!-- Populated dynamically -->
                         </div>
                     </div>
 
-                    <!-- Card Lord -->
-                    <div class="w-64 bg-white p-4 rounded-xl border border-rose-200 shadow-sm relative z-10 text-center">
-                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2 py-0.5 rounded-full">시적 대상 [O]</span>
-                        <h5 class="text-lg font-bold text-stone-800 mt-2 serif-title">임 (임금/선조)</h5>
-                        <p class="text-xs text-stone-500 mt-1">백옥경에서 여인 2와 멀어진 절대적 지배자. 화자의 평생 걱정의 대상이자 육체가 허약한 염려의 주체.</p>
+                    <!-- Character relational chart (Shows for novels) -->
+                    <div id="detail-relations-card" class="mb-8 bg-[#FAF9F5] p-5 rounded-xl border border-stone-200 hidden">
+                        <!-- Filled in runtime -->
+                    </div>
+
+                    <!-- Details Table -->
+                    <div>
+                        <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-table"></i> 메커니즘 매핑 상세 표</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200" id="detail-table-content">
+                                <!-- Dynamic -->
+                            </table>
+                        </div>
                     </div>
                 </div>
+
+                <!-- SECTION 4: 대립 구도 및 서술 기법 분석 -->
+                <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                        <i class="fa-solid fa-shapes text-brand-gold"></i> SECTION 4. 지문 핵심 대립 및 형식 분석
+                    </h3>
+
+                    <!-- Core contrast model -->
+                    <div class="mb-6">
+                        <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-scale-balanced"></i> 핵심 대조/대립 구조</h4>
+                        <div id="detail-versus" class="bg-[#FAF9F5] p-5 rounded-xl border border-stone-200 text-xs">
+                            <!-- Contrasting features -->
+                        </div>
+                    </div>
+
+                    <!-- Signature tip boxes -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 relative overflow-hidden text-xs">
+                            <h5 class="font-bold text-amber-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-chalkboard-user"></i> 은석쌤의 한마디</h5>
+                            <div id="detail-unseok-comment" class="text-amber-950 space-y-1.5 leading-relaxed"></div>
+                        </div>
+
+                        <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 relative overflow-hidden text-xs">
+                            <h5 class="font-bold text-rose-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-triangle-exclamation"></i> 함정 주의!</h5>
+                            <div id="detail-trap-comment" class="text-rose-950 space-y-1.5 leading-relaxed"></div>
+                        </div>
+
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 relative overflow-hidden text-xs">
+                            <h5 class="font-bold text-emerald-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-circle-check"></i> 핵심 기출 포인트</h5>
+                            <div id="detail-summary-comment" class="text-emerald-950 space-y-1.5 leading-relaxed"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1등급 확인 인터랙티브 퀴즈 -->
+                <div class="bg-stone-900 text-white p-6 rounded-2xl shadow-md">
+                    <div class="flex justify-between items-center pb-3 border-b border-stone-800 mb-6">
+                        <h3 class="text-lg font-bold serif-title text-brand-gold flex items-center gap-1.5"><i class="fa-solid fa-pen-nib"></i> 실전 1등급 체크 퀴즈</h3>
+                        <span class="text-[10px] text-stone-400">즉시 채점 및 피드백 지원</span>
+                    </div>
+                    <div class="space-y-4" id="detail-quiz-container">
+                        <!-- Dynamic quizzes -->
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-800 flex justify-between items-center">
+                        <button onclick="gradeDetailQuiz()" class="bg-brand-gold text-brand-navy hover:bg-[#D9BF9B] transition-all px-6 py-2 rounded-xl font-bold text-xs shadow-md">
+                            <i class="fa-solid fa-square-poll-vertical mr-1"></i> 정답 채점 및 해설 확인
+                        </button>
+                        <div id="detail-quiz-score" class="text-sm font-bold text-emerald-400"></div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Detail Mechanism Table -->
-            <div>
-                <h4 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-3"><i class="fa-solid fa-table"></i> 메커니즘 맵 상세 정보표</h4>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200" id="mech-table">
-                        <!-- Filled by JS -->
-                    </table>
-                </div>
-            </div>
         </section>
 
-        <!-- SECTION 4: 내용 및 형식적 특징 (대립 구도 분석) -->
-        <section class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm mb-8">
-            <h3 class="text-xl font-bold text-stone-800 mb-6 pb-2 border-b border-stone-200 flex items-center gap-2 serif-title">
-                <i class="fa-solid fa-shapes text-brand-gold"></i> SECTION 4. 지문 핵심 대립 및 표현상의 특징 심층 분석
-            </h3>
+    </div>
 
-            <!-- 1:1 대립 구도 카드 -->
-            <div class="mb-6">
-                <h4 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-3"><i class="fa-solid fa-scale-balanced"></i> 핵심 대립/대비 구조 분석</h4>
-                <div id="versus-card" class="bg-[#FAF9F5] p-6 rounded-xl border border-stone-200">
-                    <!-- Dynamic contrast content -->
-                </div>
-            </div>
-
-            <!-- 은석쌤의 시그니처 팁 박스 (함정 주의 / 한마디 / 출제포인트) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- 한마디 -->
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-amber-100 rounded-bl-full flex items-center justify-center">
-                        <i class="fa-solid fa-comments text-amber-500 text-xl"></i>
-                    </div>
-                    <h5 class="font-bold text-amber-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-chalkboard-user"></i> 은석쌤의 한마디</h5>
-                    <div id="unseok-comment" class="text-xs text-amber-950 leading-relaxed space-y-2">
-                        <!-- dynamic -->
-                    </div>
-                </div>
-
-                <!-- 함정 주의 -->
-                <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-rose-100 rounded-bl-full flex items-center justify-center">
-                        <i class="fa-solid fa-circle-exclamation text-rose-500 text-xl"></i>
-                    </div>
-                    <h5 class="font-bold text-rose-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-triangle-exclamation"></i> 함정 주의!</h5>
-                    <div id="trap-comment" class="text-xs text-rose-950 leading-relaxed space-y-2">
-                        <!-- dynamic -->
-                    </div>
-                </div>
-
-                <!-- 출제포인트 -->
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-emerald-100 rounded-bl-full flex items-center justify-center">
-                        <i class="fa-solid fa-bullseye text-emerald-500 text-xl"></i>
-                    </div>
-                    <h5 class="font-bold text-emerald-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-circle-check"></i> 출제포인트 요약</h5>
-                    <div id="summary-comment" class="text-xs text-emerald-950 leading-relaxed space-y-2">
-                        <!-- dynamic -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 1등급 완성 실전 CHECK (QUIZ SYSTEM) -->
-        <section class="bg-stone-900 text-white p-8 rounded-2xl shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-stone-800">
+    <!-- CODE GENERATION CMS CREATOR MODAL (ADMIN TOOL) -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-stone-200">
+            <div class="bg-brand-navy text-white p-5 flex justify-between items-center border-b border-brand-gold sticky top-0 z-10">
                 <div>
-                    <span class="text-brand-gold text-xs font-bold uppercase tracking-wider block">Do it Yourself!</span>
-                    <h3 class="text-2xl font-bold serif-title text-brand-gold mt-1"><i class="fa-solid fa-pen-nib"></i> 1등급 완성 실전 Check (Instant Quiz)</h3>
+                    <h3 class="text-lg font-bold serif-title text-brand-gold"><i class="fa-solid fa-gears"></i> 양은석T 전용 작품 제작기 (CMS Code Generator)</h3>
+                    <p class="text-[10px] text-slate-400">내용 입력 후 생성된 코드를 복사하여 깃허브 소스 코드의 'initialWorks' 내부에 간단히 붙여넣으세요.</p>
                 </div>
-                <div class="text-xs text-stone-400 mt-2 md:mt-0">직접 풀고 확인 버튼을 눌러 점수를 점검하세요!</div>
+                <button onclick="toggleAdminModal()" class="text-slate-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Quiz Items Container -->
-            <div class="space-y-6" id="quiz-container">
-                <!-- dynamic -->
+            <div class="p-6 space-y-6">
+                <!-- Metadata Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">작품 고유 ID (영어 소문자/언더바 필수)</label>
+                        <input type="text" id="admin-id" placeholder="예: sss_poem" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">분석 카테고리</label>
+                        <select id="admin-category" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                            <option value="classic_poetry">고전 시가</option>
+                            <option value="classic_novel">고전 산문</option>
+                            <option value="modern_poetry">현대시</option>
+                            <option value="modern_novel">현대 소설/산문</option>
+                            <option value="reading">독서 (비문학)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">작품 제목 (한글)</label>
+                        <input type="text" id="admin-title" placeholder="예: 진달래꽃" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">작가 정보</label>
+                        <input type="text" id="admin-author" placeholder="예: 김소월" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">교과 연계 단원</label>
+                        <input type="text" id="admin-curriculum" placeholder="예: 고1 공통국어 미래엔 2(1)단원" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-500 mb-1">메커니즘 타입</label>
+                        <select id="admin-mech-type" class="w-full text-xs p-2 border rounded-lg focus:outline-brand-gold">
+                            <option value="3cols">O-R-C 구조 (서정/교술 - 3단계)</option>
+                            <option value="4cols">E-O-R-C 구조 (서사/극 - 4단계)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Hook block -->
+                <div>
+                    <label class="block text-xs font-bold text-stone-500 mb-1">수업 킬러 훅 (Hooking Sentence)</label>
+                    <textarea id="admin-hook" placeholder="학생들의 관심을 사로잡을 정교하고 매력적인 한 줄 오프닝 멘트를 적으세요." class="w-full text-xs p-2 border rounded-lg h-16 focus:outline-brand-gold"></textarea>
+                </div>
+
+                <!-- Section 0 개관 -->
+                <div class="bg-stone-50 p-4 rounded-xl border">
+                    <h4 class="text-xs font-bold text-stone-700 mb-2">SECTION 0. 핵심 개관 (4대 요소)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input type="text" id="admin-sec0-1" placeholder="갈래: 자유시, 서정시" class="text-xs p-2 border rounded-lg bg-white">
+                        <input type="text" id="admin-sec0-2" placeholder="성격: 민요적, 애상적" class="text-xs p-2 border rounded-lg bg-white">
+                        <input type="text" id="admin-sec0-3" placeholder="제재: 이별의 정한" class="text-xs p-2 border rounded-lg bg-white">
+                        <input type="text" id="admin-sec0-4" placeholder="주제: 이별의 정한과 극복" class="text-xs p-2 border rounded-lg bg-white">
+                    </div>
+                </div>
+
+                <!-- Auto Generating Code -->
+                <div class="space-y-2">
+                    <button onclick="generateJSONCode()" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-lg transition-all shadow-md">
+                        🛠️ 신규 분석 지문 데이터 코어 생성
+                    </button>
+                    <div class="relative">
+                        <textarea id="admin-output" readonly placeholder="코드가 생성되면 복사하여 이용하실 수 있도록 이곳에 노출됩니다." class="w-full h-40 text-[10px] font-mono p-3 bg-stone-900 text-emerald-400 border rounded-lg"></textarea>
+                        <button onclick="copyAdminCode()" class="absolute right-2 bottom-2 bg-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-500 transition-all">
+                            클립보드 코드 복사
+                        </button>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Grading / Submit Button -->
-            <div class="mt-8 pt-6 border-t border-stone-800 flex justify-between items-center">
-                <button onclick="gradeQuiz()" class="bg-brand-gold text-brand-navy hover:bg-[#D9BF9B] transition-all px-8 py-3 rounded-xl font-bold text-sm shadow-md">
-                    <i class="fa-solid fa-square-poll-vertical mr-2"></i> 정답 및 해설 일괄 확인
-                </button>
-                <div id="quiz-score" class="text-lg font-bold text-stone-300"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="mt-16 text-center text-xs text-stone-500 border-t border-stone-300 pt-8 max-w-7xl mx-auto px-4">
-        <p class="font-bold serif-title text-stone-700 text-sm">원당에스엘프라임학원 | 양은석 국어</p>
-        <p class="mt-2 text-stone-400">Copyright © 2026 Yang Eun-seok Korean Literature Engine. All Rights Reserved. 본 자료는 저작권 보호법에 따라 무단 도용을 금지합니다.</p>
+    <!-- MAIN FOOTER -->
+    <footer class="bg-brand-navy text-slate-400 text-[11px] py-6 text-center border-t border-brand-gold mt-auto">
+        <p class="font-bold text-slate-200 text-xs mb-1 serif-title">원당에스엘프라임학원 | 양은석 국어 연구소</p>
+        <p>Copyright © 2026 Yang Eun-Seok Korean Literature Systems. All Rights Reserved.</p>
     </footer>
 
-    <!-- INTERACTIVE ENGINE JAVASCRIPT (DATA & STATE) -->
+    <!-- INTERACTIVE ENGINE COMPILER -->
     <script>
-        // Data Structure for JEMANGMAEGA and SOKMIINGOK
-        const workData = {
-            jemang: {
+        // 1. MASTER SEED DATA (Contains initial preset materials)
+        const initialWorks = [
+            {
+                id: "jemang",
+                category: "classic_poetry",
                 title: "제망매가 (祭亡妹歌)",
                 author: "월명사 (신라 경덕왕 때의 10구체 향가)",
-                curriculum: "고1 공통국어2 (미래엔) | 단원 1(1) 한국 문학의 전통과 수용",
-                hook: "사랑하는 혈육이 예고 없이 떨어지는 낙엽처럼 사라졌을 때, 신라인은 울음을 삼키며 가을 바람 너머의 불교적 극락을 바라보았다. 슬픔을 견디는 게 아니라 승화시키는 것, 그것이 제망매가의 심장이다.",
+                curriculum: "고1 공통국어2 미래엔 1(1)단원",
+                hook: "사랑하는 혈육이 예고 없이 떨어지는 낙엽처럼 사라졌을 때, 신라인은 울음을 삼키며 가을 바람 너머의 극락을 보았다. 슬픔을 수긍하는 데서 그치지 않고 승화시키는 것, 그것이 제망매가의 심장이다.",
                 sect0: [
                     { label: "갈래", value: "10구체 향가 (정제된 서정시)" },
                     { label: "성격", value: "추모적, 애상적, 불교적, 상징적" },
@@ -345,463 +446,506 @@
                     { title: "시상 전개의 3단 구성", desc: "1~4행(기: 슬픔) -> 5~8행(서: 인생무상) -> 9~10행(결: 재회 기약)의 긴밀한 구조." }
                 ],
                 diagram: [
-                    {
-                        type: 'obj',
-                        title: 'O (시적 상황 / 세계)',
-                        color: 'mech-obj',
-                        desc: '누이의 요절(가을 이른 바람에 힘없이 떨어지는 잎과 같은 죽음)과 삶과 죽음의 기로에서 마주한 이승과 저승의 한계.'
-                    },
-                    {
-                        type: 'react',
-                        title: 'R (화자의 반응)',
-                        color: 'mech-react',
-                        desc: '어찌할 바 모르는 삶의 무상감(기-서)을 지나, 미타찰에서 재회할 날을 그리며 불도(道)를 닦겠다는 종교적 의지적 승화(결).'
-                    },
-                    {
-                        type: 'char',
-                        title: 'C (표현적 특징)',
-                        color: 'mech-char',
-                        desc: '자연물(바람, 잎, 가지)을 활용한 시각적·상징적 직유 기법, 10구체 향가의 정점인 낙구 첫머리 감탄사 구조.'
-                    }
+                    { type: 'obj', title: 'O (시적 상황)', desc: '누이의 요절(가을 이른 바람에 힘없이 떨어지는 잎과 같은 죽음)과 삶과 죽음의 기로에서 마주한 이승과 저승의 한계.' },
+                    { type: 'react', title: 'R (화자의 반응)', desc: '어찌할 바 모르는 삶의 무상감(기-서)을 지나, 미타찰에서 재회할 날을 그리며 불도(道)를 닦겠다는 종교적 의지적 승화(결).' },
+                    { type: 'char', title: 'C (표현적 특징)', desc: '자연물(바람, 잎, 가지)을 활용한 시각적·상징적 직유 기법, 10구체 향가의 정점인 낙구 첫머리 감탄사 구조.' }
                 ],
                 diagramCols: "grid-cols-1 md:grid-cols-3",
                 versus: `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
                         <div class="border-r border-stone-200 pr-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-circle-down text-rose-500"></i> 인간적 비애 & 슬픔 [서사부]</h5>
-                            <p class="text-xs text-stone-600 leading-relaxed">
+                            <p class="text-[11px] text-stone-600 leading-relaxed">
                                 <strong>생사 길의 머뭇거림</strong>, 그리고 갑자기 가을바람에 떨어져 가는 곳을 모르는 누이를 바라보는 한 형제로서의 시각적 절망감과 무상감.
                             </p>
                         </div>
                         <div class="pl-0 md:pl-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-circle-up text-emerald-500"></i> 종교적 극복 & 승화 [결사부]</h5>
-                            <p class="text-xs text-stone-600 leading-relaxed">
+                            <p class="text-[11px] text-stone-600 leading-relaxed">
                                 <strong>미타찰(극락세계)에서의 약속</strong>. "도 닦아 기다리겠노라"는 초월적 선언을 통해 인간적인 슬픔의 눈물을 종교적 수양으로 정화함.
                             </p>
                         </div>
                     </div>
                 `,
-                unseok: `
-                    <p>누이의 죽음이라는 절체절명의 인간적 슬픔을 이토록 아름답고 절제된 비유로 나타낸 작품은 한국 문학사 전체를 통틀어도 매우 드뭅니다.</p>
-                    <p class="mt-2"><strong>'이른 바람'</strong>과 <strong>'떨어질 잎'</strong>이라는 시각적이고도 운명론적인 상징, 그리고 마지막 낙구에서 감탄사 '아아' 하나로 감정을 수렴하고 극락(미타찰)에서의 영원한 만남을 약속하며 도를 닦겠다는 선언은 감정의 완전한 승화입니다. 이 시상 전개의 전환 과정을 반드시 파악하세요.</p>
-                `,
-                trap: `
-                    <p class="text-rose-700 font-bold">1. 지칭 대상의 트릭:</p>
-                    <p class="mb-2">3행의 "나는 간다는 말도"에서 '나'는 <strong>죽은 누이</strong>입니다. 반면 9행의 "미타찰에서 만날 나"에서의 '나'는 <strong>시적 화자(월명사)</strong>입니다. 두 '나'의 주체를 다르게 매칭시키는 수능/내신 단골 선지에 절대 낚이지 마세요!</p>
-                    <p class="text-rose-700 font-bold">2. 종교적 배경 혼동:</p>
-                    <p class="mb-2">'미타찰(극락)'은 도교나 기독교 사상이 아닌 철저한 <strong>불교의 아미타 사상(윤회설)</strong>입니다. 오답 선지에서 다른 종교적 개념과 뒤섞을 경우 가차 없이 지워버리십시오.</p>
-                `,
-                summary: `
-                    <p class="mb-1">✔️ <strong>이른 바람</strong>: 누이의 요절(일찍 죽음)</p>
-                    <p class="mb-1">✔️ <strong>떨어질 잎</strong>: 죽은 누이의 생명</p>
-                    <p class="mb-1">✔️ <strong>한 가지</strong>: 동기(같은 부모)</p>
-                    <p class="mb-1">✔️ <strong>낙구 감탄사 '아아'</strong>: 시적 긴장을 고조시키며 슬픔을 종교적으로 승화하는 '시상 전환' 장치이며, 시조 종장(첫 구의 3음절)의 기원이 됨.</p>
-                `,
+                unseok: "<p>누이의 죽음이라는 절체절명의 인간적 슬픔을 이토록 아름답고 절제된 비유로 나타낸 작품은 한국 문학사 전체를 통틀어도 매우 드뭅니다.</p>",
+                trap: "<p class='text-rose-700 font-bold'>1. 지칭 대상의 트릭:</p><p class='mb-2'>3행의 '나'는 <strong>죽은 누이</strong>입니다. 반면 9행의 '나'는 <strong>시적 화자(월명사)</strong>입니다. 두 '나'의 주체를 다르게 매칭시키는 수능/내신 단골 선지에 절대 낚이지 마세요!</p>",
+                summary: "<p>✔️ <strong>이른 바람</strong>: 누이의 요절(일찍 죽음)<br>✔️ <strong>떨어질 잎</strong>: 죽은 누이<br>✔️ <strong>한 가지</strong>: 동기(같은 부모)</p>",
                 lines: [
-                    {
-                        original: "生死路隱 (생사(生死) 길은)",
-                        trans: "삶과 죽음의 갈림길(이승과 저승의 경계)은",
-                        note: "생사로(生死路): 이승과 저승의 갈림길. 삶과 죽음의 경계가 멀리 있지 않다는 근접 인식을 보여줍니다.",
-                        type: "O"
-                    },
-                    {
-                        original: "此矣有阿米次肹伊遣 (예 있으매 머뭇거리고,)",
-                        trans: "이승에(여기 있으므로) 머뭇거리고,",
-                        note: "예(여기): 이승(화자가 서 있는 시공간). 죽음에 대한 두려움과 두려움으로 인한 망설임.",
-                        type: "O"
-                    },
-                    {
-                        original: "吾隱去內如辭叱도 (나는 간다는 말도)",
-                        trans: "죽은 누이는 \"나(누이) 먼저 간다\"는 유언조차도",
-                        note: "吾(나): ★주의★ 화자가 아닌 <strong>'죽은 누이'</strong>를 뜻하는 주체! 임종 전 인사를 나눌 틈도 없이 갑작스럽게 사망했음을 뜻합니다.",
-                        type: "O"
-                    },
-                    {
-                        original: "毛如云遣去內尼叱고 (못다 이르고 어찌 갑니까.)",
-                        trans: "못다 전하고 어찌 그리 황망히 가버렸습니까.",
-                        note: "어찌 갑니까: 갑작스러운 요절에 대한 혈육으로서의 깊은 안타까움과 슬픔의 직접적 표출.",
-                        type: "R"
-                    },
-                    {
-                        original: "於內秋察早隱風未 (어느 가을 이른 바람에)",
-                        trans: "어느 가을, 예정보다 일찍 불어온 매서운 바람에",
-                        note: "가을: 조락과 죽음의 계절. 이른 바람: 누이의 갑작스러운 <strong>'요절'</strong>을 의미하는 아주 강력한 출제 포인트!",
-                        type: "O"
-                    },
-                    {
-                        original: "此矣彼矣浮良落尸葉如 (이에 저에 떨어질 잎처럼,)",
-                        trans: "이곳저곳에 정처 없이 떨어지는 낙엽처럼,",
-                        note: "떨어질 잎: <strong>죽은 누이</strong>를 직유적으로 시각화함. 생명의 허무함 표출.",
-                        type: "O"
-                    },
-                    {
-                        original: "一等隱枝良出古 (한 가지에 나고)",
-                        trans: "한 부모의 핏줄(한 가지)에서 다 함께 태어났건만",
-                        note: "한 가지: <strong>'한 부모'</strong> 혹은 <strong>'동기(형제자매)'</strong>를 가리키는 비유어.",
-                        type: "C"
-                    },
-                    {
-                        original: "去奴隱處毛冬乎丁 (가는 곳 모르온저.)",
-                        trans: "어디로 쓸쓸히 가는지 그 행방조차 알지 못하는구나.",
-                        note: "가는 곳 모르온저: 인간의 근원적 고독과 <strong>인생무상(人生無常)</strong>의 감정이 극에 달함.",
-                        type: "R"
-                    },
-                    {
-                        original: "阿也彌陀刹良逢乎吾 (아아, 미타찰(彌陀刹)에서 만날 나)",
-                        trans: "아아! 서방 정토 극락세계(미타찰)에서 다시 만날 화자 나는",
-                        note: "아아(阿也): 10구체 향가의 <strong>낙구 감탄사</strong>로, 시상의 대전환점! 미타찰: 극락세계로 재회의 확실한 공간. 나: 여기의 '나'는 <strong>'화자 자신(월명사)'</strong>입니다.",
-                        type: "C"
-                    },
-                    {
-                        original: "道修良待是古如 (도(道) 닦아 기다리겠노라.)",
-                        trans: "인간의 불도를 정진하며 그날을 경건히 기다리겠노라.",
-                        note: "도 닦아 기다리겠노라: 슬픔을 슬픔으로 끝내지 않고, 불심(佛心)으로 이겨내겠다는 <strong>'슬픔의 종교적 승화'</strong>의 결의.",
-                        type: "R"
-                    }
+                    { original: "生死路隱 (생사(生死) 길은)", trans: "삶과 죽음의 갈림길(이승과 저승의 경계)은", note: "생사로: 이승과 저승의 갈림길. 삶과 죽음의 경계가 멀리 있지 않다는 근접 인식을 보여줍니다.", type: "O" },
+                    { original: "此矣유阿米次肹伊遣 (예 있으매 머뭇거리고,)", trans: "이승에(여기 있으므로) 머뭇거리고,", note: "예(여기): 이승. 죽음에 대한 두려움과 두려움으로 인한 망설임.", type: "O" },
+                    { original: "吾隱去內如辭叱도 (나는 간다는 말도)", trans: "죽은 누이는 \"나(누이) 먼저 간다\"는 유언조차도", note: "吾(나): ★주의★ 화자가 아닌 <strong>'죽은 누이'</strong>를 뜻하는 주체!", type: "O" },
+                    { original: "毛如云遣去內尼叱고 (못다 이르고 어찌 갑니까.)", trans: "못다 전하고 어찌 그리 황망히 가버렸습니까.", note: "어찌 갑니까: 갑작스러운 요절에 대한 혈육으로서의 깊은 안타까움과 슬픔의 직접적 표출.", type: "R" },
+                    { original: "於內秋察早隱風未 (어느 가을 이른 바람에)", trans: "어느 가을, 예정보다 일찍 불어온 매서운 바람에", note: "가을: 조락과 죽음의 계절. 이른 바람: 누이의 갑작스러운 <strong>'요절'</strong>을 의미하는 핵심 어휘!", type: "O" },
+                    { original: "此矣彼矣浮良落尸葉如 (이에 저에 떨어질 잎처럼,)", trans: "이곳저곳에 정처 없이 떨어지는 낙엽처럼,", note: "떨어질 잎: <strong>죽은 누이</strong>를 직유적으로 시각화함.", type: "O" },
+                    { original: "一等隱枝良출古 (한 가지에 나고)", trans: "한 부모의 핏줄(한 가지)에서 다 함께 태어났건만", note: "한 가지: <strong>'한 부모'</strong> 혹은 <strong>'동기(형제자매)'</strong>를 가리키는 비유어.", type: "C" },
+                    { original: "去奴隱處毛冬乎丁 (가는 곳 모르온저.)", trans: "어디로 쓸쓸히 가는지 그 행방조차 알지 못하는구나.", note: "가는 곳 모르온저: 인간의 근원적 고독과 <strong>인생무상(人生無常)</strong>의 감정이 극에 달함.", type: "R" },
+                    { original: "阿야彌陀刹良逢乎吾 (아아, 미타찰(彌陀刹)에서 만날 나)", trans: "아아! 서방 정토 극락세계(미타찰)에서 다시 만날 화자 나는", note: "아아: 10구체 향가의 <strong>낙구 감탄사</strong>로, 시상의 대전환점!", type: "C" },
+                    { original: "道修良待是古如 (도(道) 닦아 기다리겠노라.)", trans: "인간의 불도를 정진하며 그날을 경건히 기다리겠노라.", note: "도 닦아 기다리겠노라: 슬픔을 슬픔으로 끝내지 않고, 불심(佛心)으로 이겨내겠다는 <strong>'슬픔의 종교적 승화'</strong>.", type: "R" }
                 ],
                 table: `
                     <thead>
                         <tr class="bg-stone-100 text-stone-800 text-xs uppercase">
                             <th class="p-3 border">구역</th>
-                            <th class="p-3 border">정의 (Definition)</th>
-                            <th class="p-3 border">제망매가 해당 매칭 내용 (Content Matching)</th>
+                            <th class="p-3 border">정의</th>
+                            <th class="p-3 border">제망매가 해당 매칭 내용</th>
                         </tr>
                     </thead>
                     <tbody class="text-xs text-stone-700">
                         <tr>
                             <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Situation)</td>
-                            <td class="p-3 border bg-rose-50">시적 대상, 화자가 처한 시적 상황, 배경, 한계점</td>
-                            <td class="p-3 border">누이가 가을 이른 바람에 쓸쓸한 잎이 되어 급작스럽게 요절함. 한 부모에게서 났지만 가는 곳을 알 수 없어 이승과 저승의 절대적 이별 한계를 직면함.</td>
+                            <td class="p-3 border bg-rose-50">시적 상황/한계</td>
+                            <td class="p-3 border">누이가 가을 이른 바람에 쓸쓸한 잎이 되어 요절하여 이승과 저승의 절대적 이별 한계를 직면함.</td>
                         </tr>
                         <tr>
                             <td class="p-3 border font-bold text-emerald-600 bg-emerald-50">R (Reaction)</td>
-                            <td class="p-3 border bg-emerald-50">화자가 O에 대해 보이는 정서, 태도, 인식</td>
-                            <td class="p-3 border">황망한 한탄과 쓸쓸함(인생무상)에 머물지 않고, 불교적 정토인 '미타찰'에서의 만남을 고대하며 현세에서 불교적 수양(道)을 통해 기다리겠다는 '종교적 승화'.</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 border font-bold text-amber-600 bg-amber-50">C (Characteristic)</td>
-                            <td class="p-3 border bg-amber-50">수사법, 말투, 형식적 격식 및 시상 전개</td>
-                            <td class="p-3 border">바람/잎/가지로 형제와 죽음을 직유한 자연친화적 비유 기법. 4-4-2의 짜임새 있는 3단 구조와 9행의 감탄사를 통한 시상 전환.</td>
+                            <td class="p-3 border bg-emerald-50">화자의 반응</td>
+                            <td class="p-3 border">미타찰에서의 만남을 고대하며 현세에서 불교적 수양(道)을 통해 기다리겠다는 '종교적 승화'.</td>
                         </tr>
                     </tbody>
                 `,
                 quizzes: [
-                    {
-                        q: "1. (가) 「제망매가」의 3행 '나'와 9행 '나'는 모두 동일한 시적 화자를 가리킨다.",
-                        ans: "X",
-                        exp: "3행의 '나'는 세상을 떠난 누이(가겠노라는 마지막 말도 남기지 못한 주체)를 말하고, 9행의 '나'는 미타찰에서 다시 만날 화자 본인(월명사)을 지칭하므로 다릅니다."
-                    },
-                    {
-                        q: "2. '이른 바람'은 누이가 젊은 나이에 일찍 세상을 떠난 '요절'을 가리키는 비유적 어휘이다.",
-                        ans: "O",
-                        exp: "계절에 어긋나게 일찍 불어 잎을 조기에 떨어뜨리는 바람은 누이의 젊은 나이의 죽음(요절)을 비유적으로 정확히 표현합니다."
-                    },
-                    {
-                        q: "3. '한 가지'는 불교 수양인 득도를 하기 위해 신도들이 지켜야 하는 '계율'을 상징한다.",
-                        ans: "X",
-                        exp: "'한 가지'는 동일한 나무 한 가지에서 잎들이 난 것처럼, '한 부모 아래에서 태어난 동기(형제자매)'임을 비유합니다."
-                    },
-                    {
-                        q: "4. (가)의 화자는 마지막 구절에서 죽은 누이를 잃은 절대적인 허무와 슬픔을 끝내 극복하지 못하고 좌절하는 비극적 한계를 드러낸다.",
-                        ans: "X",
-                        exp: "화자는 좌절에 머물지 않고 불교적 미타찰에서의 재회를 확신하며 '도를 닦아 기다리겠다'는 강한 종교적 승화와 이겨내고자 하는 의지를 드러내고 있습니다."
-                    },
-                    {
-                        q: "5. 9행의 낙구 첫머리에 쓰인 감탄사 '아아'는 화자의 절망을 극대화하는 동시에 시상 전환을 이루어 내는 핵심 구절이다.",
-                        ans: "O",
-                        exp: "감탄사 '아아'는 비장한 비탄을 종교적 희망과 확신으로 대전환해 주는 역할을 수행하며, 후대 시조 종장 형식에도 큰 영향을 줍니다."
-                    }
+                    { q: "1. '나'는 3행과 9행 모두 동일한 시적 화자(월명사)를 가리킨다.", ans: "X", exp: "3행은 죽은 누이, 9행은 화자 본인입니다." },
+                    { q: "2. '이른 바람'은 젊은 나이에 일찍 세상을 떠난 누이의 '요절'을 상징한다.", ans: "O", exp: "이르게 부는 가을 바람은 요절의 비유입니다." }
                 ]
             },
-            sokmi: {
+            {
+                id: "sokmi",
+                category: "classic_poetry",
                 title: "속미인곡 (續美人曲)",
                 author: "정철 (조선 선조 때 지은 대표적 가사 문학)",
-                curriculum: "고1 공통국어2 (미래엔) | 단원 1(1) 한국 문학의 전통과 수용",
+                curriculum: "고1 공통국어2 미래엔 1(1)단원",
                 hook: "조선 사대부의 충성심은 사모하는 여인의 목소리를 빌려 비로소 완성되었다. 임과 이별한 가련한 여인의 처절한 하소연 속에 숨은 정철의 피맺힌 연군지정(戀君之情)을 발견하라.",
                 sect0: [
-                    { label: "갈래", value: "서정 가사, 양반 가사, 정격 가사 (3·4조 / 4음보)" },
+                    { label: "갈래", value: "서정 가사, 양반 가사, 정격 가사 (4음보)" },
                     { label: "성격", value: "서정적, 충신연주지사, 애절함" },
                     { label: "제재", value: "임과의 이별과 그리움" },
                     { label: "주제", value: "임(임금)을 향한 변함없는 사랑과 사모의 정 (연군지정)" }
                 ],
                 sect1: [
-                    { title: "두 여인의 독특한 대화체", desc: "을녀(여인2: 중심 화자)의 하소연과 갑녀(여인1: 보조 화자)의 질문/위로/조언 구도." },
-                    { title: "우리말의 절묘한 구사", desc: "한자어를 배제하고 순우리말의 세련되고 섬세한 운치를 극대화한 가사의 정수." },
-                    { title: "낙월 vs 궂은비 대조", desc: "멀리서만 비추는 소극적 사랑(낙월)과 직접 다가가 적시는 적극적 사랑(궂은비)의 대립." },
-                    { title: "장애물(구름, 안개, 바람)", desc: "산과 강가에서 임을 보지 못하게 가로막는 자연물이자 조정을 덮은 간신배를 뜻함." },
+                    { title: "두 여인의 독특한 대화체", desc: "을녀(여인2)의 하소연과 갑녀(여인1)의 질문/위로/조언 구도." },
+                    { title: "우리말의 절묘한 구사", desc: "한자어를 배제하고 순우리말의 세련되고 섬세한 운치를 극대화함." },
+                    { title: "낙월 vs 궂은비 대조", desc: "소극적 사랑(낙월)과 직접 다가가 적시는 적극적 사랑(궂은비)의 대립." },
+                    { title: "장애물(구름, 안개, 바람)", desc: "임을 보지 못하게 가로막는 자연물이자 조정을 덮은 간신배를 뜻함." },
                     { title: "객관적 상관물 분석", desc: "사공 없는 '빈 배', 쓸쓸한 독수공방을 지키는 '반벽청등'을 통한 고독 극대화." }
                 ],
                 diagram: [
-                    {
-                        type: 'ego',
-                        title: 'E (자아/인물)',
-                        color: 'mech-ego',
-                        desc: '여인 2(갑녀, 정철의 주동 자아): 임을 절대적으로 연모하며 자책하는 심정.<br>여인 1(을녀): 질문을 던져 이야기를 이끌어 내고 최종 적극적인 권유로 위로를 마치는 보조 자아.'
-                    },
-                    {
-                        type: 'obj',
-                        title: 'O (세계/장벽)',
-                        color: 'mech-obj',
-                        desc: '백옥경으로부터의 유배 및 소외. 산과 강가에서 시선을 가로막는 "구름, 안개, 바람, 물결(간신배)", 꿈에서 임을 보려 하자 깨우는 "오던된 계성(닭소리)".'
-                    },
-                    {
-                        type: 'react',
-                        title: 'R (인물의 반응)',
-                        color: 'mech-react',
-                        desc: '산을 오르내리고 물가에서 가슴 졸이며 애태움. 꿈속에서나마 눈물을 흘리며 늙은 임의 모습을 보고 통곡함. 낙월(소극적 사랑)이 되겠다고 절규함.'
-                    },
-                    {
-                        type: 'char',
-                        title: 'C (서술적 특징)',
-                        color: 'mech-char',
-                        desc: '갑녀와 을녀의 1:1 대화 구조를 통한 희곡적/입체적 극적 긴장감 조성, 영탄법과 대구법, 대조적 상징어(달 vs 비)의 유기적 배치.'
-                    }
+                    { type: 'ego', title: 'E (자아/인물)', desc: '여인 2(갑녀, 정철의 주동 자아): 자책하는 심정.<br>여인 1(을녀): 질문을 던지고 적극적인 권유를 하는 보조 자아.' },
+                    { type: 'obj', title: 'O (세계/장벽)', desc: '임과의 소통을 막는 "구름, 안개, 바람, 물결(간신배)", 꿈에서 임을 보려 하자 깨우는 "오던된 계성(닭소리)".' },
+                    { type: 'react', title: 'R (인물의 반응)', desc: '산을 오르내리고 물가에서 가슴 졸이며 애태움. 결국 죽어 "낙월"이 되겠다는 소극적 헌신 결심.' },
+                    { type: 'char', title: 'C (서술적 특징)', desc: '갑녀와 을녀의 1:1 대화 구조를 통한 희곡적/입체적 극적 긴장감 조성, 대조적 상징어(달 vs 비)의 유기적 배치.' }
                 ],
                 diagramCols: "grid-cols-1 md:grid-cols-4",
                 versus: `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
                         <div class="border-r border-stone-200 pr-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-moon text-blue-500"></i> 낙월 (落月) - 여인 2 [갑녀]</h5>
-                            <ul class="text-xs text-stone-600 list-disc list-inside space-y-1">
-                                <li>지는 달: 멀리서 가만히 지켜보는 존재</li>
-                                <li>시각적이고 한시적인 매개체</li>
-                                <li>임에게 피해를 주지 않고 멀리서 조용히 사모하는 <strong>소극적 형태의 사랑</strong></li>
-                            </ul>
+                            <p class="text-[11px] text-stone-600">임에게 피해를 주지 않고 멀리서 조용히 사모하는 <strong>소극적 형태의 사랑</strong></p>
                         </div>
                         <div class="pl-0 md:pl-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-cloud-showers-heavy text-emerald-500"></i> 궂은비 (구즌비) - 여인 1 [을녀]</h5>
-                            <ul class="text-xs text-stone-600 list-disc list-inside space-y-1">
-                                <li>임의 옷을 직접 적시는 구체적 접촉 존재</li>
-                                <li>촉각적이며 지속적인 매개체</li>
-                                <li>임의 곁에서 피부로 느껴지게 다가가는 <strong>적극적 형태의 사랑</strong> 권유</li>
-                            </ul>
+                            <p class="text-[11px] text-stone-600 font-bold">임의 곁에서 피부로 느껴지게 다가가는 <strong>적극적 형태의 사랑</strong> 권유</p>
                         </div>
                     </div>
                 `,
-                unseok: `
-                    <p>정철의 가사 문학 중에서도 '사미인곡'의 속편 격인 이 작품은, 단독 화자가 하소연하는 전편과 달리 **'두 여인의 극적인 대화'**를 취했다는 점에서 문학적 완결성이 최고조에 달해 있습니다.</p>
-                    <p class="mt-2">자신의 잘못을 자책하며 쓸쓸하게 울부짖는 중심 화자(여인 2)와 그녀의 슬픔을 한걸음 뒤에서 따뜻하게 받아주고 보완해 주는 보조 화자(여인 1)의 정교한 하모니가 작품 전체의 슬픔을 더욱 생생하게 연출합니다.</p>
-                `,
-                trap: `
-                    <p class="text-rose-700 font-bold">1. 임에 대한 원망의 유무:</p>
-                    <p class="mb-2">여인 2는 이별의 탓을 "내 몸의 지은 죄" 혹은 "조물주의 탓"으로 돌립니다. 이는 <strong>자책론적, 운명론적 수용</strong>이지, 임을 미워하거나 조정의 임금을 향해 원망의 화살을 돌리는 것이 절대 아님을 명심하세요!</p>
-                    <p class="text-rose-700 font-bold">2. 시적 장치(객관적 상관물) 판정:</p>
-                    <p class="mb-2">'빈 배'와 '반벽청등'은 감정이 직접 이입된 매개체가 아닙니다. 화자의 극한의 고독감을 시각적·상황적으로 쓸쓸하게 부각하는 <strong>객관적 상관물</strong>일 뿐입니다.</p>
-                `,
-                summary: `
-                    <p class="mb-1">✔️ <strong>구름, 안개, 바람, 물결</strong>: 임과 화자 사이를 가로막는 현실적 간신배 및 장애물</p>
-                    <p class="mb-1">✔️ <strong>빈 배, 반벽청등</strong>: 화자의 고독한 상황과 쓸쓸한 부재를 환기하는 객관적 상관물</p>
-                    <p class="mb-1">✔️ <strong>오던된 계성(닭 울음소리)</strong>: 꿈속에서의 임과의 임시적 만남을 깨뜨리는 원망의 방해물</p>
-                    <p class="mb-1">✔️ <strong>대화의 구도</strong>: 여인 1(을녀: 질문/위로) ↔️ 여인 2(갑녀: 신세한탄/정서 주도)</p>
-                `,
+                unseok: "<p>두 여인의 극적인 대화를 통해 화자의 심리를 완벽하게 다차원적으로 풀어낸 정철의 대표 가사 문학입니다.</p>",
+                trap: "<p class='text-rose-700 font-bold'>1. 임에 대한 원망의 유무:</p><p class='mb-2'>여인 2는 이별의 탓을 '자책'이나 '조물주'에게 돌릴 뿐, 임금을 향한 원망의 화살을 쏘지 않습니다.</p>",
+                summary: "<p>✔️ <strong>구름, 안개</strong>: 간신배 및 방해물<br>✔️ <strong>빈 배, 반벽청등</strong>: 고독감을 심화하는 객관적 상관물</p>",
                 lines: [
-                    {
-                        original: "뎌 가난 뎌 각시 본 듯도 한뎌이고 (저기 가는 저 각시 본 듯도 하구나.)",
-                        trans: "저기 저만치 외롭게 걸어가는 저 각시, 어디선가 본 듯도 하구나.",
-                        note: "뎌 각시: 하소연의 주인공인 <strong>여인 2(갑녀)</strong>. 발화의 주체는 관찰자 역할인 <strong>여인 1(을녀)</strong>.",
-                        type: "O"
-                    },
-                    {
-                        original: "천상(天上) 빅옥경(白玉京)을 엇디야 니별(離別)하고 (천상 백옥경을 어찌하여 이별하고)",
-                        trans: "옥황상제가 계신 천상의 대궐을 어찌하여 이별하고 내려와",
-                        note: "백옥경: 천상의 대궐 (비유적으로 <strong>한양의 대궐, 임금이 계신 궁궐</strong>을 상징함).",
-                        type: "O"
-                    },
-                    {
-                        original: "힌다뎌 져믄 날의 놀을 보라 가시는고 (해다 져 저문 날에 누구를 보러 가시는가.)",
-                        trans: "해가 다 지고 어두워진 늦은 날에 누구를 애타게 찾으러 가는 것인가.",
-                        note: "져믄 날: 화자의 쓸쓸하고 외로운 상황을 배가해 주는 가을 해 저무는 시간적 배경.",
-                        type: "O"
-                    },
-                    {
-                        original: "어와 네여이고 이내 스셜 드러 보오 (어와 너로구나. 이내 사설 들어 보오.)",
-                        trans: "아아! 너였구나. 나의 슬픈 사정(사설)을 좀 들어보아라.",
-                        note: "어와 네여이고: 발화의 주체가 <strong>여인 2(갑녀)</strong>로 교체되며 대화가 본격 전개됨.",
-                        type: "R"
-                    },
-                    {
-                        original: "내 몸의 지은 죄 뫼그티 싸혀시니 (내 몸의 지은 죄 산같이 쌓였으니)",
-                        trans: "내 몸이 전생과 현생에 지은 죄가 거대한 산처럼 쌓여 있으니,",
-                        note: "내 몸의 지은 죄: 임과의 이별 원인을 자신의 과오로 돌리는 <strong>'자책적 태도'</strong>.",
-                        type: "R"
-                    },
-                    {
-                        original: "하늘히라 원망하며 사롬이라 허믈하랴 (하늘을 원망하며 사람을 탓하겠는가.)",
-                        trans: "어찌 푸른 하늘을 원망하고 남을 탓하고 허물을 돌릴 수 있겠는가. (수원수구)",
-                        note: "하늘히라 원망하랴: 설의법을 동원하여 남을 탓하지 않는 초연하고 유교적인 숙명관 피력.",
-                        type: "R"
-                    },
-                    {
-                        original: "셜워 플텨 헤니 조믈(造物)의 타시로다 (서러워 생각하니 조물주의 탓이로다.)",
-                        trans: "마음속에 서러움을 다 헤아려 보니, 결국 이 모든 이별은 조물주의 운명적인 탓이로다.",
-                        note: "조믈의 타시로다: 이별의 절대적 아픔을 피할 수 없는 <strong>'운명론적 체념과 수용'</strong>으로 승화시킴.",
-                        type: "R"
-                    },
-                    {
-                        original: "구롬은코니와 안개는 므스 일고 (구름은 물론이고 안개는 무슨 일인가.)",
-                        trans: "하늘을 보니 구름은 물론이거니와 자욱한 안개는 왜 이리 가로막고 있는가.",
-                        note: "구름, 안개: 화자의 시야를 가로막는 존재. 임과 나 사이를 방해하는 <strong>'장애물(조정의 간신배)'</strong>.",
-                        type: "O"
-                    },
-                    {
-                        original: "샤공은 어디 가고 빈 비만 걸렷는고 (사공은 어디 가고 빈 배만 매여 있는가.)",
-                        trans: "사공은 대체 어디로 가고 이 쓸쓸한 강가에는 빈 배만 덩그러니 매여 있는고.",
-                        note: "빈 배: <strong>'객관적 상관물'</strong>. 임을 잃고 홀로 유랑하는 화자 자신의 고독함과 고립감을 투영한 핵심 자연물.",
-                        type: "C"
-                    },
-                    {
-                        original: "반벽(半壁) 청등(靑燈)은 눌 위하야 밝았는고 (벽 가운데 청등은 누구를 위해 밝았는가.)",
-                        trans: "벽 가운데 덩그러니 켜져 있는 푸른 등불은, 임이 안 계신데 도대체 누구를 위해 켜 놓은 것인가.",
-                        note: "반벽청등: 독수공방의 고적함을 심화시키는 두 번째 <strong>'객관적 상관물'</strong>.",
-                        type: "C"
-                    },
-                    {
-                        original: "오던된 계성(鷄聲)의 잠은 엇디 깨돗던고 (방정맞은 닭 울음소리에 잠은 어찌 깨었던가.)",
-                        trans: "방정맞고 원망스러운 새벽 닭 울음소리에, 애달픈 꿈속의 재회는 어찌 그리 빨리 깨어버렸는가.",
-                        note: "오던된 계성: 임과의 만남(꿈)을 잔인하게 가로막아 깨워버린 <strong>'원망과 방해의 존재'</strong>.",
-                        type: "O"
-                    },
-                    {
-                        original: "촐하리 식여디여 낙월(落月)이나 되야이셔 (차라리 죽어서 지는 달이나 되어서)",
-                        trans: "차라리 내가 죽어 사라져 지는 달(낙월)이 되어서라도",
-                        note: "낙월: 여인 2가 선택한 사랑의 표상. 멀리서만 조용히 임을 지키려는 <strong>소극적인 사랑</strong>.",
-                        type: "R"
-                    },
-                    {
-                        original: "각시님 달이야코니와 구준비나 되쇼셔 (각시님 달도 좋지만 궂은비나 되소서.)",
-                        trans: "각시님! 가만히 지는 달이 되기보다는, 임의 옷을 적실 수 있는 궂은비가 되십시오.",
-                        note: "구준비: 여인 1이 제안하는 대안. 임에게 직접적으로 다가가 피부로 닿는 <strong>적극적인 사랑</strong>을 조언하며 위로함.",
-                        type: "C"
-                    }
+                    { original: "뎌 가난 뎌 각시 본 듯도 한뎌이고", trans: "저기 가는 저 각시 어디서 본 듯도 하구나.", note: "뎌 각시: 하소연의 주인공인 여인 2. 발화 주체는 관찰자 역할인 여인 1.", type: "O" },
+                    { original: "천상(天上) 빅옥경(白玉京)을 엇디야 니별(離別)하고", trans: "천상 백옥경을 어찌하여 이별하고 내려와서", note: "백옥경: 천상의 대궐 (비유적으로 한양의 대궐, 임금이 계신 궁궐).", type: "O" },
+                    { original: "내 몸의 지은 죄 뫼그티 싸혀시니", trans: "내 몸이 지은 죄가 산처럼 쌓였으니,", note: "내 몸의 지은 죄: 이별 원인을 자신의 과오로 돌리는 '자책적 태도'.", type: "R" },
+                    { original: "촐하리 식여디여 낙월(落月)이나 되야이셔", trans: "차라리 내가 죽어 사라져 지는 달(낙월)이 되어서", note: "낙월: 여인 2가 선택한 사랑의 표상. 소극적인 사랑.", type: "R" },
+                    { original: "각시님 달이야코니와 구준비나 되쇼셔", trans: "각시님! 지는 달도 좋지만, 임의 옷을 적실 수 있는 궂은비가 되십시오.", note: "구준비: 여인 1이 제안하는 대안. 임에게 직접적으로 다가가는 적극적인 사랑.", type: "C" }
                 ],
                 table: `
                     <thead>
                         <tr class="bg-stone-100 text-stone-800 text-xs uppercase">
                             <th class="p-3 border">구역</th>
-                            <th class="p-3 border">정의 (Definition)</th>
-                            <th class="p-3 border">속미인곡 해당 매칭 내용 (Content Matching)</th>
+                            <th class="p-3 border">정의</th>
+                            <th class="p-3 border">속미인곡 해당 매칭 내용</th>
                         </tr>
                     </thead>
                     <tbody class="text-xs text-stone-700">
                         <tr>
-                            <td class="p-3 border font-bold text-blue-600 bg-blue-50">E (Ego / 인물)</td>
-                            <td class="p-3 border bg-blue-50">각 주동/반동 인물의 성격, 관계도, 갈망하는 욕망</td>
-                            <td class="p-3 border"><strong>여인 2(갑녀)</strong>: 정철의 분신. 임을 향한 끝없는 죄책감과 연군의 정을 품음.<br><strong>여인 1(을녀)</strong>: 대화를 중재하며 을녀의 한탄을 환기하고 조언하는 보조자.</td>
+                            <td class="p-3 border font-bold text-blue-600 bg-blue-50">E (Ego)</td>
+                            <td class="p-3 border bg-blue-50">자아/인물</td>
+                            <td class="p-3 border">여인 1(보조 화자, 위로자)과 여인 2(중심 화자, 하소연 주체)의 정교한 2인극 구도.</td>
                         </tr>
                         <tr>
-                            <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Obstacle / 장벽)</td>
-                            <td class="p-3 border bg-rose-50">인물을 방해하고 차단하는 갈등 유발 자연물 및 세력</td>
-                            <td class="p-3 border">백옥경에서의 이탈(유배). 산천을 어둡게 덮은 '구름/안개', 배를 막는 '바람/물결'(간신배). 꿈속 만남을 훼방 놓는 새벽의 '닭 울음소리'.</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 border font-bold text-emerald-600 bg-emerald-50">R (Reaction / 대응)</td>
-                            <td class="p-3 border bg-emerald-50">인물들의 대처 정서, 저항 방식, 태도</td>
-                            <td class="p-3 border">소식을 몰라 산과 물가로 하루 종일 배회하며 독수공방 속에서 눈물을 흘림. 결국 죽어 '낙월'이 되어 가만히 비추겠다는 소극적 헌신 결심.</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 border font-bold text-amber-600 bg-amber-50">C (Characteristic / 서술)</td>
-                            <td class="p-3 border bg-amber-50">서술상 특징, 장치, 문체, 매개체</td>
-                            <td class="p-3 border">문학에서 매우 보기 드문 극적인 '대화체 구성' 가사. 쓸쓸함을 부각하는 객관적 상관물(빈 배, 반벽청등)의 대칭 구조. '낙월'과 '궂은비'의 수사적 대조.</td>
+                            <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Obstacle)</td>
+                            <td class="p-3 border bg-rose-50">장벽/세계</td>
+                            <td class="p-3 border">임과의 이별, 구름과 안개(간신배), 꿈을 방해하는 닭 울음소리.</td>
                         </tr>
                     </tbody>
                 `,
                 quizzes: [
-                    {
-                        q: "1. (나) 「속미인곡」에서 두 여인이 대화하는 대화체의 형식을 띤 것은 화자의 슬픔과 고독을 보다 입체적으로 부각하려는 장치이다.",
-                        ans: "O",
-                        exp: "독백체 형식보다 대화체 형식을 취할 때 독자의 친근감과 정서적 공감대를 높이며, 화자의 깊은 애절함이 더욱 객관적이고 사실적으로 전달됩니다."
-                    },
-                    {
-                        q: "2. 여인 2(중심 화자)는 임과 헤어진 근본적인 이유가 조정의 또 다른 동료 신하들의 이간질 때문이라며 강한 적개심을 직접 드러낸다.",
-                        ans: "X",
-                        exp: "이별의 직접적 원인을 타인의 이간질보다는 자신의 잘못('내 몸의 지은 죄')이나 숙명('조물의 타시로다')으로 돌리며 원망을 삼가고 있습니다."
-                    },
-                    {
-                        q: "3. '구름'과 '안개'는 화자의 눈앞을 가려 임이 계신 한양(일월)을 보지 못하게 만드는 부정적인 장애물이자 간신을 상징한다.",
-                        ans: "O",
-                        exp: "산에 올라 임을 보려 할 때 시야를 직접 차단하는 구름과 안개는 임금의 은총과 지혜를 가리는 당대 조정의 어지러운 간신배 세력으로 직결됩니다."
-                    },
-                    {
-                        q: "4. '빈 배'는 사공이 떠나고 홀로 남은 배로, 임에게 가고자 하는 화자의 적극적인 기상의 매개체이다.",
-                        ans: "X",
-                        exp: "'빈 배'는 가고자 하는 매개가 아니라, 사공도 없이 홀로 강에 묶여 떠도는 고독하고 외로운 화자의 쓸쓸한 내면적 상황을 보여주는 '객관적 상관물'입니다."
-                    },
-                    {
-                        q: "5. 여인 1은 여인 2의 사연을 듣고, 소극적인 '낙월' 대신 좀 더 적극적으로 임에게 다가가 닿는 '궂은비'가 될 것을 제안한다.",
-                        ans: "O",
-                        exp: "을녀(여인 1)는 눈에 띄지 않게 멀리서 비추는 낙월보다 임의 옷을 적시며 온몸으로 존재를 알릴 수 있는 적극적인 시어인 '궂은비'를 위로와 조언으로 건넸습니다."
-                    }
+                    { q: "1. 여인 2는 임과의 이별의 정당성을 증명하기 위해 조정을 강하게 비판하고 있다.", ans: "X", exp: "조정 비판을 가급적 자제하며 자책과 운명적 체념을 드러냅니다." },
+                    { q: "2. '궂은비'는 여인 2의 행동 방식을 '소극적'에서 '적극적'으로 바꾸라는 여인 1의 위로 시어이다.", ans: "O", exp: "임에게 직접 다가가가는 적극적 사랑의 표상입니다." }
+                ]
+            },
+            {
+                id: "gwangjang",
+                category: "modern_novel",
+                title: "광장 (廣場)",
+                author: "최인훈 (1960년대 한국 현대소설의 고전)",
+                curriculum: "고2 문학 / 수능 필수 연계",
+                hook: "남한에는 밀실만 가득하고, 북한에는 강요된 광장뿐이었다. 그 두 극단 사이에서 어디에도 정착할 수 없었던 고독한 지식인 이명준이 기어코 선택한 '제3의 중립국'은 진정한 해방구였을까.",
+                sect0: [
+                    { label: "갈래", value: "현대 소설, 장편 소설, 분단 소설" },
+                    { label: "성격", value: "이념적, 관념적, 철학적, 비판적" },
+                    { label: "제재", value: "이명준의 방황과 남북한 이데올로기의 갈등" },
+                    { label: "주제", value: "분단 이데올로기 극복 시도와 진정한 삶의 가치(광장과 밀실의 조화) 추구" }
+                ],
+                sect1: [
+                    { title: "광장과 밀실의 이중 상징", desc: "개인의 자유로운 공간(밀실)과 사회적 참여의 공간(광장)의 대비와 갈등." },
+                    { title: "남한 사회의 환멸", desc: "자유는 가득하지만 탐욕과 이기주의로 물들어 개인의 밀실만 가득한 타락한 남한." },
+                    { title: "북한 사회의 질식", desc: "이념을 강제하는 광장만 있고, 개인의 사적 영역인 밀실은 전무한 북한의 모순." },
+                    { title: "중립국 선택과 한계", desc: "남북 모두에 상처받은 이명준이 중립국을 택하지만, 근본적 극복은 실패하는 한계성." },
+                    { title: "갈매기의 입체적 상징", desc: "사랑했던 은혜와 그녀의 아이를 투영한 갈매기를 보며 바다로 투신하는 상징적 결말." }
+                ],
+                diagram: [
+                    { type: 'ego', title: 'E (자아/인물 이명준)', desc: '지성적이며 고뇌하는 청년 지식인. 개인적 안식처인 "밀실"과 사회적 공동체인 "광장"의 건강한 화합을 갈망함.' },
+                    { type: 'obj', title: 'O (세계/이념의 정체)', desc: '개인주의와 타락이 지배하는 남한(밀실만 있음) ↔ 혁명과 이념을 강요하는 기만적 북한(광장만 있음).' },
+                    { type: 'react', title: 'R (자아의 한계적 반응)', desc: '어디에도 안착하지 못하고 제3의 길인 "중립국"을 택하나, 결국 인도양 선상에서 바다(진정한 광장과 밀실의 통합)로 투신함.' },
+                    { type: 'char', title: 'C (서술적 특징)', desc: '이명준의 내면을 밀도 깊게 추적하는 전지적 작가 시점. "광장"과 "밀실"이라는 명확한 철학적 비유 기법 적용.' }
+                ],
+                diagramCols: "grid-cols-1 md:grid-cols-4",
+                versus: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
+                        <div class="border-r border-stone-200 pr-6">
+                            <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-house-user text-blue-500"></i> 남한: 타락한 밀실</h5>
+                            <p class="text-[11px] text-stone-600">정치적 열정과 사회적 소통은 없고, 사적 욕망과 이기주의적인 음모만 가득하여 공동체의 '광장'이 죽어버린 사회.</p>
+                        </div>
+                        <div class="pl-0 md:pl-6">
+                            <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-people-group text-emerald-500"></i> 북한: 획일화된 광장</h5>
+                            <p class="text-[11px] text-stone-600">진정한 혁명의 주체는 존재하지 않고 꼭두각시처럼 동원되는 메마른 광장만 존재하며, 개인의 고유한 권리인 '밀실'은 감시당하는 통제 사회.</p>
+                        </div>
+                    </div>
+                `,
+                unseok: "<p>남북 이데올로기의 모순을 가장 지적이고 예리하게 파헤친 전후 소설의 최고봉입니다. 이명준의 자살이 단순한 패배주의가 아니라 남북한 모두에 대한 강력한 이념적 저항임을 읽어내야 합니다.</p>",
+                trap: "<p class='text-rose-700 font-bold'>1. 중립국의 실제 성격:</p><p class='mb-2'>이명준에게 중립국은 진정한 자유를 얻은 낙원이 아니라, 남북의 환멸을 피하기 위해 선택할 수밖에 없었던 '절망적인 도피처'에 가깝습니다.</p>",
+                summary: "<p>✔️ <strong>밀실</strong>: 사적인 자유의 공간<br>✔️ <strong>광장</strong>: 사회적 의사소통과 역사 참여의 공간<br>✔️ <strong>자살</strong>: 이념적 절망의 끝에서 자유를 찾아 떠나는 초월적 상징</p>",
+                lines: [
+                    { original: "명준은 남한에서 본 것은 광장은 없고 밀실만 가득한 사회였다.", trans: "이명준이 남한에서 목격한 것은 진정한 민주주의적 소통은 부재하고 사적인 욕심만 들끓는 모습이었다.", note: "광장과 밀실의 불균형: 남한 사회의 이기적 구조에 대한 지식인의 실망.", type: "O" },
+                    { original: "북한에는 꼭두각시들의 소리만 높은 기만적인 광장만 있었다.", trans: "북한 사회에는 개인의 인격은 묵살된 채 구호만 가득한 텅 빈 광장만이 기계적으로 작동하고 있었다.", note: "기만적인 광장: 북한 체제의 전체주의와 개인 자유 말살에 대한 폭로.", type: "O" },
+                    { original: "그는 남북한 모두의 회유를 거절하고 '중립국'을 소리 높여 외쳤다.", trans: "포로 송환 과정에서 남한과 북한의 끈질긴 설득을 끝내 뿌리치고 중립국을 강력히 고집했다.", note: "중립국: 남북한 이데올로기 그 어디에도 타협할 수 없는 지식인의 단호한 불복종 행동.", type: "R" },
+                    { original: "인도양을 가르는 타고르 호 선상에서 그는 바다를 보았다.", trans: "중립국으로 향하는 선상에서 뒤를 따르는 갈매기를 바라보며 운명적인 선택을 준비했다.", note: "갈매기: 은혜와 딸의 화신으로 명준의 마지막 사랑이자 구원의 상징.", type: "C" },
+                    { original: "그리고 푸른 바다의 광장으로 뛰어내렸다.", trans: "결국 이념의 질곡이 없는 온전한 자유를 찾아 심해 속으로 뛰어내려 생을 마쳤다.", note: "바다: 이명준이 그토록 찾아 헤매던 광장과 밀실이 완전무결하게 합일되는 초월적 공간.", type: "R" }
+                ],
+                table: `
+                    <thead>
+                        <tr class="bg-stone-100 text-stone-800 text-xs uppercase">
+                            <th class="p-3 border">구역</th>
+                            <th class="p-3 border">정의</th>
+                            <th class="p-3 border">광장 해당 매칭 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs text-stone-700">
+                        <tr>
+                            <td class="p-3 border font-bold text-blue-600 bg-blue-50">E (Ego)</td>
+                            <td class="p-3 border bg-blue-50">이명준</td>
+                            <td class="p-3 border">남과 북의 모순에 실망하고 진정 가치 있는 지식인의 실존 방식을 고민하는 청년 자아.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Obstacle)</td>
+                            <td class="p-3 border bg-rose-50">남북한 체제</td>
+                            <td class="p-3 border">밀실(남)과 광장(북)이라는 기형적 이데올로기의 장벽.</td>
+                        </tr>
+                    </tbody>
+                `,
+                quizzes: [
+                    { q: "1. 이명준의 중립국 선택은 조국의 통일을 위한 적극적인 정치적 투쟁 활동이다.", ans: "X", exp: "통일 투쟁이 아니라 남북 이념 모두에 거부권을 행사한 실존적 도피 및 방관적 저항에 가깝습니다." },
+                    { q: "2. 결말에 나오는 '바다'는 명준이 찾던 밀실과 광장의 진정한 화합을 뜻하는 상징적 공간이다.", ans: "O", exp: "바다는 남북도 간섭할 수 없는 절대적 구원과 합일의 광장입니다." }
+                ]
+            },
+            {
+                id: "ccd_sensor",
+                category: "reading",
+                title: "디지털 카메라의 CCD 센서 원리",
+                author: "수능 독서 (과학/기술 지문 완벽 분석)",
+                curriculum: "수능 독서 기술 제재",
+                hook: "우리가 스마트폰으로 누르는 찰나의 순간, 렌즈를 통과한 '빛(광자)'은 어떻게 정교한 '디지털 이미지 데이터(전하)'로 변환되는가. CCD 카메라의 메커니즘을 마스터하라.",
+                sect0: [
+                    { label: "갈래", value: "독서(비문학) - 과학/기술 지문" },
+                    { label: "성격", value: "분석적, 인과적, 객관적, 설명적" },
+                    { label: "제재", value: "CCD 센서의 광전효과와 전하 이동 원리" },
+                    { label: "주제", value: "CCD 소자를 활용한 디지털 영상 이미지 센서의 정밀 작동 메커니즘" }
+                ],
+                sect1: [
+                    { title: "광전효과(Photoelectric Effect)", desc: "빛의 세기(광자 수)에 비례하여 금속판에서 전자가 방출되는 물리학적 원리." },
+                    { title: "포토다이오드 어레이 구조", desc: "빛을 받아 전자를 가두는 독립적인 화소(Pixel) 배열 구조의 이해." },
+                    { title: "전하의 수평/수직 이동", desc: "생성된 전자들을 손실 없이 수평 및 수직 방향으로 전달하는 클록 전압 인가 과정." },
+                    { title: "아날로그-디지털 변환(ADC)", desc: "전하량에 따른 아날로그 전압 신호를 디지털 부호인 이진 데이터로 최종 매핑하는 공정." },
+                    { title: "해상도와 화소 수의 관계", desc: "화소 간 간섭 한계와 소자 미세화에 따른 비례/반비례적 기술적 한계 도출." }
+                ],
+                diagram: [
+                    { type: 'obj', title: 'O (기술적 핵심 현상/원리)', desc: '빛(아날로그 신호)이 실리콘 반도체 표면에 도달하여 금속 소자에서 자유 전자를 분리시키는 "광전효과".' },
+                    { type: 'react', title: 'R (메커니즘 작동 인과)', desc: '각 화소(포토다이오드)에 인가된 전압 차이를 이용해 전하를 단계적으로 이동시키고 전압량으로 변환하여 부호화하는 정교한 연속 공정.' },
+                    { type: 'char', title: 'C (서술상의 특징)', desc: '빛의 유입에서 디지털 파일 저장에 이르는 일련의 흐름을 인과적이고 단계적인 시계열적 과정으로 세밀히 서술함.' }
+                ],
+                diagramCols: "grid-cols-1 md:grid-cols-3",
+                versus: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
+                        <div class="border-r border-stone-200 pr-6">
+                            <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-sun text-yellow-500"></i> 아날로그: 광자(빛) 유입</h5>
+                            <p class="text-[11px] text-stone-600">자연 상태의 연속적이고 무한한 형태의 파동이자 에너지 덩어리인 빛이 센서 표면으로 유입되는 단계.</p>
+                        </div>
+                        <div class="pl-0 md:pl-6">
+                            <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-microchip text-teal-600"></i> 디지털: 부호 데이터 변환</h5>
+                            <p class="text-[11px] text-stone-600">광전효과로 유도된 전하량을 정량화한 아날로그 전압을 거쳐, 최종 이진 디지털 코드인 데이터로 변형·기록되는 이산적(Discrete) 상태.</p>
+                        </div>
+                    </div>
+                `,
+                unseok: "<p>비문학 과학기술 지문은 단순 암기가 아닙니다. '광자의 에너지 -> 광전효과 -> 전자 생성 -> 전압 인가 -> 신호 변환'의 일련의 '인과 관계 연결고리'를 끊김 없이 이해하는 것이 문제를 빠르게 풀어내는 핵심입니다.</p>",
+                trap: "<p class='text-rose-700 font-bold'>1. 비례와 반비례의 상호 변환:</p><p class='mb-2'>'입사되는 빛의 양이 많을수록 생성되는 전하량도 많아진다'는 정비례 관계를 역으로 비틀어 출제할 때 오답을 정확히 집어내야 합니다.</p>",
+                summary: "<p>✔️ <strong>광전효과</strong>: 빛에너지가 전기에너지로 변하는 근본 물리 법칙<br>✔️ <strong>클록 전압</strong>: 전하를 한 방향으로 물 흐르듯 밀어보내는 제어 장치</p>",
+                lines: [
+                    { original: "렌즈를 통해 들어온 외부의 빛은 CCD 센서 표면의 다이오드에 도달한다.", trans: "빛 알갱이(광자)가 실리콘 재질의 전하 결합 소자(CCD) 화소 영역에 충돌한다.", note: "광전효과의 전제 조건: 외부 자극으로서의 광 에너지 전송.", type: "O" },
+                    { original: "광전효과가 발생하여, 강한 빛일수록 더 많은 전자가 독립 화소에 축적된다.", trans: "다이오드 내부에서 빛을 받아 전자가 분리되고 화소 전위 장벽 내부에 차곡차곡 쌓이기 시작한다.", note: "빛의 세기 = 전하량의 비례 관계 법칙 수능 빈출 포인트!", type: "R" },
+                    { original: "축적된 전하는 수평 전하 전송로와 수직 전송로를 통해 이동한다.", trans: "각 전송 전극에 걸어주는 전압 신호의 크기를 순차적으로 조절하여 물을 쏟아붓듯 전하들을 전달한다.", note: "전하 이동 방식: 클록 신호를 통한 전극 제어 메커니즘.", type: "R" },
+                    { original: "마지막 증폭기를 거친 아날로그 전기 신호는 ADC를 거친다.", trans: "아날로그-디지털 컨버터(ADC)를 통해 전하의 총량을 0과 1의 정규화된 이진 디지털 부호로 변형시킨다.", note: "부호화 단계: 최종 데이터화를 위한 인과적 완성형 최종 스텝.", type: "C" }
+                ],
+                table: `
+                    <thead>
+                        <tr class="bg-stone-100 text-stone-800 text-xs uppercase">
+                            <th class="p-3 border">구역</th>
+                            <th class="p-3 border">정의</th>
+                            <th class="p-3 border">CCD 작동 원리 해당 매칭 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs text-stone-700">
+                        <tr>
+                            <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Phenomenon)</td>
+                            <td class="p-3 border bg-rose-50">원리적 현상</td>
+                            <td class="p-3 border">렌즈 유입 빛 에너지에 따른 다이오드 내부 전자의 생성 반응.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold text-emerald-600 bg-emerald-50">R (Process)</td>
+                            <td class="p-3 border bg-emerald-50">인과적 공정</td>
+                            <td class="p-3 border">인가된 클록 제어 전압을 따라 전하 무리가 전달되어 이진 부호(Digital)로 인코딩되는 메커니즘.</td>
+                        </tr>
+                    </tbody>
+                `,
+                quizzes: [
+                    { q: "1. 다이오드에 쪼여주는 빛의 세기가 약할수록 포토다이오드에 쌓이는 전자 수는 더 증가한다.", ans: "X", exp: "빛의 세기와 생성되는 전자의 수는 완전한 '정비례' 관계이므로 약한 빛일 때는 전자 수도 감소합니다." },
+                    { q: "2. ADC(아날로그-디지털 컨버터)는 전송된 아날로그 전압량을 디지털 정보로 가공해 준다.", ans: "O", exp: "ADC는 연속적 신호를 유한한 자릿수의 0과 1 데이터로 부호화하는 핵심 부품입니다." }
                 ]
             }
+        ];
+
+        // 2. RUNTIME ARCHITECTURAL CONTROLLERS
+        let works = [...initialWorks];
+        let currentCategory = 'all';
+        let activeWork = null;
+        let selectedAnswers = {};
+
+        // On Page Load Initialization
+        window.onload = function() {
+            renderWorksList();
+            updateCategoryCounts();
         };
 
-        // Active State
-        let currentWork = 'jemang';
-        let answeredQuestions = {};
-
-        // Switch Tab Function
-        function switchWork(workKey) {
-            currentWork = workKey;
-            
-            // Toggle Tab Buttons active state
-            const btnJemang = document.getElementById('btn-jemang');
-            const btnSokmi = document.getElementById('btn-sokmi');
-            
-            if (workKey === 'jemang') {
-                btnJemang.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-brand-gold text-brand-navy shadow-inner";
-                btnSokmi.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700";
-                document.getElementById('relationship-map-box').classList.add('hidden');
-            } else {
-                btnJemang.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700";
-                btnSokmi.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 bg-brand-gold text-brand-navy shadow-inner";
-                document.getElementById('relationship-map-box').classList.remove('hidden');
-            }
-
-            renderContent();
+        // Get Category Count
+        function getCategoryCount(cat) {
+            if (cat === 'all') return works.length;
+            return works.filter(w => w.category === cat).length;
         }
 
-        // Render Page based on State
-        function renderContent() {
-            const data = workData[currentWork];
+        // Update Category Counts Badges
+        function updateCategoryCounts() {
+            const categories = ['all', 'classic_poetry', 'classic_novel', 'modern_poetry', 'modern_novel', 'reading'];
+            categories.forEach(cat => {
+                const badge = document.getElementById(`count-${cat}`);
+                if (badge) {
+                    badge.innerText = getCategoryCount(cat);
+                }
+            });
+        }
 
-            // Render Meta Header
-            document.getElementById('meta-curriculum').innerText = data.curriculum;
-            document.getElementById('meta-title').innerText = data.title;
-            document.getElementById('meta-author').innerText = data.author;
-            document.getElementById('meta-hook').innerHTML = `"${data.hook}"`;
+        // Set Nav Category
+        function setCategory(cat) {
+            currentCategory = cat;
+            
+            // Set nav buttons classes
+            const navButtons = document.querySelectorAll('#category-nav button');
+            navButtons.forEach(btn => {
+                btn.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center";
+            });
 
-            // Render SECTION 0 (핵심 개관 정리)
-            const s0Grid = document.getElementById('section-0-grid');
-            s0Grid.innerHTML = '';
-            data.sect0.forEach(item => {
-                s0Grid.innerHTML += `
-                    <div class="bg-[#FAF9F5] p-4 rounded-xl border border-stone-200 shadow-sm">
-                        <span class="text-xs text-brand-gold font-bold uppercase tracking-wider block mb-1">${item.label}</span>
-                        <p class="text-sm font-bold text-stone-800 leading-relaxed">${item.value}</p>
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) {
+                activeBtn.className = "w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-navy text-white flex justify-between items-center";
+            }
+
+            // Category title maps
+            const titleElement = document.getElementById('active-category-title');
+            const titles = {
+                all: "전체 등록 지문",
+                classic_poetry: "고전 시가 지문 분석",
+                classic_novel: "고전 산문 지문 분석",
+                modern_poetry: "현대시 지문 분석",
+                modern_novel: "현대 소설/산문 분석",
+                reading: "독서 (비문학) 지문 분석"
+            };
+            titleElement.innerText = titles[cat] || "전체 등록 지문";
+
+            goBackToList();
+            renderWorksList();
+        }
+
+        // Filter Works inside search
+        function filterWorks() {
+            renderWorksList();
+        }
+
+        // Render Cards
+        function renderWorksList() {
+            const grid = document.getElementById('works-grid');
+            const searchVal = document.getElementById('global-search').value.toLowerCase();
+            
+            grid.innerHTML = '';
+
+            let filtered = works;
+            
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(w => w.category === currentCategory);
+            }
+
+            if (searchVal) {
+                filtered = filtered.filter(w => 
+                    w.title.toLowerCase().includes(searchVal) || 
+                    w.author.toLowerCase().includes(searchVal) ||
+                    w.hook.toLowerCase().includes(searchVal)
+                );
+            }
+
+            document.getElementById('result-count').innerText = `총 ${filtered.length}개 작품 등록됨`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 text-center py-12 text-stone-400 bg-brand-beige rounded-2xl border border-dashed border-stone-300">
+                        <i class="fa-solid fa-folder-open text-4xl mb-3 block text-stone-300"></i>
+                        <p class="text-xs">조건에 맞는 분석 지문이 아직 없습니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(work => {
+                let catBadgeColor = 'bg-stone-100 text-stone-700';
+                if(work.category.includes('poetry')) catBadgeColor = 'bg-rose-100 text-rose-800';
+                if(work.category.includes('novel')) catBadgeColor = 'bg-blue-100 text-blue-800';
+                if(work.category.includes('reading')) catBadgeColor = 'bg-teal-100 text-teal-800';
+
+                grid.innerHTML += `
+                    <div onclick="loadWorkDetail('${work.id}')" class="bg-brand-beige p-5 rounded-2xl border border-stone-200 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-1.5 h-full bg-brand-gold opacity-0 group-hover:opacity-100 transition-all"></div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${catBadgeColor}">${getCategoryKorean(work.category)}</span>
+                                <span class="text-[9px] text-stone-400 font-mono">${work.curriculum}</span>
+                            </div>
+                            <h4 class="text-base font-bold text-stone-800 serif-title leading-snug group-hover:text-brand-gold transition-colors">${work.title}</h4>
+                            <p class="text-[10px] text-stone-400 mt-0.5">${work.author}</p>
+                            <p class="text-[11px] text-stone-600 mt-3 line-clamp-2 leading-relaxed italic">"${work.hook}"</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-stone-100 flex justify-between items-center text-[10px] text-brand-gold font-bold">
+                            <span>지문 정밀 분석 시작</span>
+                            <span><i class="fa-solid fa-chevron-right text-[8px] transition-transform group-hover:translate-x-1"></i></span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Helper
+        function getCategoryKorean(cat) {
+            const dict = {
+                classic_poetry: "고전 시가",
+                classic_novel: "고전 산문",
+                modern_poetry: "현대시",
+                modern_novel: "현대 소설",
+                reading: "독서 (비문학)"
+            };
+            return dict[cat] || cat;
+        }
+
+        // Load specific work detailed view
+        function loadWorkDetail(workId) {
+            const work = works.find(w => w.id === workId);
+            if (!work) return;
+
+            activeWork = work;
+            selectedAnswers = {}; // reset
+
+            document.getElementById('list-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+
+            // Set Banner
+            document.getElementById('detail-curriculum').innerText = work.curriculum;
+            document.getElementById('detail-title').innerText = work.title;
+            document.getElementById('detail-author').innerText = work.author;
+            document.getElementById('detail-hook').innerText = `"${work.hook}"`;
+
+            // Section 0
+            const oGrid = document.getElementById('detail-overview-grid');
+            oGrid.innerHTML = '';
+            work.sect0.forEach(item => {
+                oGrid.innerHTML += `
+                    <div class="bg-[#FAF9F5] p-3 rounded-xl border border-stone-200">
+                        <span class="text-[10px] text-brand-gold font-bold block mb-0.5">${item.label}</span>
+                        <p class="text-xs font-bold text-stone-800 leading-snug">${item.value}</p>
                     </div>
                 `;
             });
 
-            // Render SECTION 1 (은석T의 출제 예언)
-            const s1Grid = document.getElementById('section-1-grid');
-            s1Grid.innerHTML = '';
-            data.sect1.forEach((item, index) => {
-                s1Grid.innerHTML += `
-                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between">
+            // Section 1
+            const pGrid = document.getElementById('detail-prophesy-grid');
+            pGrid.innerHTML = '';
+            work.sect1.forEach((item, idx) => {
+                pGrid.innerHTML += `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between text-xs">
                         <div>
-                            <span class="text-xs text-brand-gold font-serif font-black block mb-2">💡 POINT 0${index + 1}</span>
-                            <h4 class="text-sm font-bold text-slate-100 serif-title leading-snug mb-2">${item.title}</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
+                            <span class="text-[10px] text-brand-gold font-mono font-black block mb-2">⚡ POINT 0${idx+1}</span>
+                            <h4 class="font-bold text-slate-100 serif-title leading-snug mb-1.5">${item.title}</h4>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">${item.desc}</p>
                         </div>
                     </div>
                 `;
             });
 
-            // Render SECTION 3 (메커니즘 가로축 흐름도)
-            const flowContainer = document.getElementById('flow-diagram-container');
-            flowContainer.className = `grid ${data.diagramCols} gap-4 items-stretch`;
+            // Section 2 (Lines)
+            const textContainer = document.getElementById('detail-text-container');
+            textContainer.innerHTML = '';
+            work.lines.forEach((line, index) => {
+                let borderTypeClass = line.type === 'O' ? 'border-l-4 border-rose-400 pl-3 bg-rose-50/20' : 'border-l-4 border-emerald-400 pl-3 bg-emerald-50/20';
+                let indicatorTag = line.type === 'O' ? '<span class="text-[9px] uppercase font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded">세계/장벽(O)</span>' : '<span class="text-[9px] uppercase font-bold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded">자아/반응(R)</span>';
+                
+                textContainer.innerHTML += `
+                    <div class="p-2 rounded-lg transition-all duration-200 hover:bg-stone-100 cursor-pointer ${borderTypeClass}" onclick="showDetailTooltip(${index})">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[10px] text-stone-400 font-mono font-bold">Line 0${index + 1}</span>
+                            ${indicatorTag}
+                        </div>
+                        <div class="text-stone-800 font-bold font-serif text-sm hover:text-brand-gold transition-colors">${line.original}</div>
+                        <div class="text-[11px] text-stone-500 mt-0.5 italic">${line.trans}</div>
+                    </div>
+                `;
+            });
+
+            // Reset Right Tooltip Helper Panel
+            document.getElementById('detail-tooltip-display').innerHTML = `
+                <div class="text-center py-12 text-stone-400">
+                    <i class="fa-solid fa-hand-pointer text-3xl mb-3 block text-stone-300"></i>
+                    <p class="text-xs">왼쪽 원문 구절을 선택하면,<br><span class="text-brand-gold font-bold">대수능급 마스터 주석</span>이 실시간 표기됩니다.</p>
+                </div>
+            `;
+
+            // Section 3: Flow diagram
+            const flowContainer = document.getElementById('detail-flow-container');
+            flowContainer.className = `grid ${work.diagramCols} gap-4 items-stretch`;
             flowContainer.innerHTML = '';
-            data.diagram.forEach((item, idx) => {
+            work.diagram.forEach((item, idx) => {
                 let colorClass = '';
                 let borderClass = '';
                 if(item.type === 'ego') {
@@ -819,174 +963,309 @@
                 }
 
                 flowContainer.innerHTML += `
-                    <div class="bg-white p-5 rounded-xl border-2 ${borderClass} relative flex flex-col justify-between shadow-sm transition-all hover:shadow-md">
+                    <div class="bg-white p-4 rounded-xl border-2 ${borderClass} relative flex flex-col justify-between shadow-sm">
                         <div>
-                            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-black uppercase ${colorClass} mb-3">${item.title}</span>
-                            <p class="text-xs text-stone-700 leading-relaxed">${item.desc}</p>
+                            <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${colorClass} mb-2">${item.title}</span>
+                            <p class="text-[11px] text-stone-700 leading-relaxed">${item.desc}</p>
                         </div>
-                        <div class="text-right mt-4 text-stone-300 font-bold text-sm">
-                            ${idx < data.diagram.length - 1 ? '<span class="hidden md:inline"><i class="fa-solid fa-angles-right text-brand-gold"></i></span><span class="md:hidden"><i class="fa-solid fa-angles-down text-brand-gold"></i></span>' : '🏆 완결'}
+                        <div class="text-right mt-3 text-stone-300 font-bold text-xs">
+                            ${idx < work.diagram.length - 1 ? '<span>➔</span>' : '🏆 완결'}
                         </div>
                     </div>
                 `;
             });
 
-            // Render SECTION 3 Table
-            document.getElementById('mech-table').innerHTML = data.table;
-
-            // Render SECTION 4 Versus Card
-            document.getElementById('versus-card').innerHTML = data.versus;
-
-            // Render Signatures
-            document.getElementById('unseok-comment').innerHTML = data.unseok;
-            document.getElementById('trap-comment').innerHTML = data.trap;
-            document.getElementById('summary-comment').innerHTML = data.summary;
-
-            // Render Document Viewer (Section 2)
-            const textContainer = document.getElementById('text-container');
-            textContainer.innerHTML = '';
-            data.lines.forEach((line, index) => {
-                let borderTypeClass = line.type === 'O' ? 'border-l-4 border-rose-400 pl-3 bg-rose-50/20' : 'border-l-4 border-emerald-400 pl-3 bg-emerald-50/20';
-                let indicatorTag = line.type === 'O' ? '<span class="text-[10px] uppercase font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded">장벽/세계(O)</span>' : '<span class="text-[10px] uppercase font-bold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded">자아/반응(R)</span>';
-                
-                textContainer.innerHTML += `
-                    <div class="p-3 rounded-lg transition-all duration-200 hover:bg-stone-100 cursor-pointer ${borderTypeClass}" onclick="showTooltip(${index})">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs text-stone-400 font-mono font-bold">Line 0${index + 1}</span>
-                            ${indicatorTag}
+            // Novel Relational Graph
+            const relationsCard = document.getElementById('detail-relations-card');
+            if (work.id === 'sokmi') {
+                relationsCard.classList.remove('hidden');
+                relationsCard.innerHTML = `
+                    <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-sitemap"></i> 입체적 가계도 및 인물관계도</h4>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-6 py-4 text-xs">
+                        <div class="w-48 bg-white p-3 rounded-xl border border-blue-200 text-center shadow-sm">
+                            <span class="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded">보조적 화자 [E1]</span>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title">여인 1 (을녀)</h5>
                         </div>
-                        <div class="text-stone-800 font-bold font-serif text-base hover:text-brand-gold transition-colors">${line.original}</div>
-                        <div class="text-xs text-stone-500 mt-1 italic">${line.trans}</div>
+                        <span class="text-slate-400 font-bold">↔ 대화 ↔</span>
+                        <div class="w-48 bg-white p-3 rounded-xl border border-emerald-200 text-center shadow-sm">
+                            <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded">중심적 화자 [E2]</span>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title">여인 2 (갑녀)</h5>
+                        </div>
+                        <span class="text-rose-400 font-bold">➔ 사모 ➔</span>
+                        <div class="w-48 bg-white p-3 rounded-xl border border-rose-200 text-center shadow-sm">
+                            <span class="bg-rose-100 text-rose-800 text-[9px] font-bold px-1.5 py-0.5 rounded">시적 대상 [O]</span>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title">임 (선조 임금)</h5>
+                        </div>
                     </div>
                 `;
-            });
+            } else {
+                relationsCard.classList.add('hidden');
+            }
 
-            // Reset Tooltip Display to default
-            document.getElementById('tooltip-display').innerHTML = `
-                <div class="text-center py-12 text-stone-400">
-                    <i class="fa-solid fa-hand-pointer text-4xl mb-3 block text-stone-300"></i>
-                    <p class="text-sm">원하는 지문 구절을 클릭하면, <br><span class="text-brand-gold font-bold">은석T의 1등급 마스터 해설</span>이 이곳에 활성화됩니다.</p>
-                </div>
-            `;
+            document.getElementById('detail-table-content').innerHTML = work.table;
+            document.getElementById('detail-versus').innerHTML = work.versus;
+            document.getElementById('detail-unseok-comment').innerHTML = work.unseok;
+            document.getElementById('detail-trap-comment').innerHTML = work.trap;
+            document.getElementById('detail-summary-comment').innerHTML = work.summary;
 
-            // Render Interactive Quiz Section
-            renderQuiz();
+            renderDetailQuiz();
         }
 
-        // Show Tooltip based on Line Index
-        function showTooltip(index) {
-            const data = workData[currentWork].lines[index];
-            const display = document.getElementById('tooltip-display');
-            
-            let badgeClass = data.type === 'O' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800';
-            
-            display.innerHTML = `
+        // Show Tooltip for Active Line in detail
+        function showDetailTooltip(lineIdx) {
+            const line = activeWork.lines[lineIdx];
+            const panel = document.getElementById('detail-tooltip-display');
+            let badgeClass = line.type === 'O' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800';
+
+            panel.innerHTML = `
                 <div class="space-y-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-xs font-bold text-brand-gold">LINE 0${index + 1} 상세 분석</span>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeClass}">${data.type === 'O' ? '세계/장벽' : '자아/반응'}</span>
+                        <span class="text-[10px] font-bold text-brand-gold">LINE 0${lineIdx + 1} 상세 분석</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded ${badgeClass}">${line.type === 'O' ? '세계/장벽' : '자아/반응'}</span>
                     </div>
                     <div>
-                        <span class="text-xs text-stone-400 block mb-0.5">원본 구절</span>
-                        <p class="text-sm font-bold font-serif text-stone-800 bg-stone-50 p-2 rounded border border-stone-200">${data.original}</p>
+                        <span class="text-[10px] text-stone-400 block mb-0.5">원본 구절</span>
+                        <p class="text-xs font-bold font-serif text-stone-800 bg-stone-50 p-2 border rounded border-stone-200">${line.original}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-stone-400 block mb-0.5">현대어 번역</span>
-                        <p class="text-xs text-stone-600 italic leading-relaxed">${data.trans}</p>
+                        <span class="text-[10px] text-stone-400 block mb-0.5">현대어 번역</span>
+                        <p class="text-[11px] text-stone-600 italic leading-relaxed">${line.trans}</p>
                     </div>
-                    <div class="bg-[#FCFCF9] border-l-4 border-brand-gold p-3 rounded shadow-inner">
-                        <span class="text-xs font-bold text-brand-navy block mb-1"><i class="fa-solid fa-award text-brand-gold"></i> 은석쌤의 핵심 명품 키</span>
-                        <p class="text-xs text-stone-700 leading-relaxed">${data.note}</p>
+                    <div class="bg-[#FCFCF9] border-l-4 border-brand-gold p-3 rounded shadow-inner text-xs">
+                        <span class="text-[10px] font-bold text-brand-navy block mb-1"><i class="fa-solid fa-award text-brand-gold"></i> 은석쌤 핵심 명품 키</span>
+                        <p class="text-[11px] text-stone-700 leading-relaxed">${line.note}</p>
                     </div>
                 </div>
             `;
         }
 
-        // Render Quiz for selected Work
-        function renderQuiz() {
-            const container = document.getElementById('quiz-container');
+        // Render detailed quizzes
+        function renderDetailQuiz() {
+            const container = document.getElementById('detail-quiz-container');
             container.innerHTML = '';
-            answeredQuestions = {};
-            document.getElementById('quiz-score').innerText = '';
+            document.getElementById('detail-quiz-score').innerText = '';
 
-            const quizzes = workData[currentWork].quizzes;
-
-            quizzes.forEach((q, idx) => {
+            activeWork.quizzes.forEach((q, idx) => {
                 container.innerHTML += `
-                    <div class="bg-stone-800 p-5 rounded-xl border border-stone-700">
-                        <p class="text-sm text-stone-200 font-bold leading-relaxed mb-4">${q.q}</p>
-                        <div class="flex gap-4 mb-3">
-                            <button onclick="selectQuizAnswer(${idx}, 'O')" id="quiz-${idx}-O" class="px-6 py-2 rounded-lg text-sm font-bold border border-stone-600 bg-stone-700 text-stone-300 hover:bg-stone-600 transition-all">O (그렇다)</button>
-                            <button onclick="selectQuizAnswer(${idx}, 'X')" id="quiz-${idx}-X" class="px-6 py-2 rounded-lg text-sm font-bold border border-stone-600 bg-stone-700 text-stone-300 hover:bg-stone-600 transition-all">X (아니다)</button>
+                    <div class="bg-stone-800 p-4 rounded-xl border border-stone-700 text-xs">
+                        <p class="font-bold text-stone-200 mb-3 leading-relaxed">${q.q}</p>
+                        <div class="flex gap-3">
+                            <button onclick="selectDetailAnswer(${idx}, 'O')" id="det-o-${idx}" class="bg-stone-700 border border-stone-600 hover:bg-stone-600 px-4 py-1.5 rounded-lg text-stone-300 font-bold transition-all">O</button>
+                            <button onclick="selectDetailAnswer(${idx}, 'X')" id="det-x-${idx}" class="bg-stone-700 border border-stone-600 hover:bg-stone-600 px-4 py-1.5 rounded-lg text-stone-300 font-bold transition-all">X</button>
                         </div>
-                        <div id="quiz-feedback-${idx}" class="text-xs p-3 rounded-lg hidden mt-3">
-                            <!-- Feedback explanation injected later -->
-                        </div>
+                        <div id="det-feed-${idx}" class="hidden mt-3 p-2.5 rounded-lg text-[11px]"></div>
                     </div>
                 `;
             });
         }
 
-        // Handle Quiz Answer Choice
-        function selectQuizAnswer(index, choice) {
-            answeredQuestions[index] = choice;
-            
-            const btnO = document.getElementById(`quiz-${index}-O`);
-            const btnX = document.getElementById(`quiz-${index}-X`);
+        // Select Quiz
+        function selectDetailAnswer(idx, ans) {
+            selectedAnswers[idx] = ans;
+            const btnO = document.getElementById(`det-o-${idx}`);
+            const btnX = document.getElementById(`det-x-${idx}`);
 
-            if (choice === 'O') {
-                btnO.className = "px-6 py-2 rounded-lg text-sm font-bold border-2 border-emerald-500 bg-emerald-950 text-emerald-400 transition-all";
-                btnX.className = "px-6 py-2 rounded-lg text-sm font-bold border border-stone-600 bg-stone-700 text-stone-300 hover:bg-stone-600 transition-all";
+            if (ans === 'O') {
+                btnO.className = "border-2 border-emerald-500 bg-emerald-950 text-emerald-400 px-4 py-1.5 rounded-lg font-bold transition-all";
+                btnX.className = "bg-stone-700 border border-stone-600 hover:bg-stone-600 px-4 py-1.5 rounded-lg text-stone-300 font-bold transition-all";
             } else {
-                btnO.className = "px-6 py-2 rounded-lg text-sm font-bold border border-stone-600 bg-stone-700 text-stone-300 hover:bg-stone-600 transition-all";
-                btnX.className = "px-6 py-2 rounded-lg text-sm font-bold border-2 border-rose-500 bg-rose-950 text-rose-400 transition-all";
+                btnO.className = "bg-stone-700 border border-stone-600 hover:bg-stone-600 px-4 py-1.5 rounded-lg text-stone-300 font-bold transition-all";
+                btnX.className = "border-2 border-rose-500 bg-rose-950 text-rose-400 px-4 py-1.5 rounded-lg font-bold transition-all";
             }
         }
 
-        // Check All Quiz Answers
-        function gradeQuiz() {
-            const quizzes = workData[currentWork].quizzes;
-            let correctCount = 0;
-            let answeredCount = 0;
+        // Grade quizzes
+        function gradeDetailQuiz() {
+            const quizzes = activeWork.quizzes;
+            let count = 0;
 
             quizzes.forEach((q, idx) => {
-                const userAns = answeredQuestions[idx];
-                const feedbackDiv = document.getElementById(`quiz-feedback-${idx}`);
-                feedbackDiv.classList.remove('hidden');
+                const ans = selectedAnswers[idx];
+                const feed = document.getElementById(`det-feed-${idx}`);
+                feed.classList.remove('hidden');
 
-                if (userAns) {
-                    answeredCount++;
-                    if (userAns === q.ans) {
-                        correctCount++;
-                        feedbackDiv.className = "text-xs p-3 rounded-lg mt-3 bg-emerald-950/40 text-emerald-300 border border-emerald-800";
-                        feedbackDiv.innerHTML = `
-                            <p class="font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> 정답입니다!</p>
-                            <p class="mt-1 text-stone-300 leading-relaxed">${q.exp}</p>
-                        `;
+                if (ans) {
+                    if (ans === q.ans) {
+                        count++;
+                        feed.className = "mt-3 p-2.5 rounded-lg text-[11px] bg-emerald-950/40 text-emerald-400 border border-emerald-800";
+                        feed.innerHTML = `<span class="font-bold">✔ 정답입니다!</span> <p class="mt-1 text-stone-300">${q.exp}</p>`;
                     } else {
-                        feedbackDiv.className = "text-xs p-3 rounded-lg mt-3 bg-rose-950/40 text-rose-300 border border-rose-800";
-                        feedbackDiv.innerHTML = `
-                            <p class="font-bold flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 오답입니다! (실제 정답: ${q.ans})</p>
-                            <p class="mt-1 text-stone-300 leading-relaxed">${q.exp}</p>
-                        `;
+                        feed.className = "mt-3 p-2.5 rounded-lg text-[11px] bg-rose-950/40 text-rose-400 border border-rose-800";
+                        feed.innerHTML = `<span class="font-bold">✖ 틀렸습니다. (정답: ${q.ans})</span> <p class="mt-1 text-stone-300">${q.exp}</p>`;
                     }
                 } else {
-                    feedbackDiv.className = "text-xs p-3 rounded-lg mt-3 bg-stone-800 text-stone-400 border border-stone-700";
-                    feedbackDiv.innerHTML = `
-                        <p class="font-bold flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> 풀지 않은 문항입니다. (정답: ${q.ans})</p>
-                        <p class="mt-1 text-stone-300 leading-relaxed">${q.exp}</p>
-                    `;
+                    feed.className = "mt-3 p-2.5 rounded-lg text-[11px] bg-stone-800 text-stone-400 border border-stone-700";
+                    feed.innerHTML = `<span class="font-bold">❔ 미입력 (정답: ${q.ans})</span> <p class="mt-1 text-stone-300">${q.exp}</p>`;
                 }
             });
 
-            const scoreDisplay = document.getElementById('quiz-score');
-            scoreDisplay.innerHTML = `<span class="text-brand-gold font-bold">점수 결과</span>: 총 ${quizzes.length}문항 중 <span class="text-emerald-400">${correctCount}문항</span> 정답 맞춤!`;
+            document.getElementById('detail-quiz-score').innerText = `결과: 총 ${quizzes.length}문항 중 ${count}문항 정답!`;
         }
 
-        // On Window Load
-        window.onload = function() {
-            renderContent();
-        };
+        // Go back
+        function goBackToList() {
+            activeWork = null;
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('list-view').classList.remove('hidden');
+        }
+
+        // Toggle Admin CMS Modal
+        function toggleAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Auto Create Dynamic JSON
+        function generateJSONCode() {
+            const id = document.getElementById('admin-id').value.trim();
+            const category = document.getElementById('admin-category').value;
+            const title = document.getElementById('admin-title').value.trim();
+            const author = document.getElementById('admin-author').value.trim();
+            const curriculum = document.getElementById('admin-curriculum').value.trim();
+            const mechType = document.getElementById('admin-mech-type').value;
+            const hook = document.getElementById('admin-hook').value.trim();
+            
+            const s0_1 = document.getElementById('admin-sec0-1').value.trim();
+            const s0_2 = document.getElementById('admin-sec0-2').value.trim();
+            const s0_3 = document.getElementById('admin-sec0-3').value.trim();
+            const s0_4 = document.getElementById('admin-sec0-4').value.trim();
+
+            if (!id || !title) {
+                showToast("오류", "작품 ID와 작품 제목은 필수 입력 사항입니다!", "error");
+                return;
+            }
+
+            const newObj = {
+                id: id,
+                category: category,
+                title: title,
+                author: author || "작가 미상",
+                curriculum: curriculum || "자체 연계 과정",
+                hook: hook || "지문의 핵심을 가르는 은석쌤의 시그니처 한마디를 적어주세요.",
+                sect0: [
+                    { label: "갈래", value: s0_1 || "미분류" },
+                    { label: "성격", value: s0_2 || "미분류" },
+                    { label: "제재", value: s0_3 || "미분류" },
+                    { label: "주제", value: s0_4 || "미분류" }
+                ],
+                sect1: [
+                    { title: "첫 번째 핵심 특징", desc: "주요 출제 원리나 지문의 핵심을 분석하여 기입하십시오." },
+                    { title: "두 번째 핵심 특징", desc: "개념간의 상반된 개념이나 전개 방식의 차이를 짚어줍니다." },
+                    { title: "세 번째 핵심 특징", desc: "출제 경향성 분석을 기초로 상세히 설명하세요." },
+                    { title: "네 번째 핵심 특징", desc: "상징적 시어나 중심 소재의 의미를 서술하세요." },
+                    { title: "다섯 번째 핵심 특징", desc: "이별의 양상이나 서사적 갈등 단계를 작성해 줍니다." }
+                ],
+                diagram: mechType === '4cols' ? [
+                    { type: 'ego', title: 'E (자아/인물)', desc: '지문에 등장하는 주동 자아 또는 핵심 인물의 특성 기술.' },
+                    { type: 'obj', title: 'O (세계/장벽)', desc: '자아를 억압하거나 가로막는 갈등 대상 또는 비문학의 기술적 한계 원리 기입.' },
+                    { type: 'react', title: 'R (자아의 반응)', desc: '장벽에 마주해 헤쳐 나가는 자아의 정서, 대응 방식, 작동 설계 분석.' },
+                    { type: 'char', title: 'C (표현적 특징)', desc: '전지적 시점, 극적 대화체, 상징적 매개체 등 핵심 형식 특징 기입.' }
+                ] : [
+                    { type: 'obj', title: 'O (상황/세계)', desc: '화자/작가가 맞닥뜨린 자연 현상이나 한계적 환경 기입.' },
+                    { type: 'react', title: 'R (자아의 반응)', desc: '환경에 대해 화자가 취하는 서정적 수긍, 종교적 승화 등 감정 매칭.' },
+                    { type: 'char', title: 'C (표현적 특징)', desc: '영탄, 대구, 자연물 빗댐 등 지문 대표 수사 기법 기입.' }
+                ],
+                diagramCols: mechType === '4cols' ? "grid-cols-1 md:grid-cols-4" : "grid-cols-1 md:grid-cols-3",
+                versus: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="border-r border-stone-200 pr-6">
+                            <h5 class="font-bold text-stone-700 mb-2">대립 요소 A</h5>
+                            <p class="text-[11px] text-stone-600">지문에서 비례하거나 밝은 성격을 가지는 시어 또는 원리 기술.</p>
+                        </div>
+                        <div class="pl-0 md:pl-6">
+                            <h5 class="font-bold text-stone-700 mb-2">대립 요소 B</h5>
+                            <p class="text-[11px] text-stone-600">지문에서 반대되거나 어두운 성격을 가지는 시어 또는 원리 기술.</p>
+                        </div>
+                    </div>
+                `,
+                unseok: "<p>여기에 본문 전체를 관통하는 은석쌤만의 명쾌한 평가를 기입하세요.</p>",
+                trap: "<p class='text-rose-700 font-bold'>1. 주의점:</p><p class='mb-2'>내신/수능 기출문제 출제진이 가장 매혹적으로 만드는 가짜 오답 트랩을 폭로하세요.</p>",
+                summary: "<p>✔️ <strong>핵심 기입 1</strong>: 특징 분석 정리<br>✔️ <strong>핵심 기입 2</strong>: 특징 분석 정리</p>",
+                lines: [
+                    { original: "여기에 분석할 지문 원문을 적어 넣으십시오.", trans: "원문에 대한 쉬운 풀이 및 직역을 매칭시키십시오.", note: "수험생이 무조건 외워 가야 할 내신 적중 핵심 주석을 기입하십시오.", type: "O" },
+                    { original: "두 번째 분석 구절을 적어 넣으십시오.", trans: "두 번째 구절에 대한 해독을 매칭시키십시오.", note: "시조 종장의 수사법적 기원이나 단어의 상징적 결합에 대해 적으세요.", type: "R" }
+                ],
+                table: `
+                    <thead>
+                        <tr class="bg-stone-100 text-stone-800 text-xs uppercase">
+                            <th class="p-3 border">구역</th>
+                            <th class="p-3 border">정의</th>
+                            <th class="p-3 border">상세 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs text-stone-700">
+                        <tr>
+                            <td class="p-3 border font-bold text-rose-600 bg-rose-50">O (Situation)</td>
+                            <td class="p-3 border bg-rose-50">상황 분석</td>
+                            <td class="p-3 border">내용을 세부적으로 기술하십시오.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold text-emerald-600 bg-emerald-50">R (Reaction)</td>
+                            <td class="p-3 border bg-emerald-50">대응 분석</td>
+                            <td class="p-3 border">내용을 세부적으로 기술하십시오.</td>
+                        </tr>
+                    </tbody>
+                `,
+                quizzes: [
+                    { q: "1. 이 지문에 대한 평가가 올바르게 전개되고 있는지 판단하시오.", ans: "O", exp: "올바른 정답의 구성 근거와 세부 맥락 해설을 기입하십시오." },
+                    { q: "2. 개념의 주체나 작동 원리가 뒤바뀌었는지 판단하시오.", ans: "X", exp: "오류가 발생하는 인과적 결함을 짚어내고 학생에게 주의를 당부하세요." }
+                ]
+            };
+
+            const outputTextarea = document.getElementById('admin-output');
+            outputTextarea.value = JSON.stringify(newObj, null, 4) + ",";
+            showToast("성공", "데이터 코어 생성에 성공했습니다!", "success");
+        }
+
+        // Copy Admin Code to Clipboard & Clipboard API Fallback
+        function copyAdminCode() {
+            const output = document.getElementById('admin-output');
+            if(!output.value) {
+                showToast("경고", "코드를 먼저 생성해 주세요!", "warning");
+                return;
+            }
+            output.select();
+            document.execCommand('copy');
+            showToast("복사 완료", "코드가 클립보드에 자동 복사되었습니다! 깃허브 index.html의 'initialWorks' 내부에 넣고 커밋하세요.", "success");
+        }
+
+        // Sleek Built-in Toast Notification System (Replacement for alert())
+        function showToast(title, message, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let typeColor = "bg-emerald-600 border-emerald-500 text-white";
+            if (type === "error") typeColor = "bg-rose-600 border-rose-500 text-white";
+            if (type === "warning") typeColor = "bg-amber-600 border-amber-500 text-white";
+
+            toast.className = `p-4 rounded-xl border-2 shadow-lg transition-all duration-300 max-w-sm pointer-events-auto flex items-start gap-3 transform translate-y-2 opacity-0 ${typeColor}`;
+            toast.innerHTML = `
+                <div class="text-lg">
+                    ${type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : ''}
+                    ${type === 'error' ? '<i class="fa-solid fa-circle-xmark"></i>' : ''}
+                    ${type === 'warning' ? '<i class="fa-solid fa-triangle-exclamation"></i>' : ''}
+                </div>
+                <div>
+                    <h5 class="font-bold text-xs uppercase tracking-wide mb-0.5">${title}</h5>
+                    <p class="text-[11px] leading-relaxed">${message}</p>
+                </div>
+            `;
+
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            // Remove toast
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
     </script>
 </body>
 </html>
