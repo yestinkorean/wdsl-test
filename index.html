@@ -75,17 +75,17 @@
     <!-- MAIN PORTAL HEADER -->
     <header class="bg-brand-navy text-white py-4 shadow-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="goBackToList()">
+            <div class="flex items-center gap-3 cursor-pointer animate-fade-in" onclick="goBackToList()">
                 <div class="bg-brand-gold text-brand-navy font-black rounded-lg w-10 h-10 flex items-center justify-center text-xl shadow-md">銀</div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight serif-title text-brand-gold">양은석 국어 문학 분석 포털</h1>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight serif-title text-brand-gold font-serif">양은석 국어 문학 분석 포털</h1>
                     <p class="text-[10px] text-slate-400">원당에스엘프라임학원 최상위권 전용 자아-세계 문학 분석 도구</p>
                 </div>
             </div>
             
             <div class="flex flex-wrap gap-2 items-center justify-center w-full md:w-auto">
                 <button onclick="toggleUploadModal()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow w-full sm:w-auto justify-center">
-                    <i class="fa-solid fa-file-pdf"></i> 📂 문학 분석 PDF 실시간 등록
+                    <i class="fa-solid fa-screwdriver-wrench"></i> ⚙️ 신규 문학 등록 / 통합 관리자
                 </button>
                 <div class="relative w-full sm:w-60">
                     <input type="text" id="global-search" oninput="filterWorks()" placeholder="작품명, 작가, 키워드 검색..." class="bg-slate-800 text-slate-200 text-xs px-3 py-2 pl-8 rounded-lg border border-slate-700 focus:outline-none focus:border-brand-gold w-full">
@@ -95,7 +95,7 @@
         </div>
     </header>
 
-    <!-- TOAST NOTIFICATIONS -->
+    <!-- TOAST NOTIFICATIONS (No browser alerts allowed) -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
     <!-- MAIN PORTAL BODY -->
@@ -109,19 +109,19 @@
                 </h3>
                 <nav class="space-y-1" id="category-nav">
                     <button onclick="setCategory('all')" id="cat-all" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-navy text-white flex justify-between items-center">
-                        <span>🚀 전체 문학 작품 목록</span> <span id="count-all" class="bg-slate-700 text-slate-300 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        <span>🚀 전체 문학 작품 목록</span> <span id="count-all" class="bg-slate-700 text-slate-300 text-[10px] px-2 py-0.5 rounded-full font-mono">0</span>
                     </button>
                     <button onclick="setCategory('classic_poetry')" id="cat-classic_poetry" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
-                        <span>🌸 고전 시가</span> <span id="count-classic_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        <span>🌸 고전 시가</span> <span id="count-classic_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">0</span>
                     </button>
                     <button onclick="setCategory('classic_novel')" id="cat-classic_novel" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
-                        <span>📜 고전 산문</span> <span id="count-classic_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        <span>📜 고전 산문</span> <span id="count-classic_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">0</span>
                     </button>
                     <button onclick="setCategory('modern_poetry')" id="cat-modern_poetry" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
-                        <span>🍃 현대시</span> <span id="count-modern_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        <span>🍃 현대시</span> <span id="count-modern_poetry" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">0</span>
                     </button>
                     <button onclick="setCategory('modern_novel')" id="cat-modern_novel" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-stone-600 hover:bg-stone-100 flex justify-between items-center">
-                        <span>📖 현대 소설/산문</span> <span id="count-modern_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        <span>📖 현대 소설/산문</span> <span id="count-modern_novel" class="bg-stone-200 text-stone-600 text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">0</span>
                     </button>
                 </nav>
             </div>
@@ -129,13 +129,13 @@
             <!-- ACADEMY CORE INFO CARD -->
             <div class="bg-gradient-to-br from-brand-navy to-slate-800 text-white rounded-2xl p-5 border border-slate-700 shadow-md relative overflow-hidden">
                 <div class="absolute -right-4 -bottom-4 text-slate-700 text-7xl font-black select-none opacity-20">WDSL</div>
-                <h4 class="serif-title text-brand-gold font-bold text-base mb-2">원당에스엘프라임</h4>
+                <h4 class="serif-title text-brand-gold font-bold text-base mb-2 font-serif">원당에스엘프라임</h4>
                 <p class="text-xs text-slate-300 leading-relaxed">
                     본 시스템은 양은석 국어 연구소에서 직접 특허 설계한 문학 전용 분석 포털입니다. 지문 텍스트 분석에 최적화되어 자아(E)와 세계(O)의 유기적인 메커니즘을 훈련합니다.
                 </p>
                 <div class="mt-4 pt-3 border-t border-slate-700 flex justify-between items-center text-[10px] text-slate-400">
-                    <span>수능/내신 문학 특화 v4.0</span>
-                    <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i> AI 분석 대기중</span>
+                    <span>수능/내신 문학 특화 v4.2</span>
+                    <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i> 포털 안정성 100%</span>
                 </div>
             </div>
         </aside>
@@ -171,7 +171,7 @@
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
                             <span id="detail-curriculum" class="text-[10px] text-brand-gold font-bold uppercase tracking-widest block mb-0.5">교육과정 정보</span>
-                            <h2 id="detail-title" class="text-2xl md:text-3xl font-bold text-stone-800 serif-title">작품 제목</h2>
+                            <h2 id="detail-title" class="text-2xl md:text-3xl font-bold text-stone-800 serif-title font-serif">작품 제목</h2>
                             <p id="detail-author" class="text-xs text-stone-500 mt-0.5">작가 정보</p>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 max-w-lg w-full md:w-auto">
@@ -183,7 +183,7 @@
 
                 <!-- SECTION 0: 핵심 개관 카드 -->
                 <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h3 class="text-sm font-bold text-stone-500 uppercase tracking-widest mb-4 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                    <h3 class="text-sm font-bold text-stone-500 uppercase tracking-widest mb-4 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title font-serif">
                         <i class="fa-solid fa-bookmark text-brand-gold"></i> SECTION 0. 핵심 개관 정리
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="detail-overview-grid">
@@ -194,7 +194,7 @@
                 <!-- SECTION 1: 출제 예언 5대 초압축 포인트 -->
                 <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-lg relative">
                     <div class="absolute top-3 right-4 text-slate-800 text-6xl font-black select-none opacity-20">PROPHESY</div>
-                    <h3 class="text-sm font-bold text-brand-gold uppercase tracking-widest mb-6 flex items-center gap-1.5 serif-title">
+                    <h3 class="text-sm font-bold text-brand-gold uppercase tracking-widest mb-6 flex items-center gap-1.5 serif-title font-serif">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> SECTION 1. 대수능·내신 출제 예언 (5대 초압축 포인트)
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="detail-prophesy-grid">
@@ -206,10 +206,10 @@
                 <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-2 border-b border-stone-200 gap-4">
                         <div>
-                            <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest flex items-center gap-1.5 serif-title">
+                            <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest flex items-center gap-1.5 serif-title font-serif">
                                 <i class="fa-solid fa-magnifying-glass-chart text-brand-gold"></i> SECTION 2. 지문 완전 정복 & 실시간 마스터 툴팁
                             </h3>
-                            <p class="text-[10px] text-stone-400 mt-1">지문의 한 줄을 마우스로 올리거나 탭하면 우측에 실시간 주석 가이드가 표출됩니다.</p>
+                            <p class="text-[10px] text-stone-400 mt-1">지문의 한 줄을 선택하면 우측에 은석쌤의 전설적인 고밀도 핵심 분석 주석이 연동됩니다.</p>
                         </div>
                         <div class="flex items-center gap-4 text-[10px]">
                             <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-200 border border-rose-400 block"></span> 세계/장벽 (O)</span>
@@ -248,7 +248,7 @@
 
                 <!-- SECTION 3: 메커니즘 분석 & 가로축 관계 매칭도 -->
                 <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title font-serif">
                         <i class="fa-solid fa-gears text-brand-gold"></i> SECTION 3. 문학 갈래별 메커니즘 분석
                     </h3>
 
@@ -269,7 +269,7 @@
                     <div>
                         <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-table"></i> 메커니즘 매핑 상세 표</h4>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200" id="detail-table-content">
+                            <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 text-xs" id="detail-table-content">
                                 <!-- Dynamic table content -->
                             </table>
                         </div>
@@ -278,14 +278,14 @@
 
                 <!-- SECTION 4: 대립 구도 및 서술 형식 기법 분석 -->
                 <div class="bg-brand-beige p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title">
+                    <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6 pb-2 border-b border-stone-200 flex items-center gap-1.5 serif-title font-serif">
                         <i class="fa-solid fa-shapes text-brand-gold"></i> SECTION 4. 지문 핵심 대립 및 형식 분석
                     </h3>
 
                     <!-- Core contrast model -->
                     <div class="mb-6">
                         <h4 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3"><i class="fa-solid fa-scale-balanced"></i> 핵심 대조/대립 구조</h4>
-                        <div id="detail-versus" class="bg-[#FAF9F5] p-5 rounded-xl border border-stone-200 text-xs">
+                        <div id="detail-versus" class="bg-[#FAF9F5] p-5 rounded-xl border border-stone-200 text-xs leading-relaxed">
                             <!-- Contrasting features -->
                         </div>
                     </div>
@@ -293,17 +293,17 @@
                     <!-- Teacher Signature blocks -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 relative overflow-hidden text-xs">
-                            <h5 class="font-bold text-amber-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-chalkboard-user"></i> 은석쌤의 한마디</h5>
+                            <h5 class="font-bold text-amber-800 mb-2 flex items-center gap-1 serif-title font-serif"><i class="fa-solid fa-chalkboard-user"></i> 은석쌤의 한마디</h5>
                             <div id="detail-unseok-comment" class="text-amber-950 space-y-1.5 leading-relaxed"></div>
                         </div>
 
                         <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 relative overflow-hidden text-xs">
-                            <h5 class="font-bold text-rose-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-triangle-exclamation"></i> 함정 주의!</h5>
+                            <h5 class="font-bold text-rose-800 mb-2 flex items-center gap-1 serif-title font-serif"><i class="fa-solid fa-triangle-exclamation"></i> 함정 주의!</h5>
                             <div id="detail-trap-comment" class="text-rose-950 space-y-1.5 leading-relaxed"></div>
                         </div>
 
                         <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 relative overflow-hidden text-xs">
-                            <h5 class="font-bold text-emerald-800 mb-2 flex items-center gap-1 serif-title"><i class="fa-solid fa-circle-check"></i> 핵심 기출 포인트</h5>
+                            <h5 class="font-bold text-emerald-800 mb-2 flex items-center gap-1 serif-title font-serif"><i class="fa-solid fa-circle-check"></i> 핵심 기출 포인트</h5>
                             <div id="detail-summary-comment" class="text-emerald-950 space-y-1.5 leading-relaxed"></div>
                         </div>
                     </div>
@@ -312,7 +312,7 @@
                 <!-- OX Check quizzes -->
                 <div class="bg-stone-900 text-white p-6 rounded-2xl shadow-md">
                     <div class="flex justify-between items-center pb-3 border-b border-stone-800 mb-6">
-                        <h3 class="text-lg font-bold serif-title text-brand-gold flex items-center gap-1.5"><i class="fa-solid fa-pen-nib"></i> 실전 1등급 체크 퀴즈</h3>
+                        <h3 class="text-lg font-bold serif-title text-brand-gold flex items-center gap-1.5 font-serif"><i class="fa-solid fa-pen-nib"></i> 실전 1등급 체크 퀴즈</h3>
                         <span class="text-[10px] text-stone-400">즉시 채점 지원</span>
                     </div>
                     <div class="space-y-4" id="detail-quiz-container">
@@ -332,62 +332,116 @@
 
     </div>
 
-    <!-- MODEL: PDF UPLOAD & DYNAMIC ANALYSIS ENGINE -->
+    <!-- UPGRADED SUPER MODEL: INTEGRATED ADMIN PANEL (Import / Export / AI) -->
     <div id="upload-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-xl w-full border border-stone-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full border border-stone-200 overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- Header -->
             <div class="bg-brand-navy text-white p-5 flex justify-between items-center border-b border-brand-gold">
                 <div>
-                    <h3 class="text-lg font-bold serif-title text-brand-gold"><i class="fa-solid fa-file-pdf"></i> 문학 지문 PDF 실시간 AI 분석기</h3>
-                    <p class="text-[10px] text-slate-400">PDF 파일을 선택하면 은석T AI 엔진이 실시간으로 고밀도 문학 지문 분석으로 변환합니다.</p>
+                    <h3 class="text-lg font-bold serif-title text-brand-gold font-serif"><i class="fa-solid fa-gears"></i> 문학 데이터 제어 & 통합 관리자 콘솔</h3>
+                    <p class="text-[10px] text-slate-400">작품을 직접 붙여넣거나 AI 연동을 관리하고 현재 보존된 전체 소스코드를 백업합니다.</p>
                 </div>
                 <button onclick="toggleUploadModal()" class="text-slate-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div class="p-6 space-y-6">
-                <!-- Select File drag area -->
-                <div id="drop-zone" class="border-2 border-dashed border-stone-300 hover:border-brand-gold rounded-xl p-8 text-center bg-stone-50 cursor-pointer transition-all">
-                    <input type="file" id="pdf-file-input" accept="application/pdf" class="hidden" onchange="handleFileSelect(event)">
-                    <div class="space-y-3" onclick="document.getElementById('pdf-file-input').click()">
-                        <i class="fa-solid fa-cloud-arrow-up text-4xl text-stone-400"></i>
-                        <p class="text-xs font-bold text-stone-600">컴퓨터에 있는 분석/시험범위 PDF 파일 선택</p>
-                        <p class="text-[10px] text-stone-400">문학 교과서 지문 및 직전대비 분석자료 호환 가능</p>
+            <!-- Tab Buttons -->
+            <div class="flex border-b border-stone-200 bg-stone-50">
+                <button id="tab-btn-import" onclick="switchAdminTab('import')" class="flex-1 py-3 text-center text-xs font-bold border-b-2 border-brand-gold text-brand-navy bg-white">
+                    <i class="fa-solid fa-file-import mr-1 text-brand-gold"></i> AI 분석 데이터 직접 등록
+                </button>
+                <button id="tab-btn-export" onclick="switchAdminTab('export')" class="flex-1 py-3 text-center text-xs font-bold text-stone-500 hover:text-stone-800 border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-export mr-1 text-slate-500"></i> 백업용 전체 코드 내보내기
+                </button>
+                <button id="tab-btn-pdf" onclick="switchAdminTab('pdf')" class="flex-1 py-3 text-center text-xs font-bold text-stone-500 hover:text-stone-800 border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-pdf mr-1 text-red-500"></i> PDF 실시간 AI 변환 (실험실)
+                </button>
+            </div>
+
+            <!-- Scrollable Content Body -->
+            <div class="p-6 space-y-6 overflow-y-auto flex-1">
+                
+                <!-- TAB 1: DIRECT JSON IMPORT (The Ultimate Solution) -->
+                <div id="tab-content-import" class="space-y-4">
+                    <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-xs text-amber-900 leading-relaxed">
+                        <h4 class="font-bold mb-1"><i class="fa-solid fa-circle-question mr-1"></i> 데이터 직접 등록 사용법</h4>
+                        <p>1. 챗봇 창에서 "이 작품 분석해줘"라고 입력하여 생성된 <strong>JSON 분석 데이터 코드 블록</strong>을 복사합니다.<br>
+                        2. 아래 텍스트 박스에 붙여넣고 <strong>[분석 데이터 즉시 반영하기]</strong> 버튼을 클릭하세요.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-stone-700 block"><i class="fa-solid fa-code text-brand-gold"></i> JSON 분석 코드 입력란</label>
+                        <textarea id="import-json-area" placeholder=' 여기에 분석 결과인 { ... } 형태의 JSON 오브젝트를 붙여넣어 주세요.' class="w-full h-64 p-3 border rounded-xl font-mono text-xs focus:outline-brand-gold bg-stone-900 text-stone-200"></textarea>
+                    </div>
+                    <button onclick="importDirectJSON()" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all shadow flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-brand-gold"></i> 분석 데이터 즉시 반영 및 강제 리로드
+                    </button>
+                </div>
+
+                <!-- TAB 2: EXPORT ALL DATABASE CODE FOR PERMANENT SAVE -->
+                <div id="tab-content-export" class="space-y-4 hidden">
+                    <div class="bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-xs text-emerald-950 leading-relaxed">
+                        <h4 class="font-bold mb-1"><i class="fa-solid fa-circle-info mr-1"></i> 영구 소스코드 저장 기법</h4>
+                        <p>새로 등록한 문학 작품을 영구적으로 저장하기 위해 브라우저 데이터를 아래 코드로 업데이트합니다.<br>
+                        <strong>[전체 데이터 복사]</strong>를 누른 뒤 <strong>index.html</strong> 파일 소스코드 내의 <code>const initialWorks = [ ... ];</code> 영역에 붙여넣기(Overwrite) 하시면 평생 영구적으로 보존됩니다.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold text-stone-700"><i class="fa-solid fa-database text-brand-teal"></i> 현재 포털 내장 전체 데이터베이스</label>
+                            <button onclick="copyExportToClipboard()" class="bg-brand-gold hover:bg-[#D9BF9B] text-brand-navy px-2 py-1 rounded text-[10px] font-bold transition-all">
+                                <i class="fa-solid fa-copy mr-1"></i> 전체 데이터 복사하기
+                            </button>
+                        </div>
+                        <textarea id="export-json-area" readonly class="w-full h-60 p-3 border rounded-xl font-mono text-[10px] bg-slate-100 text-slate-800 focus:outline-none"></textarea>
                     </div>
                 </div>
 
-                <!-- API Key Configuration (Optional Fallback for Standalone) -->
-                <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 text-xs space-y-2">
-                    <div class="flex justify-between items-center" onclick="toggleApiKeyInput()">
-                        <span class="font-bold text-stone-600 cursor-pointer"><i class="fa-solid fa-key mr-1 text-amber-500"></i> Gemini API 개인 키 등록 (선택사양)</span>
-                        <i id="api-chevron" class="fa-solid fa-chevron-down text-stone-400"></i>
+                <!-- TAB 3: LEGACY PDF LIVE AI PARSER (FOR TESTING / STANDALONE) -->
+                <div id="tab-content-pdf" class="space-y-4 hidden">
+                    <!-- Select File drag area -->
+                    <div id="drop-zone" class="border-2 border-dashed border-stone-300 hover:border-brand-gold rounded-xl p-8 text-center bg-stone-50 cursor-pointer transition-all">
+                        <input type="file" id="pdf-file-input" accept="application/pdf" class="hidden" onchange="handleFileSelect(event)">
+                        <div class="space-y-3" onclick="document.getElementById('pdf-file-input').click()">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-stone-400"></i>
+                            <p class="text-xs font-bold text-stone-600">컴퓨터에 있는 분석/시험범위 PDF 파일 선택</p>
+                            <p class="text-[10px] text-stone-400">스캔용 이미지 PDF는 분석 불가하며 오직 텍스트 인식 PDF만 호환 가능합니다.</p>
+                        </div>
                     </div>
-                    <div id="api-key-container" class="hidden">
-                        <input type="password" id="custom-api-key" placeholder="개별 발급된 Gemini API Key 입력..." class="w-full text-[10px] p-2 border rounded-lg focus:outline-brand-gold">
-                        <p class="text-[9px] text-stone-400 mt-1">※ 미입력 시 플랫폼에서 제공하는 기본 환경 인증(Active Runtime Key)으로 원활하게 처리됩니다.</p>
+
+                    <!-- API Key Configuration (Optional Fallback for Standalone) -->
+                    <div class="bg-stone-50 p-3 rounded-lg border border-stone-200 text-xs space-y-2">
+                        <div class="flex justify-between items-center cursor-pointer" onclick="toggleApiKeyInput()">
+                            <span class="font-bold text-stone-600"><i class="fa-solid fa-key mr-1 text-amber-500"></i> Gemini API 개인 키 등록 (선택사항)</span>
+                            <i id="api-chevron" class="fa-solid fa-chevron-down text-stone-400"></i>
+                        </div>
+                        <div id="api-key-container" class="hidden">
+                            <input type="password" id="custom-api-key" placeholder="개별 발급된 Gemini API Key 입력..." class="w-full text-[10px] p-2 border rounded-lg focus:outline-brand-gold">
+                            <p class="text-[9px] text-stone-400 mt-1">※ 미입력 시 플랫폼에서 제공하는 기본 환경 인증(Active Runtime Key)으로 원활하게 처리됩니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Process state animations -->
+                    <div id="analysis-progress" class="hidden space-y-3 bg-slate-900 text-white p-5 rounded-xl border border-slate-800">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-brand-gold flex items-center gap-1.5">
+                                <i class="fa-solid fa-spinner animate-spin"></i> <span id="progress-text">PDF 파일을 처리하는 중...</span>
+                            </span>
+                            <span id="progress-percent" class="text-[10px] text-slate-400 font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div id="progress-bar-fill" class="bg-brand-gold h-full transition-all duration-300 w-0"></div>
+                        </div>
+                        <div class="text-[9px] text-slate-400 space-y-1 font-mono max-h-24 overflow-y-auto" id="progress-logs">
+                            <!-- Status logs inserted -->
+                        </div>
                     </div>
                 </div>
 
-                <!-- Process state animations -->
-                <div id="analysis-progress" class="hidden space-y-3 bg-slate-900 text-white p-5 rounded-xl border border-slate-800">
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="font-bold text-brand-gold flex items-center gap-1.5">
-                            <i class="fa-solid fa-spinner animate-spin"></i> <span id="progress-text">PDF 파일을 처리하는 중...</span>
-                        </span>
-                        <span id="progress-percent" class="text-[10px] text-slate-400">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                        <div id="progress-bar-fill" class="bg-brand-gold h-full transition-all duration-300 w-0"></div>
-                    </div>
-                    <div class="text-[9px] text-slate-400 space-y-1 font-mono" id="progress-logs">
-                        <!-- Status logs inserted -->
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
     <footer class="bg-brand-navy text-slate-400 text-[11px] py-6 text-center border-t border-brand-gold mt-auto">
-        <p class="font-bold text-slate-200 text-xs mb-1 serif-title">원당에스엘프라임학원 | 양은석 국어 연구소</p>
+        <p class="font-bold text-slate-200 text-xs mb-1 serif-title font-serif">원당에스엘프라임학원 | 양은석 국어 연구소</p>
         <p>Copyright © 2026 Yang Eun-Seok Korean Literature Systems. All Rights Reserved.</p>
     </footer>
 
@@ -449,8 +503,8 @@
                     { original: "此矣彼矣浮良落尸葉如 (이에 저에 떨어질 잎처럼,)", trans: "이곳저곳에 정처 없이 떨어지는 낙엽처럼,", note: "떨어질 잎: <strong>죽은 누이</strong>를 직유적으로 시각화함.", type: "O" },
                     { original: "一등隱枝良出古 (한 가지에 나고)", trans: "한 부모의 핏줄(한 가지)에서 다 함께 태어났건만", note: "한 가지: <strong>'한 부모'</strong> 혹은 <strong>'동기(형제자매)'</strong>를 가리키는 비유어.", type: "C" },
                     { original: "去奴隱處毛冬乎丁 (가는 곳 모르온저.)", trans: "어디로 쓸쓸히 가는지 그 행방조차 알지 못하는구나.", note: "가는 곳 모르온저: 인간의 근원적 고독과 <strong>인생무상(人生無常)</strong>의 감정이 극에 달함.", type: "R" },
-                    { original: "阿也彌陀刹良逢乎吾 (아아, 미타찰(彌陀刹)에서 만날 나)", trans: "아아! 서방 정토 극락세계(미타찰)에서 다시 만날 화자 나는", note: "아아: 10구체 향가의 <strong>낙구 감탄사</strong>로, 시상의 대전환점!", type: "C" },
-                    { original: "道修良待시古如 (도(道) 닦아 기다리겠노라.)", trans: "인간의 불도를 정진하며 그날을 경건히 기다리겠노라.", note: "도 닦아 기다리겠노라: 슬픔을 슬픔으로 끝내지 않고, 불심(佛心)으로 이겨내겠다는 <strong>'슬픔의 종교적 승화'</strong>.", type: "R" }
+                    { original: "阿야彌陀刹良逢乎吾 (아아, 미타찰(彌陀刹)에서 만날 나)", trans: "아아! 서방 정토 극락세계(미타찰)에서 다시 만날 화자 나는", note: "아아: 10구체 향가의 <strong>낙구 감탄사</strong>로, 시상의 대전환점!", type: "C" },
+                    { original: "道修良待시고如 (도(道) 닦아 기다리겠노라.)", trans: "인간의 불도를 정진하며 그날을 경건히 기다리겠노라.", note: "도 닦아 기다리겠노라: 슬픔을 슬픔으로 끝내지 않고, 불심(佛心)으로 이겨내겠다는 <strong>'슬픔의 종교적 승화'</strong>.", type: "R" }
                 ],
                 table: `
                     <thead>
@@ -509,11 +563,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
                         <div class="border-r border-stone-200 pr-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-moon text-blue-500"></i> 낙월 (落月) - 여인 2 [갑녀]</h5>
-                            <p class="text-[11px] text-stone-600">임에게 피해를 주지 않고 멀리서 조용히 사모하는 <strong>소극적 형태의 사랑</strong></p>
+                            <p class="text-[11px] text-stone-600 font-sans">임에게 피해를 주지 않고 멀리서 조용히 사모하는 <strong>소극적 형태의 사랑</strong></p>
                         </div>
                         <div class="pl-0 md:pl-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-cloud-showers-heavy text-emerald-500"></i> 궂은비 (구즌비) - 여인 1 [을녀]</h5>
-                            <p class="text-[11px] text-stone-600 font-bold">임의 곁에서 피부로 느껴지게 다가가는 <strong>적극적 형태의 사랑</strong> 권유</p>
+                            <p class="text-[11px] text-stone-600 font-sans font-bold">임의 곁에서 피부로 느껴지게 다가가는 <strong>적극적 형태의 사랑</strong> 권유</p>
                         </div>
                     </div>
                 `,
@@ -584,11 +638,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-xs">
                         <div class="border-r border-stone-200 pr-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-house-user text-blue-500"></i> 남한: 타락한 밀실</h5>
-                            <p class="text-[11px] text-stone-600">정치적 열정과 사회적 소통은 없고, 사적 욕망과 이기주의적인 음모만 가득하여 공동체의 '광장'이 죽어버린 사회.</p>
+                            <p class="text-[11px] text-stone-600 font-sans">정치적 열정과 사회적 소통은 없고, 사적 욕망과 이기주의적인 음모만 가득하여 공동체의 '광장'이 죽어버린 사회.</p>
                         </div>
                         <div class="pl-0 md:pl-6">
                             <h5 class="font-bold text-stone-700 mb-2"><i class="fa-solid fa-people-group text-emerald-500"></i> 북한: 획일화된 광장</h5>
-                            <p class="text-[11px] text-stone-600">진정한 혁명의 주체는 존재하지 않고 꼭두각시처럼 동원되는 메마른 광장만 존재하며, 개인의 고유한 권리인 '밀실'은 감시당하는 통제 사회.</p>
+                            <p class="text-[11px] text-stone-600 font-sans">진정한 혁명의 주체는 존재하지 않고 꼭두각시처럼 동원되는 메마른 광장만 존재하며, 개인의 고유한 권리인 '밀실'은 감시당하는 통제 사회.</p>
                         </div>
                     </div>
                 `,
@@ -598,7 +652,7 @@
                 lines: [
                     { original: "명준은 남한에서 본 것은 광장은 없고 밀실만 가득한 사회였다.", trans: "이명준이 남한에서 목격한 것은 진정한 민주주의적 소통은 부재하고 사적인 욕심만 들끓는 모습이었다.", note: "광장과 밀실의 불균형: 남한 사회의 이기적 구조에 대한 지식인의 실망.", type: "O" },
                     { original: "북한에는 꼭두각시들의 소리만 높은 기만적인 광장만 있었다.", trans: "북한 사회에는 개인의 인격은 묵살된 채 구호만 가득한 텅 빈 광장만이 기계적으로 작동하고 있었다.", note: "기만적인 광장: 북한 체제의 전체주의와 개인 자유 말살에 대한 폭로.", type: "O" },
-                    { original: "그는 남북한 모두의 회유를 거절하고 '중립국'을 소리 높여 외쳤다.", trans: "포로 송환 과정에서 남한 and 북한의 끈질긴 설득을 끝내 뿌리치고 중립국을 강력히 고집했다.", note: "중립국: 남북한 이데올로기 그 어디에도 타협할 수 없는 지식인의 단호한 불복종 행동.", type: "R" },
+                    { original: "그는 남북한 모두의 회유를 거절하고 '중립국'을 소리 높여 외쳤다.", trans: "포로 송환 과정에서 남한과 북한의 끈질긴 설득을 끝내 뿌리치고 중립국을 강력히 고집했다.", note: "중립국: 남북한 이데올로기 그 어디에도 타협할 수 없는 지식인의 단호한 불복종 행동.", type: "R" },
                     { original: "인도양을 가르는 타고르 호 선상에서 그는 바다를 보았다.", trans: "중립국으로 향하는 선상에서 뒤를 따르는 갈매기를 바라보며 운명적인 선택을 준비했다.", note: "갈매기: 은혜와 딸의 화신으로 명준의 마지막 사랑이자 구원의 상징.", type: "C" },
                     { original: "그리고 푸른 바다의 광장으로 뛰어내렸다.", trans: "결국 이념의 질곡이 없는 온전한 자유를 찾아 심해 속으로 뛰어내려 생을 마쳤다.", note: "바다: 이명준이 그토록 찾아 헤매던 광장과 밀실이 완전무결하게 합일되는 초월적 공간.", type: "R" }
                 ],
@@ -640,6 +694,7 @@
         window.onload = function() {
             renderWorksList();
             updateCategoryCounts();
+            syncExportArea(); // Initial sync of backup database
         };
 
         // Get Category count (Excluding Reading and Speech Writing entirely)
@@ -739,7 +794,7 @@
                                 <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${catBadgeColor}">${getCategoryKorean(work.category)}</span>
                                 <span class="text-[9px] text-stone-400 font-mono">${work.curriculum}</span>
                             </div>
-                            <h4 class="text-base font-bold text-stone-800 serif-title leading-snug group-hover:text-brand-gold transition-colors">${work.title}</h4>
+                            <h4 class="text-base font-bold text-stone-800 serif-title leading-snug group-hover:text-brand-gold transition-colors font-serif">${work.title}</h4>
                             <p class="text-[10px] text-stone-400 mt-0.5">${work.author}</p>
                             <p class="text-[11px] text-stone-600 mt-3 line-clamp-2 leading-relaxed italic">"${work.hook}"</p>
                         </div>
@@ -797,10 +852,10 @@
             pGrid.innerHTML = '';
             work.sect1.forEach((item, idx) => {
                 pGrid.innerHTML += `
-                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between text-xs">
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between text-xs min-h-[140px]">
                         <div>
                             <span class="text-[10px] text-brand-gold font-mono font-black block mb-2">⚡ POINT 0${idx+1}</span>
-                            <h4 class="font-bold text-slate-100 serif-title leading-snug mb-1.5">${item.title}</h4>
+                            <h4 class="font-bold text-slate-100 serif-title leading-snug mb-1.5 font-serif">${item.title}</h4>
                             <p class="text-[11px] text-slate-400 leading-relaxed">${item.desc}</p>
                         </div>
                     </div>
@@ -836,7 +891,7 @@
 
             // Section 3: Flow diagram
             const flowContainer = document.getElementById('detail-flow-container');
-            flowContainer.className = `grid ${work.diagramCols} gap-4 items-stretch`;
+            flowContainer.className = `grid ${work.diagramCols || 'grid-cols-1 md:grid-cols-4'} gap-4 items-stretch`;
             flowContainer.innerHTML = '';
             work.diagram.forEach((item, idx) => {
                 let colorClass = '';
@@ -868,7 +923,7 @@
                 `;
             });
 
-            // Character relationship mapping (for novels)
+            // Character relationship mapping (for novels or specialized dual structures)
             const relationsCard = document.getElementById('detail-relations-card');
             if (work.id === 'sokmi') {
                 relationsCard.classList.remove('hidden');
@@ -877,17 +932,17 @@
                     <div class="flex flex-col md:flex-row justify-center items-center gap-6 py-4 text-xs">
                         <div class="w-48 bg-white p-3 rounded-xl border border-blue-200 text-center shadow-sm">
                             <span class="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded">보조적 화자 [E1]</span>
-                            <h5 class="font-bold text-stone-800 mt-1 serif-title">여인 1 (을녀)</h5>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title font-serif">여인 1 (을녀)</h5>
                         </div>
                         <span class="text-slate-400 font-bold">↔ 대화 ↔</span>
                         <div class="w-48 bg-white p-3 rounded-xl border border-emerald-200 text-center shadow-sm">
                             <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded">중심적 화자 [E2]</span>
-                            <h5 class="font-bold text-stone-800 mt-1 serif-title">여인 2 (갑녀)</h5>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title font-serif">여인 2 (갑녀)</h5>
                         </div>
                         <span class="text-rose-400 font-bold">➔ 사모 ➔</span>
                         <div class="w-48 bg-white p-3 rounded-xl border border-rose-200 text-center shadow-sm">
                             <span class="bg-rose-100 text-rose-800 text-[9px] font-bold px-1.5 py-0.5 rounded">시적 대상 [O]</span>
-                            <h5 class="font-bold text-stone-800 mt-1 serif-title">임 (선조 임금)</h5>
+                            <h5 class="font-bold text-stone-800 mt-1 serif-title font-serif">임 (선조 임금)</h5>
                         </div>
                     </div>
                 `;
@@ -902,6 +957,9 @@
             document.getElementById('detail-summary-comment').innerHTML = work.summary;
 
             renderDetailQuiz();
+            
+            // Scroll detail page to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Show live tooltip panel
@@ -1006,11 +1064,11 @@
         function toggleUploadModal() {
             const modal = document.getElementById('upload-modal');
             modal.classList.toggle('hidden');
-            // reset progress display
-            document.getElementById('analysis-progress').classList.add('hidden');
-            document.getElementById('progress-bar-fill').style.width = '0%';
-            document.getElementById('progress-percent').innerText = '0%';
-            document.getElementById('progress-logs').innerHTML = '';
+            
+            // Sync current database with text area when opening modal
+            if (!modal.classList.contains('hidden')) {
+                syncExportArea();
+            }
         }
 
         function toggleApiKeyInput() {
@@ -1021,10 +1079,100 @@
             apiChevron.classList.toggle('fa-chevron-up');
         }
 
-        // ---------------------------------------------------------------------------
-        // 4. CLIENT-SIDE PDF PARSER & GEMINI AI LITERARY ANALYSIS ENGINE
-        // ---------------------------------------------------------------------------
+        // Switch internal Admin Console tabs
+        function switchAdminTab(tabName) {
+            const tabs = ['import', 'export', 'pdf'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                const content = document.getElementById(`tab-content-${t}`);
+                
+                if (t === tabName) {
+                    btn.className = "flex-1 py-3 text-center text-xs font-bold border-b-2 border-brand-gold text-brand-navy bg-white transition-all";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "flex-1 py-3 text-center text-xs font-bold text-stone-500 hover:text-stone-800 border-b-2 border-transparent transition-all";
+                    content.classList.add('hidden');
+                }
+            });
+        }
 
+        // Sync local current data to the Export textarea
+        function syncExportArea() {
+            const area = document.getElementById('export-json-area');
+            if (area) {
+                area.value = JSON.stringify(works, null, 4);
+            }
+        }
+
+        // Copy exported JSON data to clipboard via document.execCommand
+        function copyExportToClipboard() {
+            const area = document.getElementById('export-json-area');
+            area.select();
+            area.setSelectionRange(0, 99999); // For mobile devices
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("복사 성공", "전체 데이터베이스 소스코드가 클립보드에 안전하게 복사되었습니다. index.html에 덮어씌워 보관하세요!", "success");
+                } else {
+                    showToast("복사 실패", "브라우저 보안 제약으로 복사하지 못했습니다. 수동으로 드래그 복사하세요.", "warning");
+                }
+            } catch (err) {
+                showToast("오류 발생", "클립보드 연동 실패: " + err, "error");
+            }
+        }
+
+        // ---------------------------------------------------------------------------
+        // 4. DIRECT JSON IMPORT CONTROLLER (100% Reliable Custom Integration)
+        // ---------------------------------------------------------------------------
+        function importDirectJSON() {
+            const jsonInput = document.getElementById('import-json-area').value.trim();
+            if (!jsonInput) {
+                showToast("입력값 없음", "가져올 JSON 데이터를 텍스트 박스에 붙여넣어 주세요.", "warning");
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(jsonInput);
+                
+                // Integrity Validation: check core required structures
+                const requiredFields = ["id", "category", "title", "author", "curriculum", "hook", "sect0", "sect1", "diagram", "lines", "table", "quizzes"];
+                const missing = requiredFields.filter(field => !(field in parsed));
+                
+                if (missing.length > 0) {
+                    throw new Error(`필수 데이터 필드가 누락되었습니다: ${missing.join(', ')}`);
+                }
+
+                // Check if already exists to prevent duplication, overwrite if exists or unshift
+                const index = works.findIndex(w => w.id === parsed.id);
+                if (index !== -1) {
+                    works[index] = parsed;
+                    showToast("작품 업데이트 완료", `기존에 등록되어 있던 「${parsed.title}」 분석 데이터를 새로운 내용으로 갱신했습니다.`, "success");
+                } else {
+                    works.unshift(parsed);
+                    showToast("신규 등록 성공", `새로운 문학 작품 「${parsed.title}」이 포털 데이터베이스에 완벽히 추가되었습니다!`, "success");
+                }
+
+                // UI Re-rendering and state synchronization
+                updateCategoryCounts();
+                renderWorksList();
+                syncExportArea();
+                
+                // Close modal and focus on the new work
+                setTimeout(() => {
+                    toggleUploadModal();
+                    setCategory(parsed.category);
+                    loadWorkDetail(parsed.id);
+                    document.getElementById('import-json-area').value = ''; // Reset import box
+                }, 800);
+
+            } catch (err) {
+                showToast("구문 분석 에러", `JSON 형식이 유효하지 않거나 스키마 규칙이 일치하지 않습니다. 다시 한 번 확인해 주세요.<br>에러 내용: ${err.message}`, "error");
+            }
+        }
+
+        // ---------------------------------------------------------------------------
+        // 5. CLIENT-SIDE PDF PARSER & GEMINI AI LITERARY ANALYSIS ENGINE (REFINED)
+        // ---------------------------------------------------------------------------
         async function handleFileSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1032,6 +1180,9 @@
             // Activate Progress State UI
             const progressBar = document.getElementById('analysis-progress');
             progressBar.classList.remove('hidden');
+            
+            // Reset logs
+            document.getElementById('progress-logs').innerHTML = '';
             updateProgress(10, "PDF 문서를 정밀하게 해독하는 중...", "1. PDF File stream detected.");
 
             const reader = new FileReader();
@@ -1039,7 +1190,7 @@
                 try {
                     const typedarray = new Uint8Array(e.target.result);
                     
-                    updateProgress(25, "PDF 내부 문학 원문 추출 중...", "2. Reading document layout.");
+                    updateProgress(25, "PDF 내부 문학 원문 추출 중...", "2. Reading document layout via PDF.js.");
                     const pdf = await pdfjsLib.getDocument(typedarray).promise;
                     
                     let extractedText = "";
@@ -1052,19 +1203,19 @@
                         extractedText += pageText + "\n";
                         
                         const curPct = Math.floor(25 + ((i / totalPages) * 15));
-                        updateProgress(curPct, `원문 텍스트 추출 중 (${i}/${totalPages} 페이지)...`, `Page ${i} converted to raw text streams.`);
+                        updateProgress(curPct, `원문 텍스트 추출 중 (${i}/${totalPages} 페이지)...`, `Page ${i}/${totalPages} converted to raw text streams.`);
                     }
 
                     if (!extractedText.trim()) {
-                        throw new Error("PDF 내부에서 텍스트를 추출하지 못했습니다. 스캔 이미지 전용 PDF인지 확인해 주세요.");
+                        throw new Error("PDF 내부에서 추출된 글자가 없습니다. 스캔된 이미지 전용 PDF(복사 불가 파일)이거나 잠금 상태일 수 있습니다.");
                     }
 
-                    updateProgress(45, "양은석T 문학 메커니즘 엔진 인코딩 중...", "3. Transpiling literary models.");
+                    updateProgress(45, "양은석T 문학 메커니즘 엔진 인코딩 중...", "3. Transpiling extracted literary models.");
                     await sendToGeminiAI(extractedText);
 
                 } catch (err) {
-                    showToast("오류 발생", err.message, "error");
-                    updateProgress(0, "오류로 인해 변환이 정지되었습니다.", `Error log: ${err.message}`);
+                    showToast("변환 중단됨", err.message, "error");
+                    updateProgress(0, "오류로 인해 변환이 정지되었습니다.", `Error: ${err.message}`);
                 }
             };
             reader.readAsArrayBuffer(file);
@@ -1077,7 +1228,8 @@
             document.getElementById('progress-text').innerText = label;
             if (logMessage) {
                 const logs = document.getElementById('progress-logs');
-                logs.innerHTML += `<div>[SYSTEM] ${logMessage}</div>`;
+                logs.innerHTML += `<div class="border-b border-slate-800 pb-0.5 mb-0.5 text-[8px] text-slate-400">[SYSTEM] ${logMessage}</div>`;
+                logs.scrollTop = logs.scrollHeight;
             }
         }
 
@@ -1087,7 +1239,7 @@
             
             // Resolve Key priorities
             const customKey = document.getElementById('custom-api-key').value.trim();
-            const apiKey = customKey || ""; // Default is runtime provided key
+            const apiKey = customKey || ""; // Use client-defined or let runtime handle
 
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
@@ -1099,17 +1251,17 @@
                 - 고전시가: classic_poetry
                 - 고전소설/수필: classic_novel
                 - 현대시: modern_poetry
-                - 현대소설/수필/수필: modern_novel
-                *절대로 독서(비문학) 카테고리인 "reading"은 허용되지 않습니다. 무조건 문학 갈래 4개 중 하나로만 축약 매칭하세요.
+                - 현대소설/수필: modern_novel
+                *절대로 비문학(독서) 카테고리 등은 허용하지 않으며, 무조건 문학 갈래 4개 중 하나로만 매칭하세요.
 
                 [2] 메커니즘 분석법:
-                - 시적 상황과 장벽을 'O', 자아의 정서적 반응을 'R', 감탄사/표현기법/수사를 'C'로 분류하여 3단 또는 4단 메커니즘을 매핑해 주어야 합니다.
+                - 시적 상황과 장벽을 'O', 자아의 반응을 'R', 표현 기법 및 주석을 'C'로 분류하여 3~4단 관계 매칭을 처리하세요.
 
-                반드시 제공하는 JSON 스키마를 철저하게 충족하는 JSON 객체만 반환하세요. versus, unseok, trap, summary, table 속성에는 아주 세련된 인라인 스타일이나 Tailwind CSS 텍스트 컬러가 기입된 HTML 태그가 정밀하게 들어가 있어야 합니다.
+                반드시 제공하는 JSON 스키마를 철저하게 충족하는 JSON 객체만 반환하세요. versus, unseok, trap, summary, table 속성에는 세련된 인라인 스타일이나 Tailwind CSS 클래스명이 가입된 HTML 태그가 아주 정교하게 들어가 있어야 합니다.
             `;
 
             const userQuery = `
-                여기에 처리할 문학 텍스트를 제공합니다. 아래 문학 텍스트를 완벽하게 해독 및 영구 보존용 최상위권 직전대비 분석서로 가공하세요:
+                여기에 분석할 문학 텍스트를 제공합니다. 해당 원문을 완벽하게 해독하여 분석서 객체로 가공하세요:
                 
                 ---
                 ${literaryText}
@@ -1216,7 +1368,7 @@
 
             for (let i = 0; i < maxRetries; i++) {
                 try {
-                    updateProgress(75, `은석쌤 AI 메커니즘 엔진 연산 중 (시도 ${i+1}/5)...`, `5. Sending payload chunk. (${delay}ms window)`);
+                    updateProgress(75, `은석쌤 AI 메커니즘 엔진 연산 중 (시도 ${i+1}/${maxRetries})...`, `5. Teleporting secure payload. (${delay}ms backoff window)`);
                     response = await fetch(endpoint, {
                         method: "POST",
                         headers: {
@@ -1234,8 +1386,8 @@
             }
 
             if (!response || !response.ok) {
-                const errText = response ? await response.text() : "네트워크 오류";
-                throw new Error(`Gemini API 통신 결함: ${errText}`);
+                const errText = response ? await response.text() : "네트워크 오류 발생";
+                throw new Error(`통신 결함: API 응답 상태가 올바르지 않습니다.<br>로그: ${errText.substring(0, 150)}`);
             }
 
             updateProgress(90, "포털용 맞춤형 수능·내신 데이터 구조화 중...", "6. Processing AI generated structural payload.");
@@ -1244,7 +1396,7 @@
             // Extract & Parse structured JSON
             const outputText = resultJson.candidates?.[0]?.content?.parts?.[0]?.text;
             if (!outputText) {
-                throw new Error("API 결과물 형식이 무결하지 않습니다. 원본을 확인하세요.");
+                throw new Error("Gemini AI 응답 결과 분석 실패: 원본 데이터를 신뢰할 수 없습니다.");
             }
 
             const parsedWork = JSON.parse(outputText);
@@ -1252,8 +1404,8 @@
             // Add to active session and re-render listing
             works.unshift(parsedWork);
             
-            updateProgress(100, "분석 완료! 포털 반영 완료.", "7. Work compilation complete.");
-            showToast("분석 대성공", `「${parsedWork.title}」 지문이 실시간 분석 완료되어 포털에 등록되었습니다!`, "success");
+            updateProgress(100, "분석 완료! 포털 반영 완료.", "7. Finalizing work database update.");
+            showToast("실시간 분석 성공", `「${parsedWork.title}」 지문이 실시간 분석 완료되어 포털에 등록되었습니다!`, "success");
             
             setTimeout(() => {
                 toggleUploadModal();
@@ -1262,7 +1414,7 @@
             }, 1000);
         }
 
-        // Sleek Custom Toast notifications
+        // Sleek Custom Toast notifications (to avoid alert() completely)
         function showToast(title, message, type = "success") {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -1279,7 +1431,7 @@
                     ${type === 'warning' ? '<i class="fa-solid fa-triangle-exclamation"></i>' : ''}
                 </div>
                 <div>
-                    <h5 class="font-bold text-xs uppercase tracking-wide mb-0.5">${title}</h5>
+                    <h5 class="font-bold text-xs uppercase tracking-wide mb-0.5 font-serif">${title}</h5>
                     <p class="text-[11px] leading-relaxed">${message}</p>
                 </div>
             `;
@@ -1296,7 +1448,7 @@
                 setTimeout(() => {
                     toast.remove();
                 }, 300);
-            }, 4000);
+            }, 5000);
         }
     </script>
 </body>
