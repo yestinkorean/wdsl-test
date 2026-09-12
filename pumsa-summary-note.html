@@ -19,6 +19,10 @@
   --green-bg:#dff0e8;
   --amber:#7f5300;
   --amber-bg:#fdeecb;
+  --violet:#5a3aa8;
+  --violet-bg:#ece5fa;
+  --teal:#0d5f6b;
+  --teal-bg:#d8eef1;
   --mark:#ffe7a3;
   --on-navy:#ffffff;
   --shadow:0 1px 2px rgba(20,23,29,.06),0 6px 18px rgba(20,23,29,.05);
@@ -32,6 +36,8 @@
     --red:#f0928a; --red-bg:#2c1b19;
     --green:#6fd1a5; --green-bg:#132420;
     --amber:#e6bd6c; --amber-bg:#272014;
+    --violet:#c0a6f2; --violet-bg:#1f1a2d;
+    --teal:#6fcada; --teal-bg:#102428;
     --mark:#4a3d14;
     --on-navy:#0d1016;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
@@ -45,6 +51,8 @@
   --red:#f0928a; --red-bg:#2c1b19;
   --green:#6fd1a5; --green-bg:#132420;
   --amber:#e6bd6c; --amber-bg:#272014;
+  --violet:#c0a6f2; --violet-bg:#1f1a2d;
+  --teal:#6fcada; --teal-bg:#102428;
   --mark:#4a3d14;
   --on-navy:#0d1016;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
@@ -93,6 +101,9 @@ h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:clamp(31px,6.6vw,
   padding:4px 7px;border-radius:4px;white-space:nowrap;vertical-align:1px}
 .src.wd3{background:var(--navy-bg);color:var(--navy);border:1px solid color-mix(in srgb,var(--navy) 26%,transparent)}
 .src.wd2{background:var(--green-bg);color:var(--green);border:1px solid color-mix(in srgb,var(--green) 26%,transparent)}
+.src.wd2t{background:var(--amber-bg);color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 30%,transparent)}
+.src.ar2t{background:var(--violet-bg);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 28%,transparent)}
+.src.ar2p{background:var(--teal-bg);color:var(--teal);border:1px solid color-mix(in srgb,var(--teal) 28%,transparent)}
 .src.pend{background:transparent;color:var(--ink3);border:1px dashed var(--rule2)}
 .srcs{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px}
 
@@ -170,15 +181,6 @@ th:last-child,td:last-child{border-right:none}
 td.c,th.c{text-align:center}
 .rowhead{background:var(--surface);font-weight:700;white-space:nowrap}
 
-/* 내일 채울 슬롯 */
-.slot{border:2px dashed var(--rule2);border-radius:9px;padding:15px 17px;margin:22px 0 4px;
-  background:repeating-linear-gradient(135deg,transparent,transparent 9px,
-    color-mix(in srgb,var(--rule) 34%,transparent) 9px,color-mix(in srgb,var(--rule) 34%,transparent) 10px)}
-.slot .tt{font:700 11.5px/1 "Noto Sans KR",sans-serif;letter-spacing:.1em;color:var(--ink3);
-  display:block;margin-bottom:8px}
-.slot p{font-size:13px;color:var(--ink2);margin:0}
-.slot .lines{margin-top:10px;border-top:1px solid var(--rule2);height:0}
-.slot .lines i{display:block;border-bottom:1px solid var(--rule);height:26px}
 
 /* 교사 메모 */
 .tmemo{background:var(--navy-bg);border:1px solid color-mix(in srgb,var(--navy) 28%,transparent);
@@ -186,7 +188,7 @@ td.c,th.c{text-align:center}
 .tmemo>:last-child{margin-bottom:0}
 .tmemo .tt{font:900 11.5px/1 "Noto Sans KR",sans-serif;letter-spacing:.11em;color:var(--navy);
   display:block;margin-bottom:9px}
-body.hidememo .tmemo,body.hidememo .slot,body.hidememo #plan{display:none}
+body.hidememo .tmemo,body.hidememo #plan{display:none}
 
 /* OX */
 .ox{list-style:none;padding:0;margin:12px 0;counter-reset:ox}
@@ -223,7 +225,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
   body.memo .cz{background:var(--mark)!important;color:inherit!important}
   section{break-inside:auto;padding-block:16px 2px}
   h2,h3,h4{break-after:avoid}
-  .card,.trap,.key,.vs,.tw,.mnem,.slot,.tmemo,.ox li,tr{break-inside:avoid}
+  .card,.trap,.key,.vs,.tw,.mnem,.tmemo,.ox li,tr{break-inside:avoid}
   .head{padding-block:0 14px}
   h1{font-size:26pt}
   footer{break-inside:avoid}
@@ -238,18 +240,18 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
   <button class="bt" id="btMemoAll">가린 곳 전부 열기</button>
   <button class="bt" id="btTeacher" aria-pressed="false">학생 배포용</button>
   <span class="sep"></span>
-  <span class="tag">1차 초안 · 아라2 미반영</span>
+  <span class="tag">완성본 v1.0 · 5개 출처 반영 완료</span>
   <button class="bt" id="btPrint">인쇄 / PDF</button>
 </div>
 
 <header class="head">
   <div class="eyebrow">고2 내신 문법 1탄 · 무한 회독용</div>
   <h1>품사 총정리 노트</h1>
-  <p class="sub">시험 들어가기 직전까지 이 프린트 하나만 돌린다. 9품사 전체 지도 → 각 품사의 판별 기준 → 활용과 어미 → 품사의 통용 → 함정 30제 순서로, 한 번 읽은 사람이 두 번째부터는 표만 보고도 복원할 수 있게 짰다.</p>
+  <p class="sub">시험 들어가기 직전까지 이 프린트 하나만 돌린다. 9품사 전체 지도 → 각 품사의 판별 기준 → 활용과 어미 → 품사의 통용 → 함정 65제 순서로, 한 번 읽은 사람이 두 번째부터는 표만 보고도 복원할 수 있게 짰다. <b>원당고2·아라고2 두 학교의 프린트와 교과서를 한 장에 겹쳐</b> 두었으므로, 배지가 여러 개 붙은 항목일수록 시험에 나온다.</p>
   <div class="metaline">
     <span><b>시험범위</b> 품사 / 형태소 / 음운 변동 중 <b>제1탄 품사</b></span>
     <span><b>대상</b> 원당고2 · 아라고2</span>
-    <span><b>판</b> v0.9 초안</span>
+    <span><b>판</b> v1.0 완성본 (2026-09-12)</span>
   </div>
 </header>
 
@@ -258,42 +260,56 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
   <p class="secnote">어느 학교 어느 자료에 실린 내용인지가 곧 “어디서 출제되는가”이다. 모든 개념 블록 위에 출처 배지를 달았다.</p>
 
   <div class="card">
-    <h4 style="margin-top:0">출처 배지 범례</h4>
-    <p style="margin-bottom:8px"><span class="src wd3">원당3 프린트</span> 인천원당고 3학년 문법 특강 「문법 한걸음부터」 품사1·2·3·5 (3·5·6차시) — <b>반영 완료</b></p>
-    <p style="margin-bottom:8px"><span class="src wd2">원당2 프린트</span> 인천원당고 2학년 「화법과 언어A 보충자료」 2. 음운과 단어의 탐구 (2) 품사의 분류와 활용 — <b>반영 완료</b></p>
-    <p style="margin-bottom:8px"><span class="src pend">원당2 교과서</span> 미래엔(민병곤) 화법과 언어 — <b>미반영</b>, 나무아카데미 분석 hwp 필요</p>
-    <p style="margin-bottom:8px"><span class="src pend">아라2 교과서</span> 비상(이관규) 화법과 언어 — <b>미반영</b>, 나무아카데미 분석 hwp 필요</p>
-    <p style="margin-bottom:0"><span class="src pend">아라2 프린트</span> 아라고 2학년 학교 프린트물 — <b>미반영</b>, 내일 파일 투입 예정</p>
+    <h4 style="margin-top:0">출처 배지 범례 — 다섯 갈래 전부 반영 완료</h4>
+    <p style="margin-bottom:8px"><span class="src wd3">원당3 프린트</span> 인천원당고 3학년 문법 특강 「문법 한걸음부터」 품사1·2·3·5 (3·5·6차시)</p>
+    <p style="margin-bottom:8px"><span class="src wd2">원당2 프린트</span> 인천원당고 2학년 「화법과 언어A 보충자료」 2. 음운과 단어의 탐구 (2) 품사의 분류와 활용</p>
+    <p style="margin-bottom:8px"><span class="src wd2t">원당2 교과서</span> 미래엔(민병곤) 『화법과 언어』 2‑(2) 품사의 분류와 활용 — <b>교과서 주석·내신 출제 예고</b></p>
+    <p style="margin-bottom:8px"><span class="src ar2t">아라2 교과서</span> 비상(이관규) 『화법과 언어』 2‑(2) 단어 — <b>교과서 주석·내신 출제 예고</b></p>
+    <p style="margin-bottom:12px"><span class="src ar2p">아라2 프린트</span> 인천아라고 2학년 「화법과 언어B」 (2) 단어_탐구 1 (3쪽) + ‘(2) 단어’ 추가 자료·추가 자료 2 (7쪽)</p>
+    <div class="mnem">
+      <span class="big">배지 = 출제 확률</span>
+      <span class="why">한 개념에 배지가 3~4개 붙어 있으면 <b>두 학교가 함께 가르친 것</b> — 무조건 나온다고 보고 외운다. 배지가 한 개뿐인 항목은 그 학교 학생만 신경 쓰면 된다.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">두 학교가 <u>갈라지는</u> 지점 — 여기만 따로 챙긴다</h4>
+    <div class="tw"><table>
+      <tr><th style="width:24%">쟁점</th><th>원당고2 (미래엔·민병곤)</th><th>아라고2 (비상·이관규)</th></tr>
+      <tr><td class="rowhead">품사의 통용</td><td><b class="ok">교과서 정식 단원 ○</b> — 서술형 예고까지 있음</td><td><b class="ng">교과서 단원 없음</b> — 수사/수 관형사 구별 등 개별 사례로만 등장</td></tr>
+      <tr><td class="rowhead">보조 용언</td><td>본문에서 다루지 않음</td><td><b class="ok">정식 항목 ○</b> — 개념·특성·본용언 구별까지</td></tr>
+      <tr><td class="rowhead">‘너라’ 불규칙</td><td>‘‑아라’ → ‘‑너라’</td><td><b>‘‑거라’ → ‘‑너라’</b> (프린트 표기)</td></tr>
+      <tr><td class="rowhead">단어의 짜임</td><td>다른 소단원(2‑(3))으로 분리</td><td><b>같은 단원 (2) 단어 안</b> — 형태소·합성어까지 한 묶음</td></tr>
+      <tr><td class="rowhead">문장 성분</td><td>3단원에서 다룸</td><td><b>‘(2) 단어’ 추가 자료 2</b>로 같이 배부됨</td></tr>
+    </table></div>
+    <p style="font-size:13px;color:var(--ink2);margin-bottom:0">→ 갈라지는 항목은 <b>§XII</b>에 따로 모아 두었다.</p>
   </div>
 
   <div class="key">
     <span class="tt">회독 요령</span>
     <p><b>1회독</b> — 처음부터 끝까지 읽는다. 모르는 예문에 연필로 점만 찍는다.</p>
     <p><b>2회독</b> — 상단 <b>암기 모드</b>를 켠다. 노란 형광이 검게 가려지므로, 답을 말한 뒤 클릭해서 확인한다.</p>
-    <p><b>3회독 이후</b> — 각 절의 <b>판별표</b>와 <b>함정</b> 상자만 본다. 마지막 §XII 함정 30제를 전부 맞히면 그날은 끝.</p>
-    <p style="margin-bottom:0"><b>시험 직전</b> — §Ⅰ의 9품사 지도와 §Ⅸ 불규칙 활용표, §XII만 본다.</p>
+    <p><b>3회독 이후</b> — 각 절의 <b>판별표</b>와 <b>함정</b> 상자만 본다. 마지막 §XIII 함정 65제를 전부 맞히면 그날은 끝.</p>
+    <p style="margin-bottom:0"><b>시험 직전</b> — §Ⅰ의 9품사 지도와 §Ⅸ 불규칙 활용표, §XIII만 본다.</p>
   </div>
 
   <div id="plan" class="tmemo">
-    <span class="tt">교사 메모 — 내일 출근 후 작업 순서</span>
-    <p>이 초안은 원당 프린트물 12쪽을 전부 반영했다. 남은 작업은 <b>끼워 넣기</b>뿐이다.</p>
+    <span class="tt">교사 메모 — 제작 이력과 남은 판단</span>
+    <p>2026‑09‑12 <b>v1.0 완성</b>. 원당3·원당2 프린트(1차) 위에 <b>아라2 프린트 10쪽</b>(탐구 1 3쪽 + 추가 자료 4쪽 + 추가 자료 2 3쪽)과 <b>나무아카데미 교과서 분석 hwp 2종</b>(미래엔 22 품사의 분류와 활용 / 비상 22 단어)을 얹었다. 점선 슬롯 10개는 전부 본문으로 흡수해 삭제했다.</p>
     <ol style="margin-bottom:8px">
-      <li>각 절 하단의 <b>점선 슬롯</b>에 아라2 프린트 내용을 옮겨 적는다. 슬롯은 절마다 1개씩, 총 10개.</li>
-      <li>나무아카데미 <b>미래엔·비상 분석 hwp</b>의 교과서 주석 문구는 해당 개념 블록의 출처 배지 줄에 <span class="src pend">원당2 교과서</span> <span class="src pend">아라2 교과서</span>를 실선으로 바꿔 달고, 교과서에만 있는 설명은 슬롯에 추가한다.</li>
-      <li>두 학교 공통 개념은 배지를 <b>여러 개 나란히</b> 단다. 한 개념에 3~4개가 붙는 것이 정상이다.</li>
-      <li>아라2에만 있고 여기 없는 개념(예: 교과서별 <b>보조용언</b> 처리, <b>단어의 형성</b> 연계)은 §XI 뒤에 새 절로 붙인다.</li>
-      <li>마지막에 상단 <b>학생 배포용</b> 버튼을 눌러 교사 메모와 빈 슬롯을 숨기고 인쇄한다.</li>
+      <li><b>교과서 배지의 근거</b> — 나무아카데미 분석지의 <span style="color:var(--red)">빨간 주석</span>(= 내신 출제 유형 예고)을 그대로 옮겼다. “…라는 옳은/틀린 선지가 출제될 수 있습니다”는 <b>출제자 시점의 예고</b>이므로 함정 65제에 우선 반영했다.</li>
+      <li><b>아라2 프린트의 학생 필기</b>는 정답 확인용으로만 썼고, 노트에는 <b>개념으로 재서술</b>해 실었다(필기 그대로 옮기지 않음).</li>
+      <li><b>§XII</b>는 아라고 전용 확장(문장 성분·어근/어간·단어의 짜임 연계 + 학교 확인 문제 10). 원당고 학생에게는 참고 절이다.</li>
     </ol>
-    <p style="margin-bottom:0"><b>확인 필요</b> — 원당3 프린트 「어미의 분류」 표의 명령형 예시가 스캔상 <code>-ㅂ니까, -어라</code>로 읽혔다. 의문형 어미가 섞인 것으로 보여 이 노트에는 <code>-어라, -ㅂ시오</code>로 바로잡아 적었다. 원본 확인 후 확정할 것.</p>
-  </div>
-</section>
+    <p style="margin-bottom:0"><b>남은 판단 1건</b> — 원당3 프린트 「어미의 분류」 명령형 예시는 <code>-어라, -ㅂ시오</code>로 확정해 실었다. 근거 = ①<code>-ㅂ니까</code>는 의문형이라 명령형 칸에 올 수 없고 ②아라2 프린트 종결어미 표의 명령형도 ‘공부해라’ 형이다. <b>원당3 프린트 실물은 이 PC에 없어 스캔 재대조는 못 했다</b> — 원본을 스캔해 두면 다음 판에서 최종 확인하겠다.</p>
+  </div></section>
 
 
 <!-- ══════════ 1 ══════════ -->
 <section>
   <div class="sechead"><span class="secno">Ⅰ</span><h2>품사 분류의 세 기준과 9품사 지도</h2></div>
   <p class="secnote">모든 품사 문제는 결국 “형태·기능·의미 중 무엇을 물었나”로 환원된다. 이 표가 노트 전체의 목차다.</p>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 문법의 단위 — 분류 기준 3가지</h3>
   <div class="tw"><table>
@@ -330,10 +346,19 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <tr><td class="rowhead">관계언</td><td>조사</td><td>자립성 없음 · 앞말에 붙여 씀</td></tr>
   </table></div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅰ 분류 기준</span>
-    <p>비상(이관규) 교과서의 분류 기준 서술, 아라2 프린트의 9품사 표를 여기에 얹는다.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>3. 아라고 기준 — 기능 분류의 순서와 예문 <span class="src ar2p">아라2 프린트</span><span class="src ar2t">아라2 교과서</span></h3>
+  <p>비상(이관규) 교과서와 아라고 프린트는 기능 분류를 <b>체언 → 관계언 → 용언 → 수식언 → 독립언</b> 순으로 제시한다. 원당3 프린트의 배열과 <b>내용은 같고 순서만 다르다</b>. 아라고 학생은 프린트 순서대로 외워 두는 편이 서술형 답안에 유리하다.</p>
+  <div class="card">
+    <p style="margin-bottom:6px"><b>아라2 교과서 대표 예문</b> — <span class="ex">아! 하늘이 정말 맑구나.</span></p>
+    <p style="margin-bottom:0">불변어 = <span class="cz">아, 하늘, 이, 정말</span> / 가변어 = <span class="cz">맑구나</span>. ‘맑구나’는 맑다·맑고·맑으니·맑아서·맑았다·맑습니다로 형태가 변한다. 기능으로 보면 <span class="cz">아(독립언)·하늘(체언)·이(관계언)·정말(수식언)·맑구나(용언)</span> — <b>한 문장에 다섯 기능이 모두 들어 있어</b> 그대로 문제로 나온다.</p>
+  </div>
+  <div class="trap">
+    <span class="tt">교과서 주석이 직접 예고한 오답 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">미래엔 주석은 “형태로 분류하는 문제에 <b class="ng">‘동사: 가서, 읽었다’</b>와 같은 틀린 선지가 출제될 수 있다”고 못 박았다. ‘가서·읽었다’는 <b>활용형</b>이지 형태 기준의 갈래가 아니다. <b>형태 기준의 답은 가변어·불변어 둘뿐</b>이고, ‘동사’는 <b>의미</b> 기준의 답이다.</p>
+  </div>
+  <div class="key">
+    <span class="tt">세 기준의 답이 각각 몇 개인지로 외운다</span>
+    <p style="margin-bottom:0"><b>형태 = 2개</b>(가변어·불변어) / <b>기능 = 5개</b>(체언·용언·수식언·독립언·관계언) / <b>의미 = 9개</b>(9품사). 선지의 답이 그 기준의 개수 안에 없으면 그 선지는 틀렸다.</p>
   </div>
 </section>
 
@@ -342,7 +367,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <section>
   <div class="sechead"><span class="secno">Ⅱ</span><h2>체언 ① 명사</h2></div>
   <p class="secnote">활용하지 않아 어형이 고정되고, 관형어의 수식을 받는다.</p>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 명사의 하위 분류</h3>
   <div class="tw"><table>
@@ -394,18 +419,38 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <tr><td class="ex">우리는 장래의 <b>세종대왕들</b>을 기다린다.</td><td class="c"><b class="ok">○</b></td><td><b>고유명사의 보통명사화</b> — ‘세종대왕 같은 인물’의 뜻이 되어 보통명사로 쓰였으므로 ‘들’이 붙는다</td></tr>
   </table></div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅱ 명사</span>
-    <p>비상 교과서의 의존명사 목록·띄어쓰기 규정, 아라2 프린트의 추가 예문을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>5. 단위성 의존 명사 — 두 학교 교과서가 함께 다룬다</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
+  <p>의존 명사 가운데 <span class="cz">단위를 나타내는 것</span>을 <b>단위성 의존 명사</b>라 한다 — <span class="ex">개, 권, 마리, 그루, 켤레, 자, 년</span>.</p>
+  <div class="trap">
+    <span class="tt">단위성 의존 명사의 진짜 함정 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">“단위를 나타내면 의존 명사”가 <b class="ng">아니다</b>. <span class="ex">한 <b>사람</b>, 물 한 <b>병</b></span>처럼 <b>자립 명사도 단위를 나타내는 데 쓰일 수 있다</b>. 판별 기준은 의미(단위냐)가 아니라 <span class="cz">혼자 설 수 있는가</span>이다.</p>
   </div>
+  <div class="tw"><table>
+    <tr><th style="width:50%">예문</th><th>의존 명사와 근거</th></tr>
+    <tr><td class="ex">재희는 학교를 졸업한 <b>지</b> 십 <b>년</b>이 넘었다.</td><td><span class="cz">지</span>(관형어 ‘졸업한’ 필요) · <span class="cz">년</span>(단위성) <span class="src ar2t">아라2 교과서</span></td></tr>
+    <tr><td class="ex">사과 두 <b>개</b> <b>중</b>에서 하나만 먹어라.</td><td><span class="cz">개</span>(단위성) · <span class="cz">중</span> — ‘하나’는 수사 <span class="src ar2t">아라2 교과서</span></td></tr>
+    <tr><td class="ex">정한이가 진짜 부정행위를 할 <b>줄</b>은 몰랐다.</td><td>교과서 주석이 <b class="ok">옳은 선지</b>로 예고한 문장 <span class="src wd2t">원당2 교과서</span></td></tr>
+    <tr><td class="ex">원우가 도착하면 사진을 같이 찍을 <b>것</b>이다.</td><td>같은 주석의 <b class="ok">옳은 선지</b> <span class="src wd2t">원당2 교과서</span></td></tr>
+    <tr><td class="ex">신발 한 <b>켤레</b>, 소 세 <b>마리</b></td><td>아라2 프린트가 든 단위성 의존 명사 예 <span class="src ar2p">아라2 프린트</span></td></tr>
+  </table></div>
+
+  <h3>6. 아라고 프린트의 명사 정리표 — 분류 축이 둘이다 <span class="src ar2p">아라2 프린트</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:16%">분류 축</th><th style="width:20%">종류</th><th>정의</th><th style="width:22%">프린트의 예</th></tr>
+    <tr><td class="rowhead" rowspan="2">의미</td><td>고유 명사</td><td>특정한 <span class="cz">하나</span>의 개체에만 붙인 이름</td><td class="ex">서울대, 이순신</td></tr>
+    <tr><td>보통 명사</td><td><span class="cz">공통된</span> 특성을 지닌 대상에 <span class="cz">두루</span> 붙이는 이름</td><td class="ex">학교, 바다</td></tr>
+    <tr><td class="rowhead" rowspan="2">자립성</td><td>자립 명사</td><td><span class="cz">자립적</span>으로 쓰일 수 있는 명사</td><td class="ex">물건, 사람</td></tr>
+    <tr><td>의존 명사</td><td><span class="cz">관형어</span>와 같이 앞에 꾸며 주는 말이 있어야 하는 명사</td><td class="ex">켤레, 마리</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2);margin-bottom:0"><b>서술형 대비</b> — 아라2 교과서 주석은 “‘의미의 특성’을 기준으로 고유/보통, ‘자립성 여부’를 기준으로 자립/의존으로 나눈다”는 <b class="ok">옳은 선지</b>를 예고했다. <u>분류 기준의 이름</u>까지 정확히 써야 한다.</p>
 </section>
 
 
 <!-- ══════════ 3 ══════════ -->
 <section>
   <div class="sechead"><span class="secno">Ⅲ</span><h2>체언 ② 대명사 · ③ 수사</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 대명사</h3>
   <div class="tw"><table>
@@ -465,10 +510,31 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <p style="margin-bottom:0"><b>조사가 붙는가?</b> → 붙으면 체언(명사·대명사·수사). <b>뒤 체언을 꾸미는가?</b> → 꾸미면 관형사. <b>용언을 꾸미는가?</b> → 꾸미면 부사. 이 세 질문이면 끝난다.</p>
   </div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅲ 대명사·수사</span>
-    <p>비상 교과서의 인칭대명사 체계(재귀칭·미지칭·부정칭), 아라2 프린트 예문을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>3. 인칭대명사의 인칭 체계 — 두 교과서 공통</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
+  <div class="tw"><table>
+    <tr><th style="width:16%">인칭</th><th>미래엔 <span class="src wd2t">원당2 교과서</span></th><th>비상 <span class="src ar2t">아라2 교과서</span></th></tr>
+    <tr><td class="rowhead"><span class="cz">1인칭</span></td><td class="ex">나, 저, 우리, 저희</td><td class="ex">나, 저, 우리, 저희</td></tr>
+    <tr><td class="rowhead"><span class="cz">2인칭</span></td><td class="ex">너, 너희, 자네, 당신</td><td class="ex">너, 너희, 그대, 당신, 여러분</td></tr>
+    <tr><td class="rowhead"><span class="cz">3인칭</span></td><td class="ex">그, 그녀, 그분, 그이</td><td class="ex">그, 이분, 그분, 저분, 이이, 그이, 저이</td></tr>
+  </table></div>
+  <p>둘 다 <b>미지칭·부정칭·재귀칭</b>을 덧붙여 둔다 — <span class="cz">미지칭</span>(모르는 대상: 누구), <span class="cz">부정칭</span>(정해지지 않은 대상: 아무), <span class="cz">재귀칭</span>(한 문장 안에서 앞에 나온 체언을 다시 가리킴: 자기, 저).</p>
+  <div class="trap">
+    <span class="tt">교과서 주석이 예고한 틀린 선지 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">“<b class="ng">‘우리’는 ‘그분’과 달리 인칭 대명사이다</b>”는 <b>틀린 선지</b>다. ‘우리’도 ‘그분’도 <b>둘 다 인칭 대명사</b>이고, 갈리는 것은 인칭(1인칭 : 3인칭)뿐이다. ‘~와 달리’로 묶인 선지는 <u>범주가 정말 다른지</u>부터 확인한다.</p>
+  </div>
+
+  <h3>4. ‘첫째·둘째’ 4단 함정 — 미래엔이 통째로 예고했다 <span class="src wd2t">원당2 교과서</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:44%">예문</th><th class="c" style="width:18%">품사</th><th>근거</th></tr>
+    <tr><td class="ex">올해 <b>첫째</b>를 낳았다.</td><td class="c"><span class="cz">명사</span></td><td>‘첫째 아이’라는 <b>사람</b>을 가리킨다</td></tr>
+    <tr><td class="ex"><b>첫째</b>는 건강이고 <b>둘째</b>는 마음의 평화이다.</td><td class="c"><span class="cz">수사</span></td><td>보조사 ‘는’과 결합해 <b>주어</b>로 쓰였다 <b class="ok">(옳은 선지)</b></td></tr>
+    <tr><td class="ex">이번이 우리 <b>첫째</b> 아들의 입학식이다.</td><td class="c"><span class="cz">수 관형사</span></td><td>뒤의 <b>자립 명사 ‘아들’</b>을 꾸민다 <b class="ok">(옳은 선지)</b></td></tr>
+    <tr><td class="ex"><b>둘째</b> 주 일요일</td><td class="c"><span class="cz">수 관형사</span></td><td>조사가 결합할 수 없고 뒤의 <b>의존 명사 ‘주’</b>를 꾸민다 <b class="ok">(옳은 선지)</b></td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">비상도 같은 자리를 판다 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0">비상 주석은 “<b>수 관형사와 같은 형태의 수사</b>를 제시하고 둘을 구별하는 문제”를 예고했고, 미래엔은 같은 대목을 <b>서술형</b>으로 예고했다 — <span class="ex">사람 <b>다섯</b>이 왔다.(수사) / <b>다섯</b> 사람이 왔다.(수 관형사)</span>. <b>두 학교가 겹친 자리 = 반드시 출제.</b></p>
   </div>
 </section>
 
@@ -477,7 +543,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅳ</span><h2>관계언 — 조사</h2></div>
   <p class="secnote">조사는 종류 암기(1단계)보다 <b>같은 형태가 다른 조사로 쓰이는 경우의 판별</b>(2단계)에서 점수가 갈린다.</p>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 조사의 분류</h3>
   <div class="tw"><table>
@@ -569,10 +635,41 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
       <p style="font-size:13px;color:var(--ink2);margin:6px 0 0">둘이 짝을 이루면 대조다.</p></div>
   </div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅳ 조사</span>
-    <p>비상 교과서의 조사 분류표·보조사 의미 목록, 아라2 프린트의 격조사 판별 문항을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>5. 격조사 7종 한 줄 정리 — 아라고 판서 그대로 <span class="src ar2p">아라2 프린트</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:14%">격</th><th style="width:30%">조사</th><th style="width:14%">격</th><th>조사</th></tr>
+    <tr><td class="rowhead">주격</td><td><span class="cz">이/가, 께서, 에서</span></td><td class="rowhead">관형격</td><td><span class="cz">의</span></td></tr>
+    <tr><td class="rowhead">목적격</td><td><span class="cz">을/를</span></td><td class="rowhead">부사격</td><td><span class="cz">에, 에서</span> 등</td></tr>
+    <tr><td class="rowhead">보격</td><td><span class="cz">이/가</span> (‘되다·아니다’ 앞)</td><td class="rowhead">호격</td><td><span class="cz">아/야, (이)여</span></td></tr>
+    <tr><td class="rowhead">서술격</td><td><span class="cz">이다</span> — 조사 중 <b class="ng">유일한 가변어, 활용함</b></td><td class="rowhead">—</td><td>—</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2)"><b>비상 교과서의 정의</b> <span class="src ar2t">아라2 교과서</span> — 격조사가 주는 ‘일정한 자격’이란 <span class="cz">주어·목적어·보어·관형어·부사어·독립어·서술어</span> <b>일곱</b>을 말한다. 격조사의 이름과 문장 성분의 이름이 <b>일대일로 대응</b>한다는 것이 요지다.</p>
+
+  <h3>6. 보조사의 ‘특별한 뜻’ — 뜻까지 묻는다 <span class="src ar2p">아라2 프린트</span><span class="src ar2t">아라2 교과서</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:14%">보조사</th><th style="width:32%">더해 주는 뜻</th><th>예</th></tr>
+    <tr><td class="rowhead">은/는</td><td><span class="cz">대조 · 화제 · 강조</span></td><td class="ex">이 방은 깨끗한데 저 방은 깨끗하지 않다.(대조) / 귤은 노랗다.(화제)</td></tr>
+    <tr><td class="rowhead">만</td><td><span class="cz">한정 · 양보</span></td><td class="ex">너만 와라.(한정) / 몸만 건강해라.(양보)</td></tr>
+    <tr><td class="rowhead">도</td><td><span class="cz">더함</span></td><td class="ex">나도 가겠다.</td></tr>
+    <tr><td class="rowhead">요</td><td><span class="cz">존대</span></td><td class="ex">제가요, 어제요, 학교에서요.</td></tr>
+    <tr><td class="rowhead">대로</td><td><span class="cz">근거 · 달라짐 없음 · 구별</span></td><td class="ex">너는 너대로, 나는 나대로.</td></tr>
+    <tr><td class="rowhead">뿐</td><td><span class="cz">그것만 · 오직</span></td><td class="ex">믿을 건 너뿐이다.</td></tr>
+    <tr><td class="rowhead">밖에</td><td>‘그것 말고는 없음’ — 뒤에 <b>부정</b>이 온다</td><td class="ex">천 원밖에 없다. <span class="src ar2t">아라2 교과서</span></td></tr>
+  </table></div>
+
+  <div class="trap">
+    <span class="tt">‘요’는 어미가 아니라 <u>보조사</u>다 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">‘요’는 붙는 자리 때문에 어말 어미와 헷갈린다. 미래엔 주석의 판별법은 하나다 — <span class="cz">빼도 문장이 성립하면 보조사</span>. <span class="ex">제가요, 어제요, 학교에서요 늦었어요.</span> → ‘요’를 다 빼도 “제가 어제 학교에서 늦었어”로 멀쩡하다. 어미였다면 문장이 무너진다.</p>
+  </div>
+
+  <div class="trap">
+    <span class="tt">‘와/과’ — 두 교과서가 <u>같은 자리</u>를 예고했다</span>
+    <p><b>미래엔이 예고한 틀린 선지</b> <span class="src wd2t">원당2 교과서</span> : “<span class="ex">철수와 영희는 친구이다</span>와 <span class="ex">철수는 나와 생각이 다르다</span>의 ‘와’는 <b class="ng">모두 접속조사이다</b>” — 뒤의 ‘나와’는 <b>부사격</b>이다.</p>
+    <p style="margin-bottom:0"><b>비상이 예고한 틀린 선지</b> <span class="src ar2t">아라2 교과서</span> : “<span class="ex">나도 영희와 그렇게 놀고 싶다</span>의 ‘와’를 <b class="ng">접속조사</b>라고 설명” — 이 ‘와’ 역시 <b>격조사(부사격)</b>다. 같은 문장의 앞부분 <span class="ex">영희와 영수는</span>의 ‘와’만 접속조사.</p>
+  </div>
+  <div class="key">
+    <span class="tt">조사가 붙는 자리 — 비상의 한 줄</span>
+    <p style="margin-bottom:0">“조사는 주로 <b>체언</b> 뒤에 붙지만, 경우에 따라서는 <span class="cz">부사·조사·용언 또는 문장</span> 뒤에도 붙는다.” <span class="src ar2t">아라2 교과서</span> — 원당3 프린트의 ‘보조사의 결합력’과 <b>같은 내용</b>이다.</p>
   </div>
 </section>
 
@@ -580,7 +677,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <!-- ══════════ 5 ══════════ -->
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅴ</span><h2>수식언 — 관형사 · 부사</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 수식언의 분류</h3>
   <div class="tw"><table>
@@ -643,10 +740,39 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
   </div>
   <p style="font-size:13.5px;color:var(--ink2);margin-bottom:0">둘 다 <b>부사</b>다. 체언을 꾸민다고 해서 관형사로 보지 않는다 — ‘바로, 오직, 특히, 겨우’ 등 일부 부사는 체언을 직접 수식할 수 있다.</p>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅴ 수식언</span>
-    <p>비상 교과서의 부사 하위분류·부정 부사 서술, 아라2 프린트 예문을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>4. 관형사 ↔ 부사를 가르는 <u>조사 결합</u> — 교과서가 직접 쓴 기준</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span></div>
+  <div class="vs">
+    <div class="l-b"><span class="lbl">관형사 — 조사 결합 ✗</span>
+      <p class="ex" style="margin-bottom:0">*새<u>가</u> 옷 / *새<u>는</u> 옷</p>
+      <p style="font-size:13px;color:var(--ink2);margin:6px 0 0">미래엔 : “관형사는 조사와 결합할 수 없지만”</p></div>
+    <div class="l-a"><span class="lbl">부사 — 일부 조사 결합 ○</span>
+      <p class="ex" style="margin-bottom:0">빨리<b>도</b> 간다 / 빨리<b>는</b> 도착하지 못할 거야</p>
+      <p style="font-size:13px;color:var(--ink2);margin:6px 0 0">미래엔이 <b class="ok">옳은 선지</b>로 예고 · 비상도 “부사는 관형사와 달리 <b>보조사</b>를 취할 수 있다”</p></div>
+  </div>
+  <div class="key">
+    <span class="tt">이 한 줄이 §Ⅴ의 결론</span>
+    <p style="margin-bottom:0"><b>수식언 둘을 가르는 결정적 차이 = ①무엇을 꾸미나 ②조사가 붙나.</b> 둘 다 형태는 안 변한다(불변어).</p>
+  </div>
+
+  <h3>5. 부사가 꾸미는 것 — 네 가지 전부 <span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:24%">꾸미는 대상</th><th>예문</th></tr>
+    <tr><td class="rowhead">용언 (기본)</td><td class="ex">이번 여름에는 비가 참 <b>자주</b> <u>온다</u>. <span class="src ar2p">아라2 프린트</span></td></tr>
+    <tr><td class="rowhead">다른 부사</td><td class="ex"><b>너무</b> <u>빨리</u> 달린다 — “‘너무’는 체언이 아닌 다른 <b>성분 부사</b>를 꾸며 준다”가 <b class="ok">옳은 선지</b> <span class="src wd2t">원당2 교과서</span></td></tr>
+    <tr><td class="rowhead">관형사</td><td class="ex"><b>아주</b> <u>새</u> 옷</td></tr>
+    <tr><td class="rowhead">체언 (예외)</td><td class="ex">내가 원하는 것이 <b>바로</b> <u>그것</u>이다 — 그래도 <b>부사</b> <span class="src wd3">원당3 프린트</span></td></tr>
+    <tr><td class="rowhead">문장 전체</td><td class="ex"><b>그런데</b> <b>설마</b> 너까지 나를 의심하는 거니? <span class="src ar2p">아라2 프린트</span></td></tr>
+  </table></div>
+
+  <h3>6. 아라고 프린트 분류 연습 — 답까지 그대로 <span class="src ar2p">아라2 프린트</span><span class="src ar2t">아라2 교과서</span></h3>
+  <div class="card">
+    <p class="ex" style="margin-bottom:8px">가슴 설레며 맞이했던 <b>새</b> 학기도 끝났다. <b>그리고</b> 방학이 찾아왔다. 머지않아 우리는 정든 <b>이</b> 학교를 떠나 사회에 <b>한</b> 걸음, <b>두</b> 걸음 <b>차근차근</b> 나아가게 될 것이다. <b>과연</b> 우리는 앞으로 어떻게 살아가게 될까?</p>
+    <p style="margin-bottom:0"><b>정답</b> — 새=<span class="cz">성상 관형사</span> · 이=<span class="cz">지시 관형사</span> · 한, 두=<span class="cz">수 관형사</span> · 차근차근=<span class="cz">성분 부사</span> · 그리고, 과연=<span class="cz">문장 부사</span>(그리고는 접속 부사, 과연은 양태 부사)</p>
+  </div>
+  <div class="trap">
+    <span class="tt">비상이 예고한 틀린 선지 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0">“단어의 품사를 묻는 문제에서 <b class="ng">동사나 형용사의 활용형을 관형사로 분류</b>하는 식의 틀린 선지” — 위 지문의 ‘정든’은 동사 ‘정들다’의 <b>관형사형</b>이지 관형사가 아니다. §Ⅴ‑2‑③ <b>서술성</b> 기준을 그대로 쓴다.</p>
   </div>
 </section>
 
@@ -654,7 +780,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <!-- ══════════ 6 ══════════ -->
 <section>
   <div class="sechead"><span class="secno">Ⅵ</span><h2>독립언 — 감탄사</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 감탄사의 특성</h3>
   <ul>
@@ -676,9 +802,22 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <p style="margin-bottom:0">“단독으로 쓰였다 = 감탄사”가 <b class="ng">아니다</b>. 단독으로 쓰여도 <b>활용하면 용언</b>, <b>조사가 붙을 수 있으면 체언</b>이다.</p>
   </div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅵ 감탄사</span>
-    <div class="lines"><i></i><i></i></div>
+  <h3>3. 감탄사가 나타내는 것 — 교과서가 넷으로 센다</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
+  <p>미래엔은 <span class="cz">느낌 · 부름과 응답 · 입버릇 · 더듬거림</span>(아, 네, 저기)을, 비상은 <span class="cz">느낌 · 놀람 · 부름과 대답</span>을 든다. 아라2 프린트의 예는 <span class="ex">앗, 와, 얼씨구</span>.</p>
+  <div class="tw"><table>
+    <tr><th style="width:24%">갈래</th><th>예</th></tr>
+    <tr><td class="rowhead">느낌·놀람</td><td class="ex">아, 앗, 와, 아이고, 얼씨구</td></tr>
+    <tr><td class="rowhead">부름·대답</td><td class="ex">여보세요, 얘 / 네, 응, 그래</td></tr>
+    <tr><td class="rowhead">입버릇·더듬거림</td><td class="ex">저기, 음, 에</td></tr>
+  </table></div>
+  <div class="trap">
+    <span class="tt">비상이 예고한 틀린 선지 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0"><span class="ex">할머니: <b>아이고</b>, 우리 <b>강아지</b>, 어디 얼굴 좀 보자. / 손자: <b>네</b>? 제가 왜 강아지예요?</span><br>감탄사는 <b class="ok">아이고 · 네</b> 둘뿐이다. ‘강아지’를 감탄사라고 하는 선지가 <b class="ng">틀린 선지</b>로 예고됐다 — 애칭으로 쓰였어도 조사가 붙고 관형어의 수식을 받으므로 <b>명사</b>다.</p>
+  </div>
+  <div class="key">
+    <span class="tt">아라2 프린트가 정리한 감탄사의 특성 3</span>
+    <p style="margin-bottom:0">① 다른 <span class="cz">문장 성분</span>들에 얽매이지 않고 <span class="cz">독립성</span>을 가짐 ② <span class="cz">조사</span>와 결합하지 않음 ③ 문장 안에서 놓이는 <span class="cz">위치</span>가 비교적 <span class="cz">자유로움</span>.</p>
   </div>
 </section>
 
@@ -686,7 +825,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <!-- ══════════ 7 ══════════ -->
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅶ</span><h2>용언 — 동사 · 형용사</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 용언의 분류</h3>
   <div class="tw"><table>
@@ -729,10 +868,63 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <tr><td class="rowhead">밝다</td><td class="ex">날이 <b>밝는다</b>.(<span class="cz">동사</span>·날이 새다) / 방이 <b>밝다</b>.(<span class="cz">형용사</span>·어둡지 않다)</td></tr>
   </table></div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅶ 용언</span>
-    <p>비상 교과서의 본용언·보조용언 처리, 아라2 프린트의 동사/형용사 판별 문항을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>4. 동사·형용사 판별 <b>7종 시험지</b> — 아라고 프린트 원표 <span class="src ar2p">아라2 프린트</span></h3>
+  <p>원당3의 세 가지 시험(ㄱ·ㄴ·ㄷ)에 아라고 프린트는 <b>진행형·의문형·현재 관형사형</b>을 더해 <b>일곱 칸</b>으로 표를 짰다. 어떤 학교든 이 표 하나면 판별이 끝난다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:22%">구분 기준</th><th style="width:39%">동사</th><th>형용사</th></tr>
+    <tr><td class="rowhead">의미 차원</td><td>움직임이나 <span class="cz">과정</span>을 나타냄</td><td><span class="cz">성질·상태</span>를 나타냄</td></tr>
+    <tr><td class="rowhead">현재 시제 선어말 어미<br>‘‑는‑/‑ㄴ‑’</td><td><b class="ok">○</b> <span class="ex">나는 밥을 먹는다. / 공부를 한다.</span></td><td><b class="ng">✗</b> <span class="ex">*나는 기분이 나쁜다.</span></td></tr>
+    <tr><td class="rowhead">현재 시제<br>관형사형 어미</td><td><b>‘‑는’</b> <span class="ex">밥을 먹는 나 / 공부를 하는 나</span></td><td><b>‘‑ㄴ/‑은’</b> <span class="ex">친절한 나</span></td></tr>
+    <tr><td class="rowhead">의도·목적의 어미<br>‘‑려, ‑러’</td><td><b class="ok">○</b> <span class="ex">먹으려 한다. / 하러 간다.</span></td><td><b class="ng">✗</b> <span class="ex">*친절하려 한다. / *착하러 간다.</span></td></tr>
+    <tr><td class="rowhead">명령형 어미<br>‘‑아라/‑어라’</td><td><b class="ok">○</b> <span class="ex">집으로 가거라.</span></td><td><b class="ng">✗</b> <span class="ex">*즐거워라.</span></td></tr>
+    <tr><td class="rowhead">청유형 어미 ‘‑자’</td><td><b class="ok">○</b> <span class="ex">집으로 가자.</span></td><td><b class="ng">✗</b> <span class="ex">*즐겁자.</span></td></tr>
+    <tr><td class="rowhead"><b>진행형 ‘‑고 있다’</b></td><td><b class="ok">○</b> <span class="ex">집으로 가고 있다. / 공부를 하고 있다.</span></td><td><b class="ng">✗</b> <span class="ex">*나는 예쁘고 있다.</span></td></tr>
+    <tr><td class="rowhead"><b>의문형 어미</b></td><td><b>‘‑느냐’</b> <span class="ex">강아지가 밥을 먹었느냐?</span></td><td><b>‘‑냐’</b> <span class="ex">강아지가 귀엽냐?</span></td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">동사·형용사의 <u>공통점</u>도 묻는다 <span class="src ar2p">아라2 프린트</span></span>
+    <p style="margin-bottom:0">① 문장에서 <span class="cz">서술어</span>로 쓰인다 ② 쓰임에 따라 <span class="cz">형태</span>가 변한다(가변어) ③ <span class="cz">부사어</span>의 꾸밈을 받는다(<span class="ex">자동차가 <u>잘</u> 달린다 / 오늘 날씨가 <u>매우</u> 덥다</span>) ④ <b>조사가 붙을 수 있다</b>(<span class="ex">한국말은 <u>배우기가</u> 어렵다 / 이번 시험은 별로 <u>어렵지가</u> 않았어요</span>).<br>④는 “조사는 체언에만 붙는다”는 오답을 깨는 카드다.</p>
+  </div>
+
+  <div class="trap">
+    <span class="tt">‘젊으시다’ 함정 <span class="src wd2t">원당2 교과서</span></span>
+    <p>미래엔 주석 : 동사·형용사를 구분하는 문제에 <b class="ng">‘젊으시다’가 동사로 잘못 분류</b>되어 출제될 수 있다. ‘젊다’는 <b>형용사</b>이고, 주체 높임 ‘‑시‑’가 붙어도 <b>품사는 그대로</b>다. (짝인 ‘늙다’는 동사라는 §Ⅶ‑3과 함께 외운다.)</p>
+    <p style="margin-bottom:0">같은 주석 : 형용사에 밑줄을 긋고 “<b class="ng">현재 시제 선어말 어미 ‘‑는/ㄴ‑’과 결합할 수 있다</b>”고 쓴 선지는 <b>틀린 선지</b>다.</p>
+  </div>
+
+  <h3>5. 자동사 ↔ 타동사 — 기준은 <u>목적어 유무</u> 하나 <span class="src ar2t">아라2 교과서</span><span class="src wd2t">원당2 교과서</span><span class="src ar2p">아라2 프린트</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:20%">갈래</th><th style="width:36%">정의</th><th>예</th></tr>
+    <tr><td class="rowhead">자동사</td><td>움직임이 <span class="cz">주어</span>에만 관련되는 동사</td><td class="ex">흐르다, 피다, 일어나다 / <b>차가 멈추다</b></td></tr>
+    <tr><td class="rowhead">타동사</td><td>움직임이 <span class="cz">목적어</span>에까지 영향을 미치는 동사</td><td class="ex">읽다, 마시다 / <b>차를 멈추다</b></td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">‘멈추다’ — 한 단어가 자·타 양쪽 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">미래엔이 <b class="ok">옳은 선지</b>로 예고한 두 문장 : “<span class="ex">차를 멈추다</span>의 ‘멈추다’는 <b>목적어를 취하므로 타동사</b>” / “<span class="ex">차가 멈추다</span>의 ‘멈추다’는 <b>목적어 없이 쓰였으므로 자동사</b>”. <b>단어가 아니라 문장을 보고 판정</b>하라는 뜻이다.</p>
+  </div>
+
+  <h3>6. 보조 용언 — 아라고 <b>정식 출제 범위</b> <span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></h3>
+  <p>비상 교과서는 보조 용언을 <b>용언의 세 번째 항목</b>으로 정식 편성했다(미래엔 본문에는 없다). 아라고2는 <b>반드시</b> 챙긴다.</p>
+  <div class="card">
+    <p><b>본용언</b> : 용언이 어미를 사이에 두고 두 개 이상 이어져 나타날 때, 문장의 <span class="cz">주체를 주되게 서술</span>하면서 보조 용언의 도움을 받는 용언.</p>
+    <p style="margin-bottom:0"><b>보조 용언</b> : 홀로 쓰이지 못하고 본용언 뒤에 붙어 <span class="cz">의미를 더해 주는</span> 용언. <span class="cz">보조 동사</span>와 <span class="cz">보조 형용사</span>로 나뉜다.</p>
+  </div>
+  <div class="tw"><table>
+    <tr><th style="width:46%">예문</th><th style="width:20%">보조 용언</th><th>판정 근거</th></tr>
+    <tr><td class="ex">새로 산 의자에 <u>앉아</u> <b>본다</b>.</td><td><b>보조 동사</b> ‘보다’</td><td><span class="cz">동사처럼 활용</span>한다 · 뜻은 ‘시도’</td></tr>
+    <tr><td class="ex">좋은 친구에게 선물을 <u>하고</u> <b>싶다</b>.</td><td><b>보조 형용사</b> ‘싶다’</td><td><span class="cz">형용사처럼 활용</span>한다 · 뜻은 ‘희망’</td></tr>
+    <tr><td class="ex">나는 그 옷을 <u>입어</u> <b>보았다</b>.</td><td>보조 동사</td><td>아라2 프린트 예</td></tr>
+    <tr><td class="ex">동생이 사과를 <u>먹어</u> <b>버렸다</b>.</td><td>보조 동사</td><td>보조적 연결어미 ‘‑어’로 이어짐</td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">보조 용언의 특성 2 — 그대로 문제가 된다 <span class="src ar2p">아라2 프린트</span></span>
+    <p><b>① 본용언을 빼면 문장이 성립하지 않는다 = 보조 용언은 <span class="cz">자립성</span>이 없다.</b><br><span class="ex">나는 제주도에 가고 싶다. / *나는 제주도에 싶다.</span></p>
+    <p style="margin-bottom:0"><b>② 본용언과 보조 용언 사이에 다른 문장 성분이 개입할 수 없다.</b><br><span class="ex">나는 자유롭게 여행을 다니고 싶다. / *…다니고서 싶다.</span> &nbsp; <span class="ex">동생이 한 요리를 먹어 보았다. / *…먹어서 보았다.</span></p>
+  </div>
+  <div class="trap">
+    <span class="tt">‘먹어 버렸다’ 3단 비교 — 아라고 프린트 핵심 탐구</span>
+    <p class="ex">ⓐ 동생이 사과를 혼자 <b>먹어 버렸다</b>. &nbsp;ⓑ 동생이 사과를 혼자 <b>먹었다</b>. &nbsp;ⓒ 동생이 사과를 혼자 <b>버렸다</b>.</p>
+    <p style="margin-bottom:0">ⓐ와 ⓑ는 <b>같은 의미</b>로 볼 수 있다. ⓒ의 ‘버리다’를 <b>보조 용언</b>으로 보면 본용언이 없어 <b class="ng">문장이 성립하지 않고</b>, <b>본용언</b>으로 보면 문장은 성립하지만 ⓐ·ⓑ와 <b class="ng">의미가 완전히 달라진다</b>(사과를 내다 버렸다). → 보조 용언은 <b>본용언에 얹혀야만</b> 그 뜻이 산다.</p>
   </div>
 </section>
 
@@ -741,7 +933,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅷ</span><h2>용언의 활용 ① 규칙 활용</h2></div>
   <p class="secnote">여기부터 두 절이 이번 시험의 승부처다. <b>규칙인데 형태가 변하는 것</b>을 불규칙으로 착각하는 순간 끝난다.</p>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2">원당2 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2">원당2 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 규칙 활용 · 불규칙 활용의 정의</h3>
   <div class="card">
@@ -777,10 +969,30 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <p style="margin-bottom:0">같은 음운 조건인데 <b>의미에 따라</b> 활용 형태가 다르다. 어간 말음 ‘ㄹ’ 탈락이나 ‘ㅡ’ 탈락은 이런 예외가 없기 때문에 규칙 활용이라고 본다.</p>
   </div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅷ 규칙 활용</span>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>3. 아라고 프린트의 규칙 활용 예 — 세 줄이 전부다 <span class="src ar2p">아라2 프린트</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:26%">갈래</th><th>프린트 원문 예</th></tr>
+    <tr><td class="rowhead">형태 변화 없음</td><td class="ex">뽑다 / 씻다 → 뽑아, 뽑아서 / 씻어, 씻어서</td></tr>
+    <tr><td class="rowhead"><b>‘ㄹ’ 탈락</b></td><td class="ex">들다 / 풀다 → 드니, 드느냐 / 푸니, 푸느냐</td></tr>
+    <tr><td class="rowhead"><b>‘ㅡ’ 탈락</b></td><td class="ex">끄다 / 쓰다 → 꺼 / 써</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2)">※ ‘풀다 → 푸니’와 ‘푸다 → 퍼’를 헷갈리지 말 것. 앞은 <b class="ok">ㄹ 탈락(규칙)</b>, 뒤는 <b class="ng">‘우’ 불규칙</b>이다.</p>
+
+  <h3>4. 두 교과서가 같은 문장으로 못 박은 것</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span></div>
+  <div class="key">
+    <span class="tt">미래엔 주석 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">“<b>‘살다’와 ‘기쁘다’</b>는 활용할 때 어간의 기본 형태가 유지되지 않지만, 이러한 현상이 <span class="cz">일정한 환경에서 예외 없이 이루어지기 때문에 규칙 활용</span>에 해당함.” → 규칙 활용의 예를 묻는 문제에 <b class="ok">‘치르다’</b>가 옳은 선지로 예고됐다(‘ㅡ’ 탈락).</p>
   </div>
+  <div class="trap">
+    <span class="tt">비상이 예고한 틀린 선지 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0">“용언의 활용 과정에서 <b>자음이나 모음이 규칙적으로 탈락</b>하는 사례를 <b class="ng">불규칙 활용의 예시로 제시</b>하는 식의 틀린 선지” — 즉 <b>‘살다→사니’, ‘쓰다→써’를 불규칙이라 부르면 오답</b>. 이 노트에서 §Ⅷ‑2 아래 노란 상자와 정확히 같은 지점이다.</p>
+  </div>
+  <div class="mnem">
+    <span class="big">ㄹ·ㅡ는 규칙</span>
+    <span class="why">세 출처(원당2 프린트 · 미래엔 · 비상)가 <b>동시에</b> 예고한 유일한 항목. 이 문장이 안 나오면 오히려 이상하다.</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink2);margin-bottom:0">※ ‘묻다[埋] : 묻다[問]’ 대비는 <b>비상 교과서 본문에도 같은 형태로</b> 실려 있다(묻고·묻지·묻었다·묻어라 ↔ 묻고·묻지·물었다·물어라). <span class="src wd2">원당2 프린트</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span> — <b>세 출처 공통 = 최고 빈출.</b></p>
 </section>
 
 
@@ -788,7 +1000,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅸ</span><h2>용언의 활용 ② 불규칙 활용 <b style="color:var(--red);font-size:16px">★★</b></h2></div>
   <p class="secnote">어간과 어미의 기본 형태가 유지되지 않을 뿐더러 <b>일반적 음운 규칙으로 설명할 수 없는 것</b>.</p>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2">원당2 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2">원당2 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 어간이 바뀌는 경우</h3>
   <div class="mnem">
@@ -858,10 +1070,37 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <li>그 외에 어간이 변했나 → <b class="ng">불규칙(순두부를푸)</b> / 어미가 변했나 → <b class="ng">불규칙(여·러·너라)</b> / 둘 다 → <b class="ng">ㅎ 불규칙</b></li>
   </ol>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅸ 불규칙 활용</span>
-    <p>비상 교과서의 불규칙 활용표 · 활용 관련 탐구활동, 아라2 프린트 문항을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>5. ⚠ 학교별로 <u>표기가 다른</u> 한 칸 — ‘너라’ 불규칙</h3>
+  <div class="tw"><table>
+    <tr><th style="width:26%">출처</th><th>서술</th></tr>
+    <tr><td class="rowhead"><span class="src wd3">원당3 프린트</span></td><td>‘오‑’ 뒤에서만 명령형 어미 <b>‘‑아라’</b>가 ‘‑너라’로 변함</td></tr>
+    <tr><td class="rowhead"><span class="src ar2p">아라2 프린트</span></td><td>‘오‑’ 뒤에만 명령형 어미인 <b>‘‑거라’</b>가 ‘‑너라’로 변함</td></tr>
+  </table></div>
+  <div class="trap">
+    <span class="tt">답안은 자기 학교 프린트대로 쓴다</span>
+    <p style="margin-bottom:0">두 프린트가 <b>기본형으로 잡은 어미가 다르다</b>. 결론(‘오너라’가 ‘너라’ 불규칙)은 같으므로 객관식은 문제없지만, <b>서술형에서는 자기 학교 프린트의 표기를 그대로</b> 쓴다 — 원당고2는 <code>-아라 → -너라</code>, 아라고2는 <code>-거라 → -너라</code>. 규칙 활용 예는 양쪽 다 <span class="ex">가거라, 있거라</span>로 같다.</p>
+  </div>
+
+  <h3>6. ‘ㅂ’ 불규칙에서 <u>오</u>냐 <u>우</u>냐 — 아라고 판서의 기준 <span class="src ar2p">아라2 프린트</span></h3>
+  <div class="vs">
+    <div class="l-a"><span class="lbl">양성 모음 어간 → ‘오’</span>
+      <p style="font-size:13px;color:var(--ink2);margin:0 0 6px">어간 모음이 <span class="cz">ㅏ, ㅑ, ㅗ, ㅛ</span></p>
+      <p class="ex" style="margin-bottom:0">돕+아 → 도<b>와</b> / 곱+아 → 고<b>와</b></p></div>
+    <div class="l-b"><span class="lbl">음성 모음 어간 → ‘우’</span>
+      <p style="font-size:13px;color:var(--ink2);margin:0 0 6px">어간 모음이 <span class="cz">ㅓ, ㅕ, ㅜ, ㅠ</span></p>
+      <p class="ex" style="margin-bottom:0">눕+어 → 누<b>워</b> / 줍+어 → 주<b>워</b> / 덥+어 → 더<b>워</b></p></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink2)">→ 원당3 프린트의 “<b>돕‑·곱‑만 ‘오’</b>”와 결과가 같다. 실제로 현대 국어에서 양성 모음 단음절 어간은 ‘돕다·곱다’뿐이기 때문이다. <b>암기는 ‘돕·곱’, 이유는 ‘모음조화’</b>로 정리해 두면 서술형까지 막힌다.</p>
+
+  <h3>7. 교과서가 예고한 불규칙 선지 두 개 <span class="src wd2t">원당2 교과서</span></h3>
+  <div class="tw"><table>
+    <tr><th style="width:34%">문제</th><th style="width:14%">선지</th><th>판정과 이유</th></tr>
+    <tr><td>어간이 불규칙하게 변하는 용언의 예</td><td class="c ex"><b>낫다</b></td><td><b class="ok">옳은 선지</b> — 낫+아 → 나아, <b>ㅅ 불규칙</b></td></tr>
+    <tr><td>어미가 불규칙하게 변하는 용언의 예</td><td class="c ex"><b>흐르다</b></td><td><b class="ng">틀린 선지</b> — 흐르+어 → 흘러는 <b>어간</b>이 변한 ‘르’ 불규칙. 어미가 변하는 것은 ‘이르다[至]’류</td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">비상도 같은 3분법을 쓴다 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0">“불규칙 활용은 <span class="cz">어간이 불규칙한 것 · 어미가 불규칙한 것 · 어간과 어미가 모두 불규칙한 것</span>이 있다.” — 원당3·원당2·아라2가 <b>전부 같은 3분법</b>이다. 표를 통째로 외우되, <b>‘어간이냐 어미냐’를 먼저 답하는 훈련</b>을 한다.</p>
   </div>
 </section>
 
@@ -869,7 +1108,7 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
 <!-- ══════════ 10 ══════════ -->
 <section class="pb">
   <div class="sechead"><span class="secno">Ⅹ</span><h2>어미의 분류</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <h3>1. 어미의 체계</h3>
   <div class="tw"><table>
@@ -933,18 +1172,79 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <tr><td class="ex">나는 어제 그와 <b>만날</b> 결심을 하지 못하였다.</td><td class="ex">*결심을 만나다 <b class="ng">✗</b></td><td class="c"><span class="cz">동격</span></td></tr>
   </table></div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — Ⅹ 어미</span>
-    <p>비상 교과서의 어미 체계표, 아라2 프린트의 어미 판별 문항을 여기에.</p>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>5. 아라고 프린트의 어미 표 — 예문이 전부 ‘아라’다 <span class="src ar2p">아라2 프린트</span></h3>
+  <h4>① 종결 어미 — 학교 프린트 예문 그대로</h4>
+  <div class="tw"><table>
+    <tr><th style="width:56%">예문</th><th>종결 어미</th></tr>
+    <tr><td class="ex">아라는 언어와 매체를 공부한<b>다</b>.</td><td><span class="cz">평서형</span></td></tr>
+    <tr><td class="ex">아라가 언어와 매체를 공부하<b>느냐</b>?</td><td><span class="cz">의문형</span></td></tr>
+    <tr><td class="ex">아라야, 언어와 매체를 공부해<b>라</b>.</td><td><span class="cz">명령형</span></td></tr>
+    <tr><td class="ex">얘들아, 언어와 매체를 공부하<b>자</b>.</td><td><span class="cz">청유형</span></td></tr>
+    <tr><td class="ex">아라가 언어와 매체를 공부하<b>는구나</b>.</td><td><span class="cz">감탄형</span></td></tr>
+  </table></div>
+  <p style="font-size:13px;color:var(--ink2)">※ 명령형 칸이 <b>‘‑(해)라’</b>임을 확인해 둘 것 — 원당3 프린트 명령형 칸을 <code>-어라, -ㅂ시오</code>로 바로잡은 근거다(<code>-ㅂ니까</code>는 의문형).</p>
+
+  <h4>② 연결 어미 — 세 갈래와 그 목록</h4>
+  <div class="tw"><table>
+    <tr><th style="width:14%">갈래</th><th style="width:34%">기능</th><th style="width:18%">어미</th><th>프린트 예문</th></tr>
+    <tr><td class="rowhead">대등적</td><td>앞절과 뒷절을 <span class="cz">대등한 관계</span>로 연결</td><td class="ex">‑고, ‑(으)나</td><td class="ex">하늘은 푸르<b>고</b> 물은 맑다. / 강의 폭이 매우 좁<b>으나</b> 깊이가 깊다.</td></tr>
+    <tr><td class="rowhead">종속적</td><td>앞절을 뒷절에 <span class="cz">의미적으로 이끌리는 관계</span>로 연결</td><td class="ex">‑(으)면, ‑(으)니,<br>‑(으)려고, ‑(아)서</td><td class="ex">비가 오<b>면</b> 집에 있을 것이다. / 학교에 가<b>려고</b> 집에서 일찍 나왔다.</td></tr>
+    <tr><td class="rowhead">보조적</td><td><span class="cz">본용언과 보조 용언</span>을 연결</td><td class="ex">‑아/어, ‑게, ‑지, ‑고</td><td class="ex">동생이 사과를 먹<b>어</b> 버렸다. / 나는 국어를 잘하<b>고</b> 싶다.</td></tr>
+  </table></div>
+
+  <h4>③ 전성 어미 — 목록이 원당3보다 넓다</h4>
+  <div class="tw"><table>
+    <tr><th style="width:20%">갈래</th><th style="width:34%">어미</th><th>프린트 예문</th></tr>
+    <tr><td class="rowhead">명사형</td><td class="ex">‑기, ‑(으)ㅁ</td><td class="ex">그 일은 하<b>기</b>가 쉽지 않다.</td></tr>
+    <tr><td class="rowhead">관형사형</td><td class="ex">‑(으)ㄴ, ‑는, ‑(으)ㄹ, ‑던</td><td class="ex">최선을 다하<b>는</b> 사람이 되어라.</td></tr>
+    <tr><td class="rowhead">부사형</td><td class="ex">‑게, ‑도록, ‑듯이, ‑(아)서</td><td class="ex">꽃이 아름답<b>게</b> 피었다.</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2)"><b>전성 어미의 정의</b>(아라2 프린트·비상 공통) — 용언의 <span class="cz">서술 기능을 그대로 유지하면서</span>, 동시에 명사·관형사·부사처럼 기능하도록 <span class="cz">문법적 기능만</span> 바꾸는 어미. <b>품사는 여전히 용언</b>이라는 점이 §Ⅹ‑1의 판서와 정확히 같다.</p>
+
+  <h3>6. 활용형 쪼개기 연습 — 프린트 문항과 정답 <span class="src ar2p">아라2 프린트</span></h3>
+  <div class="card">
+    <p class="ex" style="margin-bottom:8px">나는 어제 영화를 <b>보았다</b>. / 선생님께서 교실에 <b>가셨다</b>. / 어쩔 수 없이 <b>가겠지만</b>, 썩 내키진 않는다. / <b>바쁘신</b> 선생님</p>
+    <div class="tw"><table>
+      <tr><th style="width:22%">활용형</th><th>어간 + 선어말 어미 + 어말 어미</th></tr>
+      <tr><td class="ex">보았다</td><td class="ex">보(어간) + 았(선어말) + 다(어말)</td></tr>
+      <tr><td class="ex">가셨다</td><td class="ex">가(어간) + <b>시</b>(주체 높임 선어말) + <b>었</b>(과거 선어말) + 다(어말)</td></tr>
+      <tr><td class="ex">가겠지만</td><td class="ex">가(어간) + 겠(추측·의지 선어말) + 지만(연결 어말)</td></tr>
+      <tr><td class="ex">바쁘신</td><td class="ex">바쁘(어간) + 시(선어말) + ㄴ(관형사형 전성 어말)</td></tr>
+    </table></div>
+    <p style="margin-bottom:0"><b>‘가셨다’가 승부처</b> — 선어말 어미가 <b>두 개</b> 들어 있다. ‘‑시‑’와 ‘‑었‑’을 하나로 뭉뚱그리면 감점된다.</p>
   </div>
+
+  <div class="trap">
+    <span class="tt">미래엔이 예고한 어미 선지 4종 <span class="src wd2t">원당2 교과서</span></span>
+    <p><b class="ok">옳은 선지</b> — “<span class="ex">피었구나</span>에는 <b>과거</b>의 때를 나타내는 <b>선어말</b> 어미가 사용되었다.”</p>
+    <p><b class="ng">틀린 선지</b> — “<span class="ex">들어가셨다</span>에는 주체를 높이는 의미를 지닌 <b>어말</b> 어미가 포함되었다.” → ‘‑시‑’는 <b>선어말</b> 어미다. <b>‘어말/선어말’ 한 글자로 오답을 만든다.</b></p>
+    <p style="margin-bottom:0"><b class="ok">옳은 선지 2개</b> — “<span class="ex">아버지께서 일을 마치시고 집으로 가셨음을 이제야 알았다.</span>에서 ‘가셨음’과 달리 <b>‘알았다’에는 문장을 완전히 끝맺는 종결 어미</b>가 쓰였다.” / “<span class="ex">형은 자신이 옳음을 끝까지 주장했다.</span>에는 용언이 <b>명사의 기능</b>을 수행하게 하는 <b>전성 어미</b>가 쓰였다.”</p>
+  </div>
+
+  <h3>7. 어근 ↔ 어간 — 둘을 섞으면 문제 하나가 통째로 날아간다</h3>
+  <div class="srcs"><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
+  <div class="vs">
+    <div class="l-a"><span class="lbl">어근 (語根)</span>
+      <p style="margin-bottom:4px">실질적인 <span class="cz">의미</span>를 지닌 형태소로서 단어의 중심 부분</p>
+      <p style="font-size:13px;color:var(--ink2);margin:0"><b>단어의 형성</b>을 따질 때 <b>접사</b>와 짝을 이룬다</p></div>
+    <div class="l-b"><span class="lbl">어간 (語幹)</span>
+      <p style="margin-bottom:4px">용언이 활용할 때 변하지 않고 <span class="cz">고정</span>된 부분</p>
+      <p style="font-size:13px;color:var(--ink2);margin:0"><b>용언의 활용</b>을 따질 때 <b>어미</b>와 짝을 이룬다</p></div>
+  </div>
+  <div class="tw"><table>
+    <tr><th style="width:16%">단어</th><th style="width:42%">활용 (어간 + 어미)</th><th>형성 (어근 + 접사)</th></tr>
+    <tr><td class="ex">먹다</td><td class="ex"><b>먹‑</b>(어간) + ‑다 / ‑고 / ‑지만</td><td class="ex"><b>먹‑</b>(어근) — 어간과 같다</td></tr>
+    <tr><td class="ex">잡히다</td><td class="ex"><b>잡히‑</b>(어간) + ‑다 / ‑고 / ‑지만</td><td class="ex"><b>잡‑</b>(어근) + <b>‑히‑</b>(접사)</td></tr>
+    <tr><td class="ex">오가다</td><td class="ex"><b>오가‑</b>(어간) + ‑다 / ‑고 / ‑지만</td><td class="ex"><b>오‑</b>(어근) + <b>‑가‑</b>(어근)</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2);margin-bottom:0">→ ‘잡히다·오가다’처럼 <b>어간이 어근보다 큰</b> 경우가 정답 자리다. 비상 주석도 “용언을 <b>어근과 접사</b>로 분석한 것과 <b>어간과 어미</b>로 분석한 것”을 함께 묻는 문제를 예고했다. 미래엔 주석의 한 줄도 같다 — “<b>어간</b>은 용언의 활용을 따질 때 <b>어미</b>와 함께, <b>어근</b>은 단어의 형성을 따질 때 <b>접사</b>와 함께 거론되는 개념”.</p>
 </section>
 
 
 <!-- ══════════ 11 ══════════ -->
 <section class="pb">
   <div class="sechead"><span class="secno">XI</span><h2>품사의 통용</h2></div>
-  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src pend">원당2 교과서</span><span class="src pend">아라2 교과서</span><span class="src pend">아라2 프린트</span></div>
+  <div class="srcs"><span class="src wd3">원당3 프린트</span><span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></div>
 
   <div class="card">
     <p>하나의 단어가 둘 이상의 품사로 쓰이는 경우, 이를 ‘<b>품사 통용</b>’이라고 한다. 즉 하나의 단어가 둘 이상의 품사적 기능을 가지고 있다는 것이다. 품사 통용은 대체로 단어의 <b>의미와 기능을 중심으로 문장에서 쓰임을 통해</b> 확인할 수 있다.</p>
@@ -973,16 +1273,145 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <p style="margin-bottom:0"><b>조사가 붙었나?</b> → 체언(대명사·수사·명사) &nbsp;/&nbsp; <b>뒤의 체언을 꾸미나?</b> → 관형사 &nbsp;/&nbsp; <b>용언·문장을 꾸미나?</b> → 부사</p>
   </div>
 
-  <div class="slot">
-    <span class="tt">＋ 아라2 반영 영역 — XI 품사의 통용</span>
-    <div class="lines"><i></i><i></i><i></i></div>
+  <h3>2. 미래엔이 든 통용 사례 전부 <span class="src wd2t">원당2 교과서</span></h3>
+  <p>원당고2는 <b>품사의 통용이 교과서 정식 단원</b>이고, 주석이 <b>서술형까지 예고</b>했다. 아래 여섯 짝은 교과서 본문에 그대로 있는 것이다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:12%">단어</th><th style="width:42%">A</th><th>B</th></tr>
+    <tr><td class="rowhead">밝다</td><td class="ex">날이 <b>밝다</b>. → 밝<b>는다</b> ○ ⇒ <span class="cz">동사</span></td><td class="ex">달이 <b>밝다</b>. → *밝는다 ⇒ <span class="cz">형용사</span></td></tr>
+    <tr><td class="rowhead">잘못</td><td class="ex">같은 <b>잘못</b>을 되풀이하다 ⇒ <span class="cz">명사</span><br><span style="font-size:12.5px;color:var(--ink2)">격조사 결합 ○ · 관형어 ‘같은’의 수식</span></td><td class="ex"><b>잘못</b> 생각하다 ⇒ <span class="cz">부사</span><br><span style="font-size:12.5px;color:var(--ink2)">동사 ‘생각하다’를 꾸밈</span></td></tr>
+    <tr><td class="rowhead">내일</td><td class="ex">기다리던 <b>내일</b>이 드디어 왔다 ⇒ <span class="cz">명사</span></td><td class="ex"><b>내일</b> 다시 만나기로 약속했다 ⇒ <span class="cz">부사</span></td></tr>
+    <tr><td class="rowhead">만큼</td><td class="ex">먹을 <b>만큼</b> ⇒ <span class="cz">의존 명사</span></td><td class="ex">너<b>만큼</b> ⇒ <span class="cz">조사</span></td></tr>
+    <tr><td class="rowhead">여섯</td><td class="ex"><b>여섯</b>이 모였다 ⇒ <span class="cz">수사</span></td><td class="ex"><b>여섯</b> 사람 ⇒ <span class="cz">수 관형사</span></td></tr>
+    <tr><td class="rowhead">비교적</td><td class="ex"><b>비교적</b>인 관점 ⇒ <span class="cz">명사</span> / <b>비교적</b> 관점 ⇒ <span class="cz">관형사</span></td><td class="ex"><b>비교적</b> 쉽다 ⇒ <span class="cz">부사</span> &nbsp;<b>(3중 통용)</b></td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">서술형 답안 골격 <span class="src wd2t">원당2 교과서</span></span>
+    <p style="margin-bottom:0">“㉠의 ‘○○’은 <b>조사 ‘△’와 결합하여 문장에서 주어로 쓰였으므로</b> <b>수사</b>이고, ㉡의 ‘○○’은 <b>뒤의 체언 ‘□□’을 꾸며 주므로</b> <b>수 관형사</b>이다.” — <span class="cz">근거(기능) → 품사</span> 순서로 쓴다. 근거 없이 품사만 쓰면 반타작이다.</p>
+  </div>
+
+  <div class="trap">
+    <span class="tt">⚠ 아라고2는 사정이 다르다 <span class="src ar2t">아라2 교과서</span></span>
+    <p style="margin-bottom:0">비상(이관규) 『화법과 언어』 (2) 단어에는 <b class="ng">‘품사의 통용’ 단원이 없다</b>. 다만 <b>수사 ↔ 수 관형사</b>, <b>대명사 ↔ 부사</b>(여기에 놓아라 / 여기 놓아라), <b>의존 명사 ↔ 조사</b> 같은 구별 문제는 각 항목 주석에 예고돼 있다. <b>아라고2는 ‘통용’이라는 용어보다 개별 구별 문제로 나온다</b>고 보고 대비한다.</p>
   </div>
 </section>
 
 
 <!-- ══════════ 12 ══════════ -->
 <section class="pb">
-  <div class="sechead"><span class="secno">XII</span><h2>최종 점검 — 함정 30제</h2></div>
+  <div class="sechead"><span class="secno">XII</span><h2>아라고2 확장 — 학교가 <u>같이</u> 배부한 것들</h2></div>
+  <p class="secnote">아라고는 ‘(2) 단어’ 한 단원 안에서 <b>문장 성분·어근/어간·단어의 짜임</b>까지 묶어 배부했다. 원당고2 학생은 3단원에서 다시 만나므로 지금은 훑고 지나가도 된다.</p>
+  <div class="srcs"><span class="src ar2p">아라2 프린트</span><span class="src ar2t">아라2 교과서</span></div>
+
+  <h3>1. 문장 성분 — 품사와 <u>이름이 다른 층</u>이다</h3>
+  <div class="key">
+    <span class="tt">먼저 이것부터</span>
+    <p style="margin-bottom:0"><b>품사</b>는 단어가 <span class="cz">원래 가진 갈래</span>(명사·동사…)이고, <b>문장 성분</b>은 그 단어가 <span class="cz">이 문장에서 맡은 역할</span>(주어·서술어…)이다. <b>품사는 안 변하고 성분은 문장마다 변한다.</b> 시험은 “품사는 ○○, 성분은 △△”를 함께 묻는다.</p>
+  </div>
+  <div class="tw"><table>
+    <tr><th style="width:16%">갈래</th><th style="width:40%">정의</th><th>성분</th></tr>
+    <tr><td class="rowhead">주성분</td><td>문장 구성에 <span class="cz">필수적</span>으로 필요한 성분</td><td><span class="cz">주어 · 서술어 · 목적어 · 보어</span></td></tr>
+    <tr><td class="rowhead">부속 성분</td><td>주로 주성분의 내용을 <span class="cz">수식</span>하는 성분</td><td><span class="cz">관형어 · 부사어</span></td></tr>
+    <tr><td class="rowhead">독립 성분</td><td>다른 성분과 직접적 관련 없이 <span class="cz">독립적</span>으로 쓰이는 성분</td><td><span class="cz">독립어</span></td></tr>
+  </table></div>
+
+  <h4>① 주성분 넷</h4>
+  <div class="tw"><table>
+    <tr><th style="width:14%">성분</th><th style="width:36%">정의</th><th>예문</th></tr>
+    <tr><td class="rowhead">주어</td><td>동작·상태·성질의 <span class="cz">주체</span>. ‘무엇이’에 해당<br>주격 조사 <b>이/가, 께서, 에서</b></td><td class="ex">누나가 공부를 한다. / 누나 지금 공부해.(생략) / 누나도 공부를 한다.(보조사) / 누나만이 공부를 한다.(보조사+주격)</td></tr>
+    <tr><td class="rowhead">서술어</td><td>주어를 풀이함. ‘어찌한다·어떠하다·무엇이다’<br>동사·형용사 또는 <b>체언+이다</b></td><td class="ex">형이 노래를 부른다.(어찌한다) / 하늘이 푸르다.(어떠하다) / 나는 학생이다.(무엇이다)</td></tr>
+    <tr><td class="rowhead">목적어</td><td>동작의 <span class="cz">대상</span>. ‘무엇을’<br>목적격 조사 <b>을/를</b></td><td class="ex">나는 채소를 좋아해. / 나는 칭찬 받았어.(생략) / 나는 물도 마실래.(보조사) / 나는 너만을 좋아해.</td></tr>
+    <tr><td class="rowhead">보어</td><td>서술어 <b>‘되다·아니다’</b>가 요구하는 성분 중 <span class="cz">주어를 제외한</span> 것<br>보격 조사 <b>이/가</b></td><td class="ex">언니가 <b>대학생이</b> 되었다. / 그것은 <b>도리가</b> 아니다.</td></tr>
+  </table></div>
+  <div class="trap">
+    <span class="tt">§Ⅳ‑2‑②와 같은 자리다</span>
+    <p style="margin-bottom:0">보격 조사가 <b>‘되다·아니다’ 앞의 이/가</b>뿐이라는 것은 <b>조사(품사)</b>에서도, <b>보어(성분)</b>에서도 똑같이 묻는다. <span class="ex">철수가 대학생이 되다</span> — ‘철수가’는 <b class="ng">주어</b>, ‘대학생이’가 <b class="ok">보어</b>.</p>
+  </div>
+
+  <h4>② 서술어의 자릿수</h4>
+  <div class="tw"><table>
+    <tr><th style="width:22%">자릿수</th><th style="width:34%">필요한 성분</th><th>예문</th></tr>
+    <tr><td class="rowhead">한 자리</td><td><span class="cz">주어</span> 하나만</td><td class="ex">꽃이 예쁘다.</td></tr>
+    <tr><td class="rowhead">두 자리</td><td>주어 외에 <span class="cz">목적어·부사어·보어</span> 중 하나 더</td><td class="ex">수증기가 구름이 되었다. / 그는 영화를 보았다.</td></tr>
+    <tr><td class="rowhead">세 자리</td><td><span class="cz">주어 · 목적어 · 부사어</span></td><td class="ex">엄마가 우리에게 용돈을 주셨다. / 철수가 우체통에 편지를 넣었다.</td></tr>
+  </table></div>
+
+  <h4>③ 부속 성분 — 관형어와 부사어를 만드는 법</h4>
+  <div class="tw"><table>
+    <tr><th style="width:48%">관형어 (체언을 수식)</th><th>예문</th></tr>
+    <tr><td>① <b>관형사</b></td><td class="ex">철수가 <u>새</u> 옷을 샀다.</td></tr>
+    <tr><td>② 체언 + 관형격 조사 <b>‘의’</b></td><td class="ex">철수가 <u>영희의</u> 책을 샀다.</td></tr>
+    <tr><td>③ 체언 + 서술격 조사(‘이다’의 활용) + 관형사형 어미 ‑은/는/ㄴ/을</td><td class="ex">철수는 <u>천재인</u> 형이 있다.</td></tr>
+    <tr><td>④ 용언 어간 + <b>관형사형 어미</b>(용언의 관형사형)</td><td class="ex">철수가 <u>자는</u> 아이를 깨웠다.</td></tr>
+    <tr><td>⑤ 체언 단독 (관형격 조사 ‘의’의 생략)</td><td class="ex">철수는 <u>시골</u> 풍경을 좋아한다.</td></tr>
+  </table></div>
+  <div class="tw"><table>
+    <tr><th style="width:48%">부사어 (주로 용언을 수식)</th><th>예문</th></tr>
+    <tr><td>① <b>부사</b></td><td class="ex">하늘이 <u>매우</u> 파랗다.</td></tr>
+    <tr><td>② 체언 + <b>부사격 조사</b>(에서, 에, 로 등)</td><td class="ex">철수가 <u>운동장에서</u> 뛰고 있다.</td></tr>
+    <tr><td>③ 용언 어간 + <b>부사형 어미</b>(용언의 부사형)</td><td class="ex">철수는 <u>신나게</u> 뛰었다.</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink2)"><b>문장 부사어</b> = 문장 전체의 내용을 수식 — <span class="ex"><u>설마</u> 저 사람이 범인은 아니겠지? / <u>과연</u> 이 일은 앞으로 어떻게 될까? / <u>확실히</u> 그 약은 효과가 있었다.</span> 말하는 이의 태도·주관적 판단을 나타내므로 <b>양태 부사어</b>라고도 한다(<b>품사는 부사</b>).<br>
+  <b>접속 부사어</b> = 단어 접속(<span class="ex">원서 교부 <u>및</u> 접수 / 산 <u>내지</u> 들</span>) · 문장 접속(<span class="ex">비가 왔다. <u>그래서</u> 길이 질다. / <u>그러나</u> 그는 돌아보지 않았다.</span>) — <b>품사는 그 자체로 부사</b>.</p>
+  <div class="key">
+    <span class="tt">필수적 부사어 — 부사어인데 <u>뺄 수 없는</u> 것</span>
+    <p style="margin-bottom:6px">부사어는 원래 <b>수의적</b>이지만, 서술어가 되는 용언의 성질에 따라 <b>필수적으로 필요한</b> 부사어가 있다.</p>
+    <div class="tw"><table>
+      <tr><th style="width:42%">예문</th><th style="width:26%">필수적으로 요구하는 것</th><th>같은 부류의 서술어</th></tr>
+      <tr><td class="ex">이 사진은 <u>실물과</u> 다르다.</td><td>비교 대상이 되는 성분</td><td class="ex">같다, 비슷하다, 닮다</td></tr>
+      <tr><td class="ex">철수는 편지를 <u>우체통에</u> 넣었다.</td><td>장소를 나타내는 성분</td><td class="ex">넣다, 두다, 던지다</td></tr>
+      <tr><td class="ex">어머니가 <u>영희에게</u> 용돈을 주었다.</td><td>‘체언+에게’, ‘체언+에’</td><td class="ex">보내다, 건네다, 맡기다</td></tr>
+      <tr><td class="ex">고모부는 철수를 <u>양자로</u> 삼았다.</td><td>‘체언+로’</td><td class="ex">여기다</td></tr>
+    </table></div>
+    <p style="margin-bottom:0">→ §Ⅳ‑3‑①의 <b>‘영희는 미희와 닮았다’</b>와 같은 원리다. <b>대칭·비교를 요구하는 서술어</b>가 열쇠.</p>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink2);margin-bottom:0"><b>독립어</b> = ① <b>감탄사</b>(<span class="ex"><u>어머나</u>, 언제 이렇게 컸지?</span>) ② 체언 + <b>호격 조사</b> ‘야, (이)여, (이)시여’(<span class="ex"><u>영희야</u>, 어머니 좀 모시고 오렴.</span>)</p>
+
+  <h3>2. 단어의 짜임 — 아라고는 같은 단원 안에 있다 <span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></h3>
+  <p>2탄 〈형태소〉에서 본격적으로 다루지만, <b>어근/어간 구별</b>(§Ⅹ‑7)과 <b>합성어의 품사 구성</b>은 품사 문제로 그대로 나온다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:18%">갈래</th><th style="width:40%">의미</th><th>예</th></tr>
+    <tr><td class="rowhead"><span class="cz">대등</span> 합성어</td><td>어근이 각각 본래의 의미를 유지하면서 대등하게 붙음</td><td class="ex">오가다, 논밭, 손발</td></tr>
+    <tr><td class="rowhead"><span class="cz">종속</span> 합성어</td><td>한쪽의 어근이 다른 한쪽의 어근을 꾸며 줌</td><td class="ex">콩나물, 돌다리, 빌어먹다</td></tr>
+    <tr><td class="rowhead"><span class="cz">융합</span> 합성어</td><td>각각의 어근이 가진 본래 의미와 <b>다른 새로운 의미</b></td><td class="ex">밤낮(늘), 피땀, 춘추</td></tr>
+  </table></div>
+  <div class="tw"><table>
+    <tr><th style="width:20%">갈래</th><th style="width:32%">구성 방식</th><th>예</th></tr>
+    <tr><td class="rowhead" rowspan="8"><span class="cz">통사적</span> 합성어<br><span style="font-weight:400;font-size:12px">국어의 일반적인 통사적 구성 방법을 따름</span></td><td>명사 + 명사</td><td class="ex">가래떡, 거짓말, 돌다리, 밤낮, 우리나라</td></tr>
+    <tr><td>관형사 + 명사</td><td class="ex">새해, 옛말, 온종일, 첫사랑</td></tr>
+    <tr><td>용언의 관형사형 + 명사</td><td class="ex">큰집, 찬밥, 검은색, 볼거리, 빈손</td></tr>
+    <tr><td>주어 + 서술어</td><td class="ex">낯설다, 힘들다</td></tr>
+    <tr><td>목적어 + 서술어</td><td class="ex">본받다, 마음먹다</td></tr>
+    <tr><td>부사 + 서술어</td><td class="ex">잘되다, 가만있다, 그만두다</td></tr>
+    <tr><td>용언의 연결형 + 용언</td><td class="ex">뛰어가다, 돌아보다, 미워하다, 알아듣다</td></tr>
+    <tr><td>부사 + 부사</td><td class="ex">곧잘, 또다시, 오래오래</td></tr>
+    <tr><td class="rowhead" rowspan="3"><span class="cz">비통사적</span> 합성어<br><span style="font-weight:400;font-size:12px">일반적 구성 방법과 다른 방식</span></td><td>어간 + 명사 <b>(관형사형 어미 생략)</b></td><td class="ex">접칼, 검버섯, 내리사랑, 덮밥</td></tr>
+    <tr><td>부사(부사성 어근) + 명사</td><td class="ex">부슬비, 얼룩소, 산들바람</td></tr>
+    <tr><td>어간 + 어간 <b>(연결 어미 생략)</b></td><td class="ex">뛰놀다, 여닫다, 굶주리다, 날뛰다, 굳세다, 검푸르다</td></tr>
+  </table></div>
+  <div class="key">
+    <span class="tt">품사 문제로 되돌아오는 지점</span>
+    <p style="margin-bottom:0">비통사적 합성어의 판정 근거가 전부 <b>“어미가 빠졌다”</b>이다 — <b>덮밥</b>은 ‘덮‑’에 관형사형 어미 <b>‘‑은’</b>이 없이 바로 명사가 붙었고, <b>여닫다</b>는 ‘열‑’과 ‘닫‑’ 사이에 연결 어미 <b>‘‑고’</b>가 없다. §Ⅹ의 어미 체계를 알아야 풀린다.</p>
+  </div>
+
+  <h3>3. 아라고 프린트 〈확인 문제〉 10 — 학교가 직접 낸 문제다 <span class="src ar2p">아라2 프린트</span></h3>
+  <ol class="ox">
+    <li><span class="q">공통된 성질을 가진 단어를 모아 분류한 것을 (　　　)(이)라고 한다.<span class="a"><b>품사</b></span></span></li>
+    <li><span class="q">단어는 문장 안에서 어떤 기능을 하는지에 따라 체언, (　　　), (　　　), 수식언, 독립언으로 나뉜다.<span class="a"><b>관계언 · 용언</b> (아라고 배열 순서 그대로)</span></span></li>
+    <li><span class="q">용언이 활용할 때 달라진 형태를 일정한 규칙으로 설명할 수 없는 경우를 (　　　) 활용이라 한다.<span class="a"><b>불규칙</b></span></span></li>
+    <li><span class="q">단어가 문장에서 쓰일 때 형태가 변하면 가변어, 변하지 않고 고정되어 있으면 불변어이다. (O, X)<span class="a"><b>○</b> 정의 그대로.</span></span></li>
+    <li><span class="q">조사는 항상 체언 뒤에만 붙는다. (O, X)<span class="a"><b class="x">✗</b> 부사·조사·용언·문장 뒤에도 붙는다. <span class="src ar2t">아라2 교과서</span><span class="src wd3">원당3 프린트</span></span></span></li>
+    <li><span class="q">품사는 형태, 기능, 의미의 세 기준에 따라 분류된다. (O, X)<span class="a"><b>○</b></span></span></li>
+    <li><span class="q">문장 안에서 다른 말을 꾸며 주는 기능을 하는 단어를 용언이라 한다. (O, X)<span class="a"><b class="x">✗</b> <b>수식언</b>이다. 용언은 서술하는 기능.</span></span></li>
+    <li><span class="q">품사와 설명 연결 — (1) 명사 (2) 조사 (3) 형용사 (4) 부사 (5) 감탄사<span class="a">(1)–<b>ⓒ</b> 구체적인 대상의 이름 / (2)–<b>ⓔ</b> 다른 말과의 문법적 관계·특별한 뜻 / (3)–<b>ⓐ</b> 주어의 성질이나 상태 / (4)–<b>ⓓ</b> 주로 용언을 수식하며 다른 부사·관형사·문장 전체도 수식 / (5)–<b>ⓑ</b> 화자의 느낌·놀람·부름과 대답</span></span></li>
+    <li><span class="q">체언의 특성을 두 가지 이상 쓰시오. <b>(서술형)</b><span class="a">① 문장에서 주로 <b>주어</b>의 기능을 한다 ② <b>조사</b>와 결합할 수 있다 ③ 일반적으로 <b>형태에 변화가 없다</b>(불변어) ④ 명사·대명사·수사를 통틀어 이른다</span></span></li>
+    <li><span class="q">부사와 구별되는, 관형사가 지닌 특성을 쓰시오. <b>(서술형)</b><span class="a">① <b>체언만</b> 수식한다(부사는 주로 용언·부사·관형사·문장을 수식) ② <b>조사와 결합할 수 없다</b>(부사는 보조사를 취할 수 있다) ③ 활용하지 않는다</span></span></li>
+  </ol>
+</section>
+
+
+<!-- ══════════ 13 ══════════ -->
+<section class="pb">
+  <div class="sechead"><span class="secno">XIII</span><h2>최종 점검 — 함정 65제</h2></div>
   <p class="secnote">3회독부터는 이 절만 본다. 전부 맞히면 그날 공부는 끝.</p>
 
   <ol class="ox">
@@ -1016,13 +1445,48 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <li><span class="q">‘푸르러’는 어미 ‘‑러’가 결합한 것이다.<span class="a"><b class="x">✗</b> 어미 ‘‑어’가 ‘‑러’로 <b>바뀐</b> 것.</span></span></li>
     <li><span class="q">‘좋다’는 ‘ㅎ’ 불규칙 용언이다.<span class="a"><b class="x">✗</b> ‘좋아서’ — ‘좋다’만 <b>규칙</b>. 나머지 ‘ㅎ’ 받침 형용사는 전부 불규칙.</span></span></li>
     <li><span class="q">‘많이 다름이 있다’가 어색한 것은 ‘다름’이 파생명사이기 때문이다.<span class="a"><b>○</b> 서술성이 없어 부사어의 수식을 못 받는다.</span></span></li>
+    <li><span class="q">형태를 기준으로 분류하면 ‘가서, 읽었다’는 동사로 묶인다.<span class="a"><b class="x">✗</b> 형태 기준의 답은 <b>가변어·불변어</b> 둘뿐. ‘동사’는 의미 기준의 답이다. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘한 사람’의 ‘사람’은 단위를 나타내므로 의존 명사이다.<span class="a"><b class="x">✗</b> <b>자립 명사</b>도 단위를 나타낼 수 있다. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘재희는 졸업한 지 십 년이 넘었다’에서 의존 명사는 ‘지’ 하나뿐이다.<span class="a"><b class="x">✗</b> ‘지’와 <b>‘년’</b>(단위성) 둘이다. <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">‘우리’는 ‘그분’과 달리 인칭 대명사이다.<span class="a"><b class="x">✗</b> <b>둘 다 인칭 대명사</b>. 인칭만 다르다(1 : 3). <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘올해 첫째를 낳았다’의 ‘첫째’는 수사이다.<span class="a"><b class="x">✗</b> 사람을 가리키는 <b>명사</b>. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘둘째 주 일요일’의 ‘둘째’는 조사가 붙지 않고 의존 명사 ‘주’를 꾸미므로 수 관형사이다.<span class="a"><b>○</b> 교과서가 예고한 옳은 선지. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">보조사 ‘요’는 어말 어미의 한 종류이다.<span class="a"><b class="x">✗</b> <b>보조사</b>. <u>빼도 문장이 성립</u>하므로 어미가 아니다. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘철수와 영희는 친구이다’와 ‘철수는 나와 생각이 다르다’의 ‘와’는 모두 접속조사이다.<span class="a"><b class="x">✗</b> 뒤는 <b>부사격 조사</b>. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘나도 영희와 그렇게 놀고 싶다’의 ‘와’는 접속조사이다.<span class="a"><b class="x">✗</b> <b>격조사(부사격)</b>. 같은 글의 ‘영희와 영수는’의 ‘와’만 접속조사. <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">보조사 ‘만’이 더해 주는 뜻은 ‘더함’이다.<span class="a"><b class="x">✗</b> <b>한정·양보</b>. ‘더함’은 ‘도’. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">부사도 조사와 결합할 수 있다.<span class="a"><b>○</b> <span class="ex">빨리도 간다 / 빨리는 도착하지 못할 거야</span> — 보조사를 취한다. 관형사는 불가. <span class="src wd2t">원당2 교과서</span><span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">‘정든 이 학교’의 ‘정든’은 관형사이다.<span class="a"><b class="x">✗</b> 동사 ‘정들다’의 <b>관형사형</b>. 서술성이 있다. <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">‘아이고, 우리 강아지’의 ‘강아지’는 감탄사이다.<span class="a"><b class="x">✗</b> <b>명사</b>. 감탄사는 ‘아이고’뿐. <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">‘젊으시다’는 ‘-시-’가 붙었으므로 동사이다.<span class="a"><b class="x">✗</b> ‘젊다’는 <b>형용사</b>. 높임 선어말 어미가 붙어도 품사는 안 바뀐다. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">형용사는 현재 시제 선어말 어미 ‘-는-/-ㄴ-’과 결합할 수 있다.<span class="a"><b class="x">✗</b> 결합하지 못한다(*나는 기분이 나쁜다). 교과서가 예고한 대표 오답. <span class="src wd2t">원당2 교과서</span><span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">형용사에는 진행형 ‘-고 있다’를 쓸 수 없다.<span class="a"><b>○</b> *나는 예쁘고 있다. 아라고 프린트가 더한 네 번째 시험지. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">의문형 어미는 동사·형용사 모두 ‘-느냐’를 쓴다.<span class="a"><b class="x">✗</b> 동사는 <b>‘-느냐’</b>(먹었느냐), 형용사는 <b>‘-냐’</b>(귀엽냐). <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘멈추다’는 자동사이므로 목적어를 취할 수 없다.<span class="a"><b class="x">✗</b> <span class="ex">차를 멈추다</span>(타동사) / <span class="ex">차가 멈추다</span>(자동사) — <b>문장을 보고</b> 판정한다. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">보조 용언은 본용언을 빼도 홀로 쓰일 수 있다.<span class="a"><b class="x">✗</b> *나는 제주도에 싶다 — <b>자립성이 없다</b>. <span class="src ar2t">아라2 교과서</span><span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘나는 자유롭게 여행을 다니고서 싶다’는 올바른 문장이다.<span class="a"><b class="x">✗</b> 본용언과 보조 용언 사이에 <b>다른 성분이 개입할 수 없다</b>. ‘다니고 싶다’. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘입어 보았다’의 ‘보다’는 보조 형용사이다.<span class="a"><b class="x">✗</b> <b>보조 동사</b>(동사처럼 활용, 뜻은 ‘시도’). ‘보고 싶다’의 ‘싶다’가 보조 형용사(‘희망’). <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">규칙 활용의 예를 묻는 문제에서 ‘치르다’는 옳은 선지이다.<span class="a"><b>○</b> ‘ㅡ’ 탈락은 규칙. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">어미가 불규칙하게 변하는 용언의 예로 ‘흐르다’가 적절하다.<span class="a"><b class="x">✗</b> 흐르+어→흘러는 <b>어간</b>이 변한 ‘르’ 불규칙. 어미가 변하는 것은 ‘이르다[至]’류. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">어간이 불규칙하게 변하는 용언의 예로 ‘낫다’가 적절하다.<span class="a"><b>○</b> 낫+아→나아, <b>ㅅ 불규칙</b>. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘풀다 → 푸니’와 ‘푸다 → 퍼’는 같은 갈래의 활용이다.<span class="a"><b class="x">✗</b> 앞은 <b>ㄹ 탈락(규칙)</b>, 뒤는 <b>‘우’ 불규칙</b>. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘눕다 → 누워’에서 ‘우’가 나온 것은 어간 모음이 음성 모음이기 때문이다.<span class="a"><b>○</b> 양성(ㅏㅑㅗㅛ)이면 ‘오’(돕다→도와), 음성(ㅓㅕㅜㅠ)이면 ‘우’. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘들어가셨다’에는 주체를 높이는 어말 어미가 포함되어 있다.<span class="a"><b class="x">✗</b> ‘-시-’는 <b>선어말</b> 어미. ‘어말/선어말’ 한 글자 함정. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘가셨다’는 어간 + 선어말 어미 1개 + 어말 어미로 분석된다.<span class="a"><b class="x">✗</b> 가 + <b>시</b> + <b>었</b> + 다 — 선어말 어미가 <b>둘</b>이다. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘잡히다’의 어간과 어근은 같다.<span class="a"><b class="x">✗</b> 어간은 <b>잡히-</b>, 어근은 <b>잡-</b>(+접사 ‘-히-’). <span class="src ar2p">아라2 프린트</span><span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">보어는 서술어 ‘되다·아니다’가 요구하는 성분 중 주어를 제외한 것이다.<span class="a"><b>○</b> 그래서 보격 조사도 그 앞의 ‘이/가’뿐이다. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘철수는 편지를 우체통에 넣었다’에서 ‘우체통에’는 생략해도 되는 부사어이다.<span class="a"><b class="x">✗</b> ‘넣다’가 장소를 요구하는 <b>필수적 부사어</b>. <span class="src ar2p">아라2 프린트</span></span></span></li>
+    <li><span class="q">‘덮밥’은 통사적 합성어이다.<span class="a"><b class="x">✗</b> 어간 ‘덮-’에 관형사형 어미 ‘-은’ 없이 명사가 붙은 <b>비통사적</b> 합성어. <span class="src ar2t">아라2 교과서</span></span></span></li>
+    <li><span class="q">비상 교과서에는 ‘품사의 통용’ 단원이 있다.<span class="a"><b class="x">✗</b> <b>없다</b>. 아라고2는 개별 구별 문제로 나온다. 미래엔(원당고2)에는 <b>정식 단원 + 서술형 예고</b>가 있다. <span class="src ar2t">아라2 교과서</span><span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘비교적’은 명사·관형사·부사 세 품사로 통용된다.<span class="a"><b>○</b> 교과서가 든 3중 통용 사례. <span class="src wd2t">원당2 교과서</span></span></span></li>
+    <li><span class="q">‘행복하자’는 어법에 맞는 표현이다.<span class="a"><b class="x">✗</b> ‘행복하다’는 <b>형용사</b>라 청유형을 만들 수 없다. 교과서가 <b>서술형</b>으로 예고했다(‘좋아하자’는 동사라 가능). <span class="src wd2t">원당2 교과서</span></span></span></li>
   </ol>
 </section>
 
 
-<!-- ══════════ 13 ══════════ -->
+<!-- ══════════ 14 ══════════ -->
 <section>
-  <div class="sechead"><span class="secno">XIII</span><h2>회독 체크표</h2></div>
+  <div class="sechead"><span class="secno">XIV</span><h2>회독 체크표</h2></div>
   <p class="secnote">한 절을 막힘없이 복원했으면 칸을 채운다. 5회독을 목표로 한다.</p>
   <div class="tw"><table class="rounds">
     <tr><th style="width:30%">절</th><th>1회</th><th>2회</th><th>3회</th><th>4회</th><th>5회</th></tr>
@@ -1037,12 +1501,13 @@ footer{margin-top:46px;padding-top:18px;border-top:3px solid var(--ink);
     <tr><td class="nm">Ⅸ 불규칙 활용 ★★</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
     <tr><td class="nm">Ⅹ 어미</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
     <tr><td class="nm">XI 품사의 통용</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
-    <tr><td class="nm">XII 함정 30제</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
+    <tr><td class="nm">XII 아라고 확장</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
+    <tr><td class="nm">XIII 함정 65제</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td></tr>
   </table></div>
 </section>
 
 <footer>
-  <span>품사 총정리 노트 · v0.9 초안 — 원당3 프린트 + 원당2 프린트 반영 완료 / 아라2 미반영</span>
+  <span>품사 총정리 노트 · v1.0 완성본 — 원당3·원당2 프린트 + 미래엔·비상 교과서 + 아라2 프린트 5개 출처 반영</span>
   <span>원당에스엘프라임학원</span>
 </footer>
 
